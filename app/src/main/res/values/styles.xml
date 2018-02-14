@@ -1,0 +1,389 @@
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+	
+	<!-- Base application theme. -->
+	<style name="Phoenix" parent="Theme.AppCompat.Light.NoActionBar">
+		<item name="android:colorPrimary">@color/primary</item>
+		<item name="android:colorBackground">@color/background_light</item>
+		<item name="android:colorAccent">@color/accent</item>
+		<item name="android:colorPrimaryDark">@color/primary_dark</item>
+		<item name="android:navigationBarColor">@color/background_jet_black</item>
+		<item name="android:statusBarColor">@color/background_jet_black</item>
+		<item name="android:textColorHint">@color/hint_disabled_dark</item>
+		<item name="android:windowBackground">@color/background_light</item>
+		<item name="android:windowAllowEnterTransitionOverlap">true</item>
+		<item name="android:windowAllowReturnTransitionOverlap">true</item>
+		<item name="android:windowSharedElementsUseOverlay">false</item>
+		<item name="android:colorEdgeEffect">@color/mid_grey</item>
+		<item name="collapsingTitleLayoutStyle">@style/Widget.AppTheme.CollapsingTitle</item>
+	</style>
+	
+	<!--TRANSLUCENT BG-->
+	<style name="Phoenix.Translucent">
+		<!-- using a semi-transparent window background for the drag-back gesture -->
+		<item name="android:windowBackground">@color/scrim</item>
+		<item name="android:colorBackgroundCacheHint">@null</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowIsFloating">false</item>
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		<item name="android:colorControlNormal">@color/hint_disabled_dark</item>
+	</style>
+	
+	<!--CUSTOM COLORS-->
+	<style name="Phoenix.Translucent.Custom">
+		<item name="android:colorPrimary">@color/dribbble_dark</item>
+		<item name="android:colorAccent">@color/button_accent</item>
+		<item name="android:statusBarColor">@color/dribbble_super_dark</item>
+		<item name="android:navigationBarColor">@color/dribbble_super_dark</item>
+		<item name="android:colorControlActivated">?android:colorAccent</item>
+		<item name="android:windowAllowReturnTransitionOverlap">false</item>
+		<item name="android:colorButtonNormal">@color/button_accent</item>
+		<item name="android:button">@color/button_accent</item>
+		<item name="android:colorControlNormal">@color/hint_disabled_dark</item>
+	</style>
+	
+	<style name="SearchWindowAnimations">
+		<item name="android:windowEnterAnimation">@null</item>
+		<item name="android:windowExitAnimation">@anim/fade_out_rapidly</item>
+	</style>
+	
+	<style name="Widget.AppTheme" parent="android:Widget" />
+	
+	<!--Search View-->
+	<style name="Widget.AppTheme.SearchView">
+		<item name="android:searchIcon">@android:color/transparent</item>
+		<item name="android:searchHintIcon" tools:targetApi="lollipop_mr1">
+			@android:color/transparent
+		</item>
+		<item name="android:queryBackground">@android:color/transparent</item>
+		<item name="android:submitBackground">@android:color/transparent</item>
+	</style>
+	
+	<!--Toolbar-->
+	<style name="Widget.AppTheme.Toolbar">
+		<item name="android:titleTextAppearance">
+			@android:style/TextAppearance.Material.Widget.ActionBar.Title
+		</item>
+		<item name="android:titleTextColor" tools:targetApi="m">@color/text_primary_light</item>
+		<item name="android:background">@color/background_dark</item>
+		<item name="android:elevation">@dimen/z_app_bar</item>
+		<item name="android:theme">@style/PiperDarkOverlay</item>
+	</style>
+	
+	<style name="Widget.AppTheme.Toolbar.SmallCapsTitle">
+		<item name="android:titleTextAppearance">@style/TextAppearance.ToolbarTitleSmallCaps</item>
+	</style>
+	
+	<style name="Widget.AppTheme.HomeToolbar" parent="Widget.AppTheme.Toolbar.SmallCapsTitle">
+		<item name="android:background">@null</item>
+		<item name="android:elevation">0dp</item>
+		<item name="android:theme">@android:style/ThemeOverlay.Material.Dark</item>
+	</style>
+	
+	<style name="Widget.AppTheme.SettingsToolbar" parent="Widget.AppTheme.Toolbar.SmallCapsTitle">
+		<item name="android:background">@color/background_super_dark</item>
+		<item name="android:elevation">0dp</item>
+		<item name="android:theme">@android:style/ThemeOverlay.Material.Dark</item>
+	</style>
+	
+	
+	<style name="Widget.AppTheme.CollapsingTitle">
+		<item name="android:textAppearance">@style/TextAppearance.ToolbarTitle</item>
+		<item name="lineHeightHint">28sp</item>
+		<item name="maxExpandedTextSize">@dimen/display_4_text_size</item>
+		<item name="titleInsetStart">@dimen/keyline_1</item>
+		<item name="titleInsetTop">@dimen/padding_normal</item>
+		<item name="titleInsetEnd">@dimen/padding_normal</item>
+		<item name="titleInsetBottom">@dimen/padding_normal</item>
+		<item name="android:maxLines">5</item>
+	</style>
+	
+	<style name="TextAppearance.ToolbarTitle" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
+		<item name="android:textColor">@color/text_primary_light</item>
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+	</style>
+	
+	<style name="TextAppearance.ToolbarTitleSmallCaps" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
+		<item name="android:textColor">@color/text_primary_light</item>
+		<item name="android:fontFeatureSettings">smcp, onum</item>
+		<item name="android:letterSpacing">0.2</item>
+	</style>
+	
+	<style name="TextAppearance.DribbbleShotTitle" parent="@android:style/TextAppearance.Material.Headline">
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+		<item name="android:textColor">@color/text_primary_dark</item>
+		<item name="lineHeightHint">32sp</item>
+	</style>
+	
+	<style name="TextAppearance.DribbbleShotDescription" parent="@android:style/TextAppearance.Material.Subhead">
+		<item name="android:textColor">@color/text_tertiary_dark</item>
+		<item name="android:fontFamily">@font/abeezee</item>
+		<item name="android:letterSpacing">0.01</item>
+		<item name="lineHeightHint">24sp</item>
+	</style>
+	
+	<style name="TextAppearance.ItemDescription" parent="@android:style/TextAppearance.Material.Subhead">
+		<item name="android:textColor">@color/text_tertiary_dark</item>
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+		<item name="android:fontFeatureSettings">onum</item>
+		<item name="android:letterSpacing">0.01</item>
+		<item name="lineHeightHint">24sp</item>
+	</style>
+	
+	<!--<style name="TextAppearance.AppCompat.Notification" parent="TextAppearance.ItemDescription" tools:override="true" />-->
+	
+	<style name="TextAppearance.DribbbleShotPrice" parent="@android:style/TextAppearance.Material.Subhead">
+		<item name="android:textColor">@color/dark_icon_on_primary</item>
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+		<item name="android:fontFeatureSettings">smcp,onum</item>
+		<item name="android:letterSpacing">0.01</item>
+		<item name="android:textSize">@dimen/price_text_size</item>
+		<item name="lineHeightHint">28sp</item>
+	</style>
+	
+	<style name="TextAppearance.Filter" parent="@android:style/TextAppearance.Material.Title">
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@color/filter_text</item>
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+	</style>
+	
+	<style name="TextAppearance.Comment" parent="@android:style/TextAppearance.Material.Body1">
+		<item name="android:textSize">15sp</item>
+		<item name="android:textColor">@color/text_secondary_dark</item>
+		<item name="lineHeightHint">24sp</item>
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+		<item name="android:letterSpacing">0.01</item>
+	</style>
+	
+	<style name="TextAppearance.Comment.None">
+		<item name="android:textColor">@color/grey_300</item>
+	</style>
+	
+	<style name="TextAppearance.CommentAuthor" parent="@android:style/TextAppearance.Material.Caption">
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:fontFeatureSettings">smcp, onum</item>
+		<item name="android:letterSpacing">0.02</item>
+	</style>
+	
+	
+	<style name="TextAppearance.CommentAuthor.Dribbble">
+		<item name="android:textColor">@color/dribble_comment_author</item>
+	</style>
+	
+	<style name="TextAppearance.CommentTimestamp" parent="@android:style/TextAppearance.Material.Caption">
+		<item name="android:textColor">@color/hint_disabled_dark</item>
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:fontFeatureSettings">onum, smcp</item>
+		<item name="android:letterSpacing">0.02</item>
+	</style>
+	
+	<style name="TextAppearance.Button" parent="@android:style/TextAppearance.Material.Widget.Button">
+		<item name="android:textStyle">bold</item>
+		<item name="android:letterSpacing">0.1</item>
+	</style>
+	
+	<style name="TextAppearance.DarkButton" parent="@android:style/TextAppearance.Material.Widget.Button">
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+	</style>
+	
+	<style name="TextAppearance.DialogTitle" parent="@android:style/TextAppearance.Material.Title">
+		<item name="android:textColor">@color/text_secondary_dark</item>
+		<item name="android:fontFamily">@font/nunito_extrabold</item>
+		<!--<item name="android:fontFamily">sans-serif-medium</item>-->
+		<item name="android:letterSpacing">0.01</item>
+		<item name="lineHeightHint">28sp</item>
+		<item name="android:fontFeatureSettings">smcp,onum</item>
+	</style>
+	
+	<style name="TextAppearance.DialogContent" parent="@android:style/TextAppearance.Material.Subhead">
+		<item name="android:textColor">@color/text_primary_dark</item>
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+		<item name="android:letterSpacing">0.01</item>
+		<item name="lineHeightHint">24sp</item>
+	</style>
+	
+	<style name="TextAppearance.About" parent="@android:style/TextAppearance.Material.Body1">
+		<item name="android:textSize">16sp</item>
+		<item name="android:textColor">@color/text_secondary_dark</item>
+		<item name="lineHeightHint">24sp</item>
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+	</style>
+	
+	<style name="TextAppearance.EmptyText" parent="@style/TextAppearance.DialogContent">
+		<item name="android:textColor">@color/text_primary_light</item>
+		<item name="lineHeightHint">24sp</item>
+	</style>
+	
+	<!-- By default float labels (well, the design lib) rely on AppCompat which we're not using
+		yet (minSdk=21). We use this style to work around this and to provide the accent color. -->
+	
+	<style name="TextAppearance.FloatLabelHint" parent="@android:style/TextAppearance.Material.Caption">
+		<item name="android:textColor">?android:colorAccent</item>
+		<item name="android:fontFamily">@font/nunito_semibold</item>
+	</style>
+	
+	<style name="Widget.Plaid.HintCheckBox" parent="@android:style/Widget.Material.CompoundButton.CheckBox">
+		<item name="android:textColor">@color/text_secondary_dark</item>
+	</style>
+	
+	<style name="TextAppearance.Subhead" parent="@android:style/TextAppearance.Material.Subhead">
+		<item name="android:textColor">@color/text_secondary_dark</item>
+		<item name="android:letterSpacing">0.01</item>
+		<item name="lineHeightHint">24sp</item>
+	</style>
+	
+	<style name="Widget.AppTheme.SecondaryText">
+		<item name="android:textAppearance">@style/TextAppearance.SecondaryText</item>
+		<item name="android:letterSpacing">0.01</item>
+	</style>
+	
+	<style name="TextAppearance.SecondaryText" parent="@android:style/TextAppearance.Material.Body1">
+		<item name="android:textColor">@color/text_tertiary_dark</item>
+	</style>
+	
+	<style name="TextAppearance.Author.Title" parent="@style/TextAppearance.CommentAuthor">
+		<item name="android:textSize">20sp</item>
+		<item name="lineHeightHint">28sp</item>
+	</style>
+	
+	<style name="Widget.AppTheme.InlineActionButton" parent="@android:style/Widget.Material.Button">
+		<item name="android:gravity">center_horizontal</item>
+		<item name="android:textAppearance">@style/TextAppearance.CommentAuthor</item>
+		<item name="android:drawablePadding">@dimen/spacing_micro</item>
+		<item name="android:background">?android:selectableItemBackgroundBorderless</item>
+	</style>
+	
+	<style name="ExpandedFabTheme" parent="@android:style/ThemeOverlay.Material.Light">
+		<item name="android:textColorPrimary">@color/dark_icon</item>
+		<item name="android:textColorPrimaryDisableOnly">@color/dark_icon</item>
+		<item name="android:colorControlActivated">@color/dark_icon</item>
+	</style>
+	
+	<style name="LightRippleOverlay">
+		<item name="android:colorControlHighlight">@color/ripple_light</item>
+	</style>
+	
+	<style name="PiperDarkOverlay" parent="@android:style/ThemeOverlay.Material.Dark.ActionBar">
+		<!-- Used to theme dark elements in light themed screens.
+			 Extend the material dark Action Bar overlay as this contains text styling. -->
+	</style>
+	
+	<style name="SearchViewTheme" parent="PiperDarkOverlay">
+		<item name="colorControlActivated">@color/accent</item>
+		<item name="android:searchViewStyle">@style/Widget.AppTheme.SearchView</item>
+	</style>
+	
+	<style name="Widget.AppTheme.Subhead">
+		<item name="android:textAppearance">@style/TextAppearance.Subhead</item>
+		<item name="lineHeightHint">24sp</item>
+	</style>
+	
+	<!--ACTIVITIES-->
+	<style name="Phoenix.Home">
+		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		<item name="android:statusBarColor">@color/immersive_bars</item>
+		<item name="android:navigationBarColor">@color/immersive_bars</item>
+		<item name="android:windowActionBarOverlay">true</item>
+		<item name="android:windowActionModeOverlay">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowBackground">@color/background_dark</item>
+		<item name="android:windowEnterTransition">@transition/home_enter</item>
+		<item name="shotLoadingPlaceholderColors">@array/loading_placeholders_light</item>
+		<item name="initialBadgeColor">@color/gif_badge_light_image</item>
+	</style>
+	
+	<style name="Phoenix.Translucent.Custom.Login">
+		<item name="android:windowAnimationStyle">@null</item>
+		<item name="android:colorButtonNormal">@color/designer_news_button</item>
+		<item name="android:colorControlHighlight">@color/ripple_light</item>
+	</style>
+	
+	
+	<style name="Phoenix.Translucent.Search">
+		<item name="android:windowAnimationStyle">@style/SearchWindowAnimations</item>
+		<item name="android:statusBarColor">@color/background_super_dark</item>
+		<item name="android:navigationBarColor">@color/background_super_dark</item>
+		<item name="android:windowEnterTransition">@transition/search_enter</item>
+		<item name="android:windowReturnTransition">@transition/search_return</item>
+		<item name="android:windowSharedElementEnterTransition">@transition/search_shared_enter
+		</item>
+		<item name="android:windowSharedElementReturnTransition">@transition/search_shared_return
+		</item>
+		<item name="android:windowSharedElementsUseOverlay">true</item>
+		<item name="shotLoadingPlaceholderColors">@array/loading_placeholders_dark</item>
+		<item name="initialBadgeColor">@color/gif_badge_dark_image</item>
+	</style>
+	
+	<style name="Phoenix.Translucent.About">
+		<item name="android:windowEnterTransition">@transition/about_enter</item>
+		<item name="android:windowReturnTransition">@transition/about_return</item>
+	</style>
+	
+	<style name="Phoenix.Translucent.Custom.Product">
+		<item name="android:windowSharedElementEnterTransition">
+			@transition/dribbble_shot_shared_enter
+		</item>
+		<item name="android:windowSharedElementReturnTransition">
+			@transition/dribbble_shot_shared_return
+		</item>
+		<item name="android:windowEnterTransition">@transition/dribbble_shot_enter</item>
+		<item name="android:windowReturnTransition">@transition/dribbble_shot_return</item>
+	</style>
+	
+	<style name="Phoenix.Translucent.Custom.Shop">
+		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		<item name="android:statusBarColor">@color/light_status_bar</item>
+		<item name="android:navigationBarColor">@color/light_nav_bar</item>
+		<item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+		<item name="android:windowAllowEnterTransitionOverlap">true</item>
+		<item name="android:windowAllowReturnTransitionOverlap">true</item>
+		<item name="android:windowSharedElementEnterTransition">
+			@transition/dribbble_player_shared_enter
+		</item>
+		<item name="android:windowEnterTransition">@transition/dribbble_player_enter</item>
+		<item name="android:windowReturnTransition">@transition/dribbble_player_return</item>
+		<item name="android:windowTransitionBackgroundFadeDuration">200</item>
+		<item name="shotLoadingPlaceholderColors">@array/loading_placeholders_light</item>
+		<item name="initialBadgeColor">@color/gif_badge_light_image</item>
+	</style>
+	
+	<style name="Phoenix.Translucent.Custom.Order">
+		<item name="android:windowAnimationStyle">@null</item>
+		<item name="android:colorPrimary">@color/designer_news</item>
+		<item name="android:colorAccent">@color/designer_news</item>
+		<item name="android:statusBarColor">@color/background_super_dark</item>
+		<item name="android:navigationBarColor">@color/background_super_dark</item>
+		<item name="android:colorButtonNormal">@color/designer_news_button</item>
+		<item name="android:colorControlActivated">@color/designer_news</item>
+		<item name="android:colorControlNormal">@color/hint_disabled_dark</item>
+	</style>
+	
+	<style name="Phoenix.Translucent.Custom.Cart">
+		<item name="android:colorPrimary">@color/designer_news</item>
+		<item name="android:colorAccent">@color/designer_news</item>
+		<item name="android:colorControlActivated">?android:colorAccent</item>
+		<item name="android:statusBarColor">@color/background_super_dark</item>
+		<item name="android:navigationBarColor">@color/background_super_dark</item>
+		<item name="android:windowActionBarOverlay">true</item>
+		<item name="android:windowActionModeOverlay">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<!--<item name="android:windowBackground">@color/background_dark</item>-->
+		<item name="android:windowEnterTransition">@transition/home_enter</item>
+	</style>
+	
+	
+	<style name="Phoenix.Translucent.Splash">
+		<item name="android:windowFullscreen">true</item>
+		<item name="android:statusBarColor">@color/black</item>
+		<item name="android:navigationBarColor">@color/black</item>
+	</style>
+
+</resources>

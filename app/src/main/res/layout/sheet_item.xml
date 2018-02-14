@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<io.pergasus.ui.widget.ForegroundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:minHeight="?android:listPreferredItemHeight"
+	android:paddingTop="@dimen/padding_normal"
+	android:paddingEnd="@dimen/padding_normal"
+	android:paddingStart="@dimen/spacing_zero"
+	android:paddingBottom="@dimen/padding_normal"
+	android:clipToPadding="false"
+	android:foreground="?android:selectableItemBackground"
+	android:background="@color/background_light"
+	android:stateListAnimator="@animator/raise">
+	
+	<io.pergasus.ui.widget.CircularImageView
+		android:id="@+id/player_avatar"
+		android:layout_width="@dimen/avatar_bounds"
+		android:layout_height="@dimen/avatar_bounds"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentStart="true"
+		android:layout_marginEnd="@dimen/avatar_margin"
+		android:layout_marginStart="@dimen/avatar_margin"
+		android:padding="@dimen/avatar_padding"
+		android:src="@drawable/avatar_placeholder" />
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/time_ago"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentEnd="true"
+		android:textAppearance="@style/TextAppearance.CommentTimestamp"
+		tools:text="3 hours ago" />
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/player_name"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_toEndOf="@id/player_avatar"
+		android:layout_toStartOf="@id/time_ago"
+		android:layout_marginEnd="@dimen/spacing_normal"
+		android:lines="1"
+		app:fontFamily="@font/nunito_semibold"
+		android:ellipsize="end"
+		android:textAppearance="@style/TextAppearance.CommentAuthor.Dribbble"
+		tools:text="Nick B" />
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/player_bio"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_below="@id/player_name"
+		android:layout_toEndOf="@id/player_avatar"
+		android:layout_marginTop="@dimen/spacing_micro"
+		android:ellipsize="end"
+		android:maxLines="2"
+		android:textAppearance="@style/TextAppearance.Comment"
+		android:textColorHighlight="@color/dribbble_link_highlight"
+		android:textColorLink="@color/dribbble_links"
+		tools:text="Blah blah blah blah blah blah blah blah blah blah blah blah blah" />
+
+</io.pergasus.ui.widget.ForegroundRelativeLayout>

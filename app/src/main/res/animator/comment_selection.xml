@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<item android:state_activated="true">
+		<objectAnimator
+			android:duration="@android:integer/config_shortAnimTime"
+			android:interpolator="@android:interpolator/fast_out_slow_in"
+			android:propertyName="translationZ"
+			android:valueTo="@dimen/z_card" />
+	</item>
+	
+	<item>
+		<objectAnimator
+			android:duration="@android:integer/config_shortAnimTime"
+			android:interpolator="@android:interpolator/fast_out_slow_in"
+			android:propertyName="translationZ"
+			android:valueTo="0dp" />
+	</item>
+
+</selector>

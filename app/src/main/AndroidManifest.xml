@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?><!--   ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	package="io.pergasus"
+	android:installLocation="auto">
+	
+	<!-- Firebase permissions -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	
+	<!-- Storage permissions -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	
+	<!-- Android Pay permissions -->
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<uses-permission android:name="android.permission.USE_CREDENTIALS" />
+	
+	<!-- Location permission for tracking delivery -->
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	
+	<application
+		android:name="io.pergasus.api.PhoenixApplication"
+		android:allowBackup="true"
+		android:appCategory="image"
+		android:extractNativeLibs="false"
+		android:fullBackupContent="@xml/backup_descriptor"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:supportsRtl="true"
+		android:theme="@style/Phoenix">
+		<!--Messaging service-->
+		<service android:name=".api.PhoenixMessagingService">
+			<intent-filter>
+				<action android:name="com.google.firebase.MESSAGING_EVENT" />
+			</intent-filter>
+		</service>
+		<service android:name=".api.PhoenixInstanceIDService">
+			<intent-filter>
+				<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+			</intent-filter>
+		</service>
+		
+		<!-- Google Services version -->
+		<meta-data
+			android:name="com.google.android.gms.version"
+			android:value="@integer/google_play_services_version" />
+		
+		<!-- Enables the Google Places API -->
+		<meta-data
+			android:name="com.google.android.geo.API_KEY"
+			android:value="@string/google_maps_key" />
+		
+		<!-- Enables the Android Pay API -->
+		<!--<meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true" />-->
+		
+		<provider
+			android:name="android.support.v4.content.FileProvider"
+			android:authorities="io.pergasus.shareprovider"
+			android:exported="false"
+			android:grantUriPermissions="true">
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/glide_disk_cache_path" />
+		</provider>
+		
+		<meta-data
+			android:name="com.google.firebase.messaging.default_notification_icon"
+			android:resource="@drawable/ic_stat_ic_notification" />
+		
+		<meta-data
+			android:name="com.google.firebase.messaging.default_notification_channel_id"
+			android:value="@string/default_notification_channel_id" />
+		
+		<activity
+			android:name=".ui.HomeActivity"
+			android:exported="true"
+			android:label="@string/app_name"
+			android:theme="@style/Phoenix.Home" />
+		<activity
+			android:name=".ui.SplashActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/Phoenix.Translucent.Splash" />
+		
+		
+		<activity
+			android:name=".ui.AboutActivity"
+			android:parentActivityName=".ui.HomeActivity"
+			android:theme="@style/Phoenix.Translucent.About" />
+		<activity
+			android:name=".ui.DetailsActivity"
+			android:parentActivityName=".ui.HomeActivity"
+			android:theme="@style/Phoenix.Translucent.Custom.Product" />
+		<activity
+			android:name=".ui.SearchActivity"
+			android:launchMode="singleTop"
+			android:theme="@style/Phoenix.Translucent.Search">
+			<intent-filter>
+				<action android:name="android.intent.action.SEARCH" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="com.google.android.gms.actions.SEARCH_ACTION" />
+				
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+			
+			<meta-data
+				android:name="android.app.searchable"
+				android:resource="@xml/searchable" />
+		</activity>
+		<activity
+			android:name=".ui.CartActivity"
+			android:exported="true"
+			android:parentActivityName=".ui.HomeActivity"
+			android:theme="@style/Phoenix.Translucent.Custom.Cart">
+			<intent-filter>
+				<action android:name="android.intent.action.SEND" />
+				
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				
+				<data android:mimeType="text/plain" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".ui.TrackingActivity"
+			android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+			android:label="@string/title_activity_tracking"
+			android:theme="@style/Phoenix.Translucent.Custom.Order" />
+		<activity
+			android:name=".ui.ShopsActivity"
+			android:parentActivityName=".ui.DetailsActivity"
+			android:theme="@style/Phoenix.Translucent.Custom.Shop" />
+		<activity
+			android:name=".ui.AuthActivity"
+			android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+			android:exported="true"
+			android:screenOrientation="portrait"
+			android:theme="@style/Phoenix.Translucent.Custom.Login" />
+		<activity
+			android:name=".ui.NotificationsActivity"
+			android:parentActivityName="ui.HomeActivity"
+			android:theme="@style/Phoenix.Translucent.Custom.Cart">
+			<intent-filter>
+				<action android:name="io.pergasus.TARGET_NOTIFICATION" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".ui.RegisterActivity"
+			android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+			android:exported="true"
+			android:screenOrientation="portrait"
+			android:theme="@style/Phoenix.Translucent.Custom.Login" />
+		<activity
+			android:name=".ui.OrderActivity"
+			android:label="@string/title_activity_order"
+			android:parentActivityName=".ui.CartActivity"
+			android:theme="@style/Phoenix.Translucent.Custom.Order">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="io.pergasus.ui.CartActivity" />
+		</activity>
+		<activity
+			android:name=".ui.UserSheet"
+			android:theme="@style/Phoenix.Translucent.Custom" />
+		<activity
+			android:name=".ui.ProfileActivity"
+			android:label="@string/profile_view"
+			android:screenOrientation="portrait"
+			android:theme="@style/Phoenix.Translucent.Custom" />
+		<activity
+			android:name=".ui.SuccessActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/Phoenix.Translucent.Custom.Order" />
+		<activity
+			android:name=".ui.LiveOrdersActivity"
+			android:theme="@style/Phoenix.Translucent.Custom.Cart" />
+		<!--
+               Use an alias in case we want to change the launch activity later without breaking
+			 homescreen shortcuts. Note must be defined after the targetActivity
+        -->
+		<activity-alias
+			android:name=".Launcher"
+			android:label="@string/app_name"
+			android:targetActivity=".ui.SplashActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			
+			<meta-data
+				android:name="android.app.shortcuts"
+				android:resource="@xml/shortcuts" />
+		</activity-alias>
+	
+	</application>
+
+</manifest>

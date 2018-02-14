@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+	android:width="56dp"
+	android:height="56dp"
+	android:viewportHeight="56"
+	android:viewportWidth="56">
+	
+	<path
+		android:fillColor="@color/fab_heart_full"
+		android:pathData="@string/heart_full_path_56dp" />
+
+</vector>

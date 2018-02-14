@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:aapt="http://schemas.android.com/aapt">
+	
+	<aapt:attr name="android:drawable">
+		
+		<vector
+			android:width="56dp"
+			android:height="56dp"
+			android:viewportHeight="56"
+			android:viewportWidth="56">
+			
+			<path
+				android:fillColor="@color/fab_heart_empty"
+				android:pathData="@string/heart_empty_path_56dp" />
+			
+			<group android:name="filled">
+				
+				<clip-path
+					android:name="clip"
+					android:pathData="@string/heart_clip_hidden" />
+				
+				<path
+					android:fillColor="@color/fab_heart_full"
+					android:pathData="@string/heart_full_path_56dp" />
+			
+			</group>
+		
+		</vector>
+	
+	</aapt:attr>
+	
+	<target android:name="clip">
+		
+		<aapt:attr name="android:animation">
+			
+			<set android:ordering="sequentially">
+				
+				<objectAnimator
+					android:duration="160"
+					android:interpolator="@android:interpolator/fast_out_linear_in"
+					android:propertyName="pathData"
+					android:valueFrom="@string/heart_clip_hidden"
+					android:valueTo="@string/heart_clip_mid"
+					android:valueType="pathType" />
+				
+				<objectAnimator
+					android:duration="120"
+					android:interpolator="@android:interpolator/linear_out_slow_in"
+					android:propertyName="pathData"
+					android:valueFrom="@string/heart_clip_mid"
+					android:valueTo="@string/heart_clip_shown"
+					android:valueType="pathType" />
+			
+			</set>
+		
+		</aapt:attr>
+	
+	</target>
+
+</animated-vector>

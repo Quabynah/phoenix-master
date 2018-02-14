@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:padding="@dimen/padding_normal"
+	android:orientation="horizontal"
+	android:baselineAligned="false"
+	android:minHeight="?android:listPreferredItemHeightSmall"
+	android:theme="@style/PiperDarkOverlay"
+	android:foreground="?android:selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/filter_icon"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:padding="@dimen/spacing_micro"
+        android:src="@drawable/filter_placeholder" />
+
+    <io.pergasus.ui.widget.BaselineGridTextView
+        android:id="@+id/filter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_normal"
+        android:layout_gravity="center_vertical"
+        android:ellipsize="end"
+        android:textAppearance="@style/TextAppearance.Filter"
+	    android:stateListAnimator="@animator/filter_active"
+        tools:text="Popular Clothing Styles"/>
+    
+
+</LinearLayout>

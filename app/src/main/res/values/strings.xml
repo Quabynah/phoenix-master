@@ -1,0 +1,196 @@
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<resources>
+	<string name="app_name">Phoenix</string>
+	
+	<!--Others-->
+	<string name="search_hint">Search by name &amp; brand</string>
+	<string name="about">About Us</string>
+	<string name="search">Search</string>
+	<string name="filter">Filter</string>
+	
+	<!--notifications-->
+	<string name="default_notification_channel_id">@string/app_name</string>
+	
+	<!--&lt;!&ndash;Payment API Keys&ndash;&gt;
+	<string name="simplify_api_key" translatable="false">sbpb_YTE1NGRhMmMtZDE2Zi00OTczLWE3MDgtNmM4NDBkOTQ2MGE1</string>
+	<string name="simplify_android_pay_public_key" translatable="false">3DkfKhcisX65I1tNwvtYTTzEj2wpPLB1fPmPHnePbx5YFFQL0ODSXAOkNtXTToq</string>
+	&lt;!&ndash;<string name="simplify_android_pay_public_key" translatable="false">3DkfKhcisX65I1tNwvtYTTzEj2wp/PLB1fPmPHnePbx5YFFQL0ODSXAOkNtXTToq</string>&ndash;&gt;
+	
+	<string name="merchant_id_simplify" translatable="false">da4d4654-d889-4ae1-a143-7deb65ed176f</string>-->
+	
+	
+	<!-- transition shared elements -->
+	<string name="transition_shot" translatable="false">shot</string>
+	<string name="transition_shot_background" translatable="false">shot_background</string>
+	<string name="transition_story_background" translatable="false">transition_story_background</string>
+	<string name="transition_dribbble_login" translatable="false">dribbble_login</string>
+	<string name="transition_new_designer_news_post" translatable="false">new_designer_news_post</string>
+	<string name="transition_player_avatar" translatable="false">transition_player_avatar</string>
+	<string name="transition_player_background" translatable="false">transition_player_background</string>
+	<string name="transition_search_back" translatable="false">transition_search_back</string>
+	
+	<!-- using strings for the number of views/likes as we run them through NumberFormat -->
+	<plurals name="likes">
+		<item quantity="zero">no likes</item>
+		<item quantity="one">%s like</item>
+		<item quantity="other">%s likes</item>
+	</plurals>
+	<plurals name="purchases">
+		<item quantity="zero">no purchases</item>
+		<item quantity="one">%s purchase</item>
+		<item quantity="other">%s purchases</item>
+	</plurals>
+	<plurals name="views">
+		<item quantity="zero">no views</item>
+		<item quantity="one">%s view</item>
+		<item quantity="other">%s views</item>
+	</plurals>
+	<string name="share">Share</string>
+	
+	<!-- item sheet -->
+	<plurals name="followers">
+		<item quantity="zero">no followers</item>
+		<item quantity="one">%s follower</item>
+		<item quantity="other">%s followers</item>
+	</plurals>
+	
+	<!--About Application-->
+	<string name="about_app_0">Phoenix is a bridge between customers &amp; and the Accra Mall Retail
+		outlets. It helps customers like you to purchase items at the comfort of your homes,
+		office, school or wherever else. Phoenix pulls data from [Accra Mall](https://www.accramall.com/); it is in no way an official client for these services nor endorsed by&#160;them.</string>
+	<string name="about_app_1">Phoenix is written by Dennis Kwabena&#160;Bilson</string>
+	<string name="about_app_2">[Twitter](http://twitter.com/quabynah1993) |
+		[Google+](http://google.com/+QuabynahBilson)</string>
+	<string name="about_accra_mall">The Accra Mall is a state-of-the-art retail and shopping center in Accra, Ghana, located on the Tetteh Quarshie Interchange
+		adjacent to the Tema Motorway. The mall was commissioned on July 4, 2008. It is one of the most modern shopping
+		malls in West Africa and the first large-scale shopping centre in Ghana. The mall is an enclosed, fully air-conditioned
+		shopping centre. It has 20,322 square metres of retail space with parking for over 900 cars. The Accra Mall
+		accommodates 65 line-shops and 9 restaurants of which 30% are operated by Ghanaian retailers.</string>
+	<string name="about_icon_0">"Phoenix\'s icon is lovingly crafted by the inimitable
+		Dennis&#160;Bilson"</string>
+	<string name="about_icon_1">[Twitter](http://twitter.com/quabynah1993) |
+		[Google+](http://google.com/+QuabynahBilson)</string>
+	<string name="about_libs_intro">Phoenix is built with the help of these awesome&#160;
+		libraries</string>
+	<string name="about_lib_link">visit website</string>
+	
+	<!--Misc-->
+	<string name="add_to_cart">Add item to cart</string>
+	<string name="login_to">Login</string>
+	<string name="login_failed">Login failed</string>
+	<string name="need_login">Woah, chief! You need to log in first to enjoy more features
+		from <b>Phoenix</b></string>
+	<string name="no_search_results">No results for\n“%1$s”</string>
+	<string name="confirm_save_search">Confirm save</string>
+	<string name="user_login">Log in</string>
+	<string name="user_log_out_basic">Log out</string>
+	<string name="user_logged_out">You have been logged out successfully</string>
+	<string name="no_filters_selected">No filters selected, press the filter button above (<annotation src="@drawable/ic_filter_small">&#2228;</annotation>)\n<i><annotation foregroundColor="@color/text_secondary_light">or swipe from the&#160;right</annotation></i></string>
+	<string name="app_logged_in_as">Logged in as</string>
+	<string name="confirm_trans_hint">Choose a payment method below</string>
+	<string name="pay_with_android_pay">AndroidPay (by Google)</string>
+	<string name="profile_view">Profile</string>
+	<string name="my_cart">Cart</string>
+	<string name="checkout">Proceed to checkout</string>
+	
+	<!--DOWNLOAD URLs-->
+	<string name="visit_store">Visit Store</string>
+	
+	<!-- app shortcuts -->
+	<string name="shortcut_search_short_label">@string/search</string>
+	<string name="shortcut_search_long_label">@string/search</string>
+	<string name="shortcut_search_disabled">Search not available</string>
+	<string name="shortcut_short_label">View My Cart</string>
+	<string name="shortcut_long_label">View your shopping cart</string>
+	<string name="shortcut_disabled">Log in to Phoenix to view your cart</string>
+	<string name="no_items_in_cart">Shopping basket is empty. Try out some of our products</string>
+	<string name="no_products_available">No products available at this time</string>
+	<string name="deliver_to">Deliver To</string>
+	<string name="change">Update</string>
+	<string name="slydepay">SlydePay</string>
+	<string name="visa">VISA / Master Card (with PayPal)</string>
+	<string name="computation">Transaction Breakdown</string>
+	<string name="savings">Discount received</string>
+	<string name="delivery_cost">Delivery/Shipping Cost</string>
+	<string name="tax">Estimated Tax</string>
+	<string name="no_comments">No comments</string>
+	<string name="comment_likes_count">0</string>
+	<string name="hint_reply">Reply</string>
+	<string name="follow">Follow</string>
+	<string name="following">Following</string>
+	
+	<!--Sources-->
+	<string name="source_clothing">Clothing</string>
+	<string name="source_business">Business</string>
+	<string name="source_kids">For Kids</string>
+	<string name="source_students">For Students</string>
+	<string name="source_health">Health</string>
+	<string name="source_favorite">My Favorite Products</string>
+	<string name="source_entertainment">Entertainment</string>
+	<string name="source_recommended_search">Recommended</string>
+	<string name="empty">Empty</string>
+	
+	<!--Extra-->
+	<string name="bad_phoenix_url">There is a problem with product\'s url</string>
+	<string name="prospects_cant_post">Non-Premium Users cannot send posts</string>
+	<string name="receipt">Detailed expenditure</string>
+	<string name="grand_total">Grand Total</string>
+	<string name="title_activity_tracking">Track Orders</string>
+	<string name="your_location">Your location</string>
+	<string name="title_activity_order">OrderActivity</string>
+	<string name="item_added_to_cart">Item added</string>
+	<string name="about_you">Personal Information</string>
+	<string name="auth_key">Auth Key</string>
+	<string name="email">Email</string>
+	<string name="address">Address</string>
+	<string name="tap_on_any_item_to_edit_it">Tap on any item to edit it</string>
+	<string name="save_and_continue">Save and Continue</string>
+	<string name="the_phoenix">The Phoenix</string>
+	<string name="edit_your_data">Edit your data</string>
+	<string name="logout_prompt">You are about to be logged out of this session. Do you wish to continue?</string>
+	<string name="address_prompt">You will be redirected to your profile screen to set your current address</string>
+	<string name="save_changes_prompt">You have unsaved changes. Discard them?</string>
+	<string name="remove">Delete item from cart</string>
+	<string name="confirm">Confirm payment</string>
+	<string name="success_message">Thanks for your order. While you wait, check  out our famous products</string>
+	<string name="success_header">Congratulations</string>
+	<string name="shop_more">Continue shopping</string>
+	<string name="success_failed_header">Uh oh.</string>
+	<string name="success_failed_message">Something went wrong with your order. If  you really want to spend a bunch of money, go ahead and try that again.</string>
+	<string name="try_again">Try Again</string>
+	<string name="google_sign_in_code">811321137752</string>
+	<string name="notifications">My Notifications</string>
+	<string name="sign_up">Join now</string>
+	<string name="password">Password</string>
+	<string name="username">Username</string>
+	<string name="need_register">Create a new account with us to\n get started</string>
+	<string name="create_account">Create account</string>
+	<string name="notification_header">Notifications</string>
+	<string name="orders">Live orders</string>
+	<string name="no_live_order_info">You have no live orders pending delivery</string>
+	<string name="track_current_order">Track order</string>
+	<string name="upload">Upload</string>
+	<string name="shop">Shop</string>
+	<string name="animated">Animated</string>
+	<string name="brand">Brand</string>
+	<string name="quantity">Quantity</string>
+	<string name="discount">Discount</string>
+	<string name="price">Price</string>
+	<string name="category">Category</string>
+	<string name="description">Description</string>
+	<string name="name">Name</string>
+	<string name="collection">Database collection</string>
+	<string name="no_notifications">No new notifications</string>
+	<string name="setup_address_for_delivery">Setup address for delivery</string>
+	<string name="please_wait">Accessing the Phoenix network</string>
+	<string name="no_internet_title">No internet connection</string>
+	<string name="no_internet_body">Check your network settings and try again</string>
+	<string name="cancel">Cancel</string>
+	<string name="mobile_network">Mobile network</string>
+	<string name="wifi">Wi-fi</string>
+
+
+</resources>

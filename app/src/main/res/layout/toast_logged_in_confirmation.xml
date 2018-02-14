@@ -1,0 +1,51 @@
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrim"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="150dp"
+    tools:context="io.pergasus.ui.HomeActivity">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:alignmentMode="alignBounds"
+        android:background="@drawable/dialog_background"
+        android:columnCount="2"
+        android:elevation="@dimen/z_app_bar"
+        android:padding="@dimen/padding_normal"
+        android:rowCount="2">
+
+        <io.pergasus.ui.widget.ForegroundImageView
+            android:id="@+id/avatar"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_margin="@dimen/padding_normal"
+            android:layout_rowSpan="2"
+            android:src="@drawable/avatar_placeholder" />
+
+        <io.pergasus.ui.widget.BaselineGridTextView
+            android:id="@+id/toast_label"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:paddingTop="@dimen/spacing_micro"
+            android:text="@string/app_logged_in_as"
+            android:textColor="@color/text_primary_dark"
+            android:textAppearance="@style/TextAppearance.Comment" />
+
+        <io.pergasus.ui.widget.BaselineGridTextView
+            android:id="@+id/name"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:paddingTop="@dimen/spacing_micro"
+            android:textColor="@color/text_secondary_dark"
+            android:textAppearance="@style/TextAppearance.CommentAuthor"
+            tools:text="Nick B" />
+
+    </GridLayout>
+
+</FrameLayout>

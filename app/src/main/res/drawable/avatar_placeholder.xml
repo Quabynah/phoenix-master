@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+	android:shape="oval">
+	<solid android:color="@color/content_placeholder" />
+	<size
+		android:width="@dimen/avatar_size"
+		android:height="@dimen/avatar_size" />
+</shape>

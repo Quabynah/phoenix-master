@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<transitionSet
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <transition
+        class="io.pergasus.ui.transitions.CircularReveal"
+        app:endRadius="@dimen/fab_radius"
+        android:duration="150"
+        android:interpolator="@android:interpolator/fast_out_slow_in">
+        <targets>
+            <target android:targetId="@id/confirm_save_container" />
+        </targets>
+    </transition>
+
+    <fade
+        android:duration="150"
+        android:interpolator="@android:interpolator/fast_out_linear_in">
+        <targets>
+            <target android:targetId="@id/results_scrim" />
+        </targets>
+    </fade>
+
+</transitionSet>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/drawer"
+	android:clipToPadding="false"
+	tools:context="io.pergasus.ui.HomeActivity">
+	
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<View
+			android:id="@+id/status_bar_background"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:background="@color/status_bar_back" />
+		
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/grid"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:scrollbars="vertical"
+			android:scrollbarStyle="outsideOverlay"
+			android:clipToPadding="false"
+			android:elevation="1dp" />
+		
+		<Toolbar
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?android:actionBarSize"
+			android:title="@string/app_name"
+			android:outlineProvider="none"
+			android:elevation="1dp"
+			style="@style/Widget.AppTheme.HomeToolbar" />
+		
+		
+		<ProgressBar
+			android:id="@android:id/empty"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:indeterminate="true"
+			android:indeterminateTint="?android:colorAccent"
+			android:indeterminateTintMode="src_in" />
+		
+		<ViewStub
+			android:id="@+id/stub_no_filters"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/spacing_huge"
+			android:layout_gravity="center"
+			android:layout="@layout/no_filters" />
+		
+		<ViewStub
+			android:id="@+id/stub_no_connection"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout="@layout/no_connection" />
+		
+		<ViewStub
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout="@layout/no_products" />
+		
+		<ImageButton
+			android:id="@+id/fab"
+			android:layout_width="@dimen/fab_size"
+			android:layout_height="@dimen/fab_size"
+			android:elevation="@dimen/z_fab"
+			android:background="@drawable/fab"
+			android:layout_gravity="bottom|end"
+			android:layout_marginEnd="@dimen/padding_normal"
+			android:layout_marginBottom="@dimen/padding_normal"
+			android:stateListAnimator="@animator/raise"
+			android:src="@drawable/ic_shopping_cart_black_24dp"
+			tools:ignore="ContentDescription" />
+	
+	</FrameLayout>
+	
+	<!-- filter drawer -->
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/filters"
+		android:layout_width="@dimen/drawer_width"
+		android:layout_height="match_parent"
+		android:layout_gravity="end"
+		android:paddingTop="@dimen/spacing_normal"
+		android:paddingBottom="@dimen/spacing_normal"
+		android:elevation="@dimen/z_drawer"
+		android:background="@color/background_dark"
+		android:clipToPadding="false"
+		android:scrollbars="vertical"
+		android:scrollbarStyle="outsideOverlay"
+		app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+		tools:listitem="@layout/filter_item" />
+
+</android.support.v4.widget.DrawerLayout>

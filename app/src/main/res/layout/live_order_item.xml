@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/background_card"
+	app:cardCornerRadius="@dimen/spacing_micro"
+	app:cardElevation="@dimen/z_card">
+	
+	<io.pergasus.ui.widget.ForegroundRelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="@dimen/padding_normal"
+		android:stateListAnimator="@animator/raise">
+		
+		<io.pergasus.ui.widget.CircularImageView
+			android:id="@+id/order_img"
+			android:layout_width="@dimen/mid_avatar_size"
+			android:layout_height="@dimen/mid_avatar_size"
+			android:layout_alignParentStart="true"
+			android:layout_alignParentTop="true"
+			android:layout_marginEnd="@dimen/padding_normal"
+			android:src="@drawable/ic_motorcycle"
+			android:scaleType="centerInside"
+			android:background="@drawable/motor_placeholder"/>
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/order_number"
+			style="@style/TextAppearance.DribbbleShotPrice"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_toEndOf="@id/order_img"
+			android:gravity="start"
+			android:maxLines="2"
+			android:textColor="@color/text_secondary_dark"
+			tools:text="Order #21343434535" />
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/order_date"
+			style="@style/TextAppearance.CommentTimestamp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/order_number"
+			android:layout_toEndOf="@id/order_img"
+			android:gravity="start"
+			android:textColor="@color/text_secondary_dark"
+			tools:text="Friday January 3, 2018" />
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/order_price"
+			style="@style/TextAppearance.ItemDescription"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/order_date"
+			android:layout_toEndOf="@id/order_img"
+			android:gravity="start"
+			tools:text="$12,000" />
+		
+		<Button
+			android:id="@+id/track_order"
+			style="@style/Widget.AppCompat.Button.Borderless"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentEnd="true"
+			android:layout_below="@id/order_date"
+			android:layout_marginTop="@dimen/spacing_normal"
+			android:text="@string/track_current_order"
+			android:textColor="@color/text_secondary_dark" />
+	
+	</io.pergasus.ui.widget.ForegroundRelativeLayout>
+
+
+</android.support.v7.widget.CardView>

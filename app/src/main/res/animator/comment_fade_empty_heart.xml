@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+	android:duration="200"
+	android:interpolator="@android:interpolator/fast_out_linear_in"
+	android:propertyName="fillAlpha"
+	android:valueFrom="1"
+	android:valueTo="0" />

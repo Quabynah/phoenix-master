@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<item
+		android:id="@+id/liked"
+		android:drawable="@drawable/ic_heart_full_56dp"
+		android:state_checked="true" />
+	
+	<item
+		android:id="@+id/not_liked"
+		android:drawable="@drawable/ic_heart_empty_56dp" />
+	
+	<transition
+		android:drawable="@drawable/avd_heart_fill"
+		android:fromId="@id/not_liked"
+		android:toId="@id/liked" />
+	
+	<transition
+		android:drawable="@drawable/avd_heart_empty"
+		android:fromId="@id/liked"
+		android:toId="@id/not_liked" />
+
+</animated-selector>

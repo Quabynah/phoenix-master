@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "118933953659",
+    "firebase_url": "https://phoenix-master.firebaseio.com",
+    "project_id": "phoenix-master",
+    "storage_bucket": "phoenix-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118933953659:android:0c2803ed97a7065a",
+        "android_client_info": {
+          "package_name": "io.pergasus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118933953659-5pvoted5435ko6419hhf5osp5vasdtgl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.pergasus",
+            "certificate_hash": "2da3d3c1c2cf91b5f73c8e4bdab02e7e627e1f1a"
+          }
+        },
+        {
+          "client_id": "118933953659-8rbagrb809f1f5ubgvae8jbp3khj931m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfSdyj13-kroJS0AaizsNvlPXSPGSyzh8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118933953659-8rbagrb809f1f5ubgvae8jbp3khj931m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+	android:width="24dp"
+	android:height="24dp"
+	android:viewportHeight="24"
+	android:viewportWidth="24">
+	
+	<path
+		android:name="@string/name_dots"
+		android:fillColor="@color/inline_action_icon"
+		android:pathData="@string/path_share_dots" />
+	
+	<path
+		android:name="@string/name_lines"
+		android:pathData="@string/path_share_lines"
+		android:strokeColor="@color/inline_action_icon"
+		android:strokeLineCap="square"
+		android:strokeWidth="2" />
+
+</vector>

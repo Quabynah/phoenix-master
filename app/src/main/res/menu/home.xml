@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<item
+		android:id="@+id/menu_search"
+		android:icon="@drawable/ic_search_24dp"
+		android:showAsAction="always"
+		android:title="@string/search"
+		tools:ignore="AppCompatResource" />
+	
+	<item
+		android:id="@+id/menu_filter"
+		android:icon="@drawable/ic_filter"
+		android:showAsAction="always"
+		android:title="@string/filter"
+		tools:ignore="AlwaysShowAction,AppCompatResource" />
+	
+	<item
+		android:id="@+id/menu_login"
+		android:showAsAction="never"
+		android:title="@string/user_login"
+		tools:ignore="AppCompatResource" />
+	
+	<item
+		android:id="@+id/menu_profile"
+		android:showAsAction="never"
+		android:title="@string/profile_view"
+		tools:ignore="AppCompatResource" />
+	
+	<item
+		android:id="@+id/menu_notifications"
+		android:showAsAction="never"
+		android:title="@string/notifications"
+		tools:ignore="AppCompatResource" />
+	
+	<item
+		android:id="@+id/menu_orders"
+		android:showAsAction="never"
+		android:title="@string/orders"
+		tools:ignore="AppCompatResource" />
+	
+	<item
+		android:id="@+id/menu_store"
+		android:showAsAction="never"
+		android:title="@string/visit_store"
+		tools:ignore="AppCompatResource" />
+	
+	<item
+		android:id="@+id/menu_about"
+		android:showAsAction="never"
+		android:title="@string/about"
+		tools:ignore="AppCompatResource" />
+	
+	
+</menu>

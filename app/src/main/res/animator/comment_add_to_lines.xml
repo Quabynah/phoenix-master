@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+	android:duration="@integer/comment_lines_add_duration"
+	android:interpolator="@android:interpolator/fast_out_slow_in"
+	android:propertyName="pathData"
+	android:valueFrom="@string/path_comment_add"
+	android:valueTo="@string/path_comment_lines"
+	android:valueType="pathType" />

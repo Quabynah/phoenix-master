@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+	android:duration="@android:integer/config_mediumAnimTime"
+	android:interpolator="@android:interpolator/fast_out_slow_in"
+	android:propertyName="pathData"
+	android:valueFrom="@string/path_follow_minus"
+	android:valueTo="@string/path_follow_plus"
+	android:valueType="pathType" />

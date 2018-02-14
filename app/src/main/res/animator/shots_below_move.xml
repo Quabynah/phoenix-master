@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:interpolator="@android:interpolator/fast_out_slow_in">
+	
+	<!-- move up, scale down and rotate while the path is morphing -->
+	<objectAnimator
+		android:duration="250"
+		android:propertyName="translateY"
+		android:valueTo="-3" />
+	
+	<objectAnimator
+		android:duration="250"
+		android:propertyName="scaleX"
+		android:valueTo="0.8" />
+	
+	<objectAnimator
+		android:duration="250"
+		android:propertyName="scaleY"
+		android:valueTo="0.8" />
+	
+	<objectAnimator
+		android:duration="250"
+		android:propertyName="rotation"
+		android:valueTo="-180" />
+	
+	<!-- move the arrow down & restore scale -->
+	<objectAnimator
+		android:duration="150"
+		android:propertyName="translateY"
+		android:startOffset="250"
+		android:valueTo="0" />
+	
+	<objectAnimator
+		android:duration="150"
+		android:propertyName="scaleX"
+		android:startOffset="250"
+		android:valueTo="1" />
+	
+	<objectAnimator
+		android:duration="150"
+		android:propertyName="scaleY"
+		android:startOffset="250"
+		android:valueTo="1" />
+	
+	<!-- bounce back up -->
+	<objectAnimator
+		android:duration="150"
+		android:propertyName="translateY"
+		android:startOffset="400"
+		android:valueTo="-2" />
+	
+	<!-- bounce down -->
+	<objectAnimator
+		android:duration="150"
+		android:propertyName="translateY"
+		android:startOffset="550"
+		android:valueTo="0" />
+	
+	<!-- instantaneously restore the rotation in preparation for the morph
+		 back from arrow to the standard icon -->
+	<objectAnimator
+		android:duration="0"
+		android:propertyName="rotation"
+		android:startOffset="1000"
+		android:valueTo="0" />
+
+</set>

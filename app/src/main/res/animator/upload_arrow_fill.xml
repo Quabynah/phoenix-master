@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:propertyName="pathData"
+    android:repeatCount="-1"
+    android:repeatMode="restart"
+    android:valueFrom="M21 32 L35 32 L35 32 L21 32 Z"
+    android:valueTo="M21 10 L35 10 L35 32 L21 32 Z"
+    android:valueType="pathType"
+    android:startOffset="300"
+    android:duration="1200"
+    android:interpolator="@android:interpolator/fast_out_slow_in" />

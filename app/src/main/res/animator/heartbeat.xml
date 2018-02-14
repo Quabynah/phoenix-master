@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:interpolator="@android:interpolator/accelerate_quad">
+	
+	<!-- beat 1 -->
+	<objectAnimator
+		android:duration="100"
+		android:propertyName="scaleX"
+		android:valueTo="1.2" />
+	
+	<objectAnimator
+		android:duration="100"
+		android:propertyName="scaleY"
+		android:valueTo="1.2" />
+	
+	<objectAnimator
+		android:duration="150"
+		android:propertyName="scaleX"
+		android:startOffset="100"
+		android:valueTo="1" />
+	
+	<objectAnimator
+		android:duration="150"
+		android:propertyName="scaleY"
+		android:startOffset="100"
+		android:valueTo="1" />
+	
+	<!-- beat 2 -->
+	<objectAnimator
+		android:duration="100"
+		android:propertyName="scaleX"
+		android:startOffset="500"
+		android:valueTo="1.2" />
+	
+	<objectAnimator
+		android:duration="100"
+		android:propertyName="scaleY"
+		android:startOffset="500"
+		android:valueTo="1.2" />
+	
+	<objectAnimator
+		android:duration="150"
+		android:propertyName="scaleX"
+		android:startOffset="600"
+		android:valueTo="1" />
+	
+	<objectAnimator
+		android:duration="150"
+		android:propertyName="scaleY"
+		android:startOffset="600"
+		android:valueTo="1" />
+
+</set>

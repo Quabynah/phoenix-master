@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<transitionSet
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionOrdering="together"
+    android:duration="400"
+    android:interpolator="@android:interpolator/linear_out_slow_in">
+
+    <slide android:slideEdge="top">
+        <targets>
+            <target android:excludeId="@android:id/navigationBarBackground" />
+            <target android:excludeId="@android:id/statusBarBackground" />
+        </targets>
+    </slide>
+
+    <fade android:duration="@android:integer/config_mediumAnimTime">
+        <targets>
+            <target android:targetId="@android:id/navigationBarBackground" />
+            <target android:targetId="@android:id/statusBarBackground" />
+        </targets>
+    </fade>
+
+</transitionSet>

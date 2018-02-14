@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	tools:showIn="@layout/activity_order">
+	
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_above="@id/layout_total"
+		android:layout_marginBottom="@dimen/spacing_micro">
+		
+		<LinearLayout
+			android:id="@+id/layout_location"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			android:padding="@dimen/spacing_normal">
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/deliver_to"
+				android:paddingBottom="@dimen/spacing_micro"
+				style="@style/TextAppearance.DialogTitle"
+				android:layout_gravity="start"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:id="@+id/order_customer_name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/TextAppearance.ItemDescription"
+				android:textSize="16sp"
+				android:textColor="@color/text_secondary_dark"
+				tools:text="Dennis K. Bilson"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:id="@+id/order_customer_location"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/TextAppearance.ItemDescription"
+				android:textSize="16sp"
+				android:paddingTop="@dimen/spacing_micro"
+				android:textColor="@color/text_secondary_dark"
+				tools:text="Osu Oxford Street, Ghana"/>
+			
+			<Button
+				android:id="@+id/update_location"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/change"
+				android:layout_gravity="end"
+				style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+		
+		</LinearLayout>
+		
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="@color/divider"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/layout_location"/>
+		
+		<LinearLayout
+			android:id="@+id/layout_payment_method"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/layout_location"
+			android:padding="@dimen/spacing_normal">
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/confirm_trans_hint"
+				android:paddingBottom="@dimen/spacing_micro"
+				style="@style/TextAppearance.DialogTitle"
+				android:layout_gravity="start"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:id="@+id/order_payment_method"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/TextAppearance.ItemDescription"
+				android:textSize="16sp"
+				android:textColor="@color/text_secondary_dark"
+				android:text="@string/slydepay"/>
+			
+			<Button
+				android:id="@+id/update_provider"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/change"
+				android:layout_gravity="end"
+				style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+		
+		</LinearLayout>
+		
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="@color/divider"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/layout_payment_method"/>
+		
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/layout_payment_method"
+			android:padding="@dimen/spacing_normal">
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:id="@+id/transaction_header"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/computation"
+				android:paddingBottom="@dimen/spacing_micro"
+				style="@style/TextAppearance.DialogTitle"
+				android:layout_gravity="start"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/TextAppearance.ItemDescription"
+				android:textSize="16sp"
+				android:layout_below="@id/transaction_header"
+				android:layout_alignParentStart="true"
+				android:layout_centerVertical="true"
+				android:textColor="@color/text_secondary_dark"
+				android:text="@string/savings"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:id="@+id/order_savings"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/TextAppearance.ItemDescription"
+				android:textSize="16sp"
+				android:layout_below="@id/transaction_header"
+				android:layout_alignParentEnd="true"
+				android:paddingTop="@dimen/spacing_micro"
+				android:layout_marginEnd="@dimen/spacing_micro"
+				android:textColor="@color/text_tertiary_dark"
+				tools:text="$ 0.00"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/TextAppearance.ItemDescription"
+				android:textSize="16sp"
+				android:layout_below="@id/order_savings"
+				android:layout_alignParentStart="true"
+				android:layout_centerVertical="true"
+				android:textColor="@color/text_secondary_dark"
+				android:text="@string/delivery_cost"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:id="@+id/order_delivery_cost"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/TextAppearance.ItemDescription"
+				android:textSize="16sp"
+				android:layout_below="@id/order_savings"
+				android:layout_alignParentEnd="true"
+				android:paddingTop="@dimen/spacing_micro"
+				android:layout_marginEnd="@dimen/spacing_micro"
+				android:textColor="@color/text_tertiary_dark"
+				tools:text="$ 5.00"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/TextAppearance.ItemDescription"
+				android:textSize="16sp"
+				android:layout_below="@id/order_delivery_cost"
+				android:layout_alignParentStart="true"
+				android:layout_centerVertical="true"
+				android:textColor="@color/text_secondary_dark"
+				android:text="@string/tax"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:id="@+id/order_tax_cost"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/TextAppearance.ItemDescription"
+				android:textSize="16sp"
+				android:layout_below="@id/order_delivery_cost"
+				android:layout_alignParentEnd="true"
+				android:paddingTop="@dimen/spacing_micro"
+				android:layout_marginEnd="@dimen/spacing_micro"
+				android:textColor="@color/text_tertiary_dark"
+				tools:text="$ 0.90"/>
+		
+		</RelativeLayout>
+		
+	</android.support.constraint.ConstraintLayout>
+	
+	<RelativeLayout
+		android:id="@+id/layout_total"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom"
+		android:paddingStart="@dimen/spacing_normal"
+		android:paddingTop="@dimen/padding_normal"
+		android:paddingEnd="@dimen/spacing_normal"
+		android:paddingBottom="@dimen/padding_normal">
+		
+		<!--Total value's label-->
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			app:fontFamily="@font/nunito_semibold"
+			android:layout_centerVertical="true"
+			android:layout_alignParentStart="true"
+			android:layout_alignParentBottom="true"
+			android:textColor="@color/text_on_accent"
+			style="@style/TextAppearance.DialogTitle"
+			android:text="@string/grand_total" />
+		
+		<!--Total Value-->
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/order_total"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:layout_centerVertical="true"
+			android:layout_alignParentEnd="true"
+			android:layout_alignParentBottom="true"
+			android:textColor="@color/text_secondary_dark"
+			style="@style/TextAppearance.ItemDescription"
+			android:textSize="18sp"
+			tools:text="$ 2,600"
+			tools:ignore="RelativeOverlap" />
+		
+		
+	</RelativeLayout>
+
+</merge>

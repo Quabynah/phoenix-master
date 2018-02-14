@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<io.pergasus.ui.widget.ForegroundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:orientation="horizontal"
+	android:gravity="center"
+	android:paddingEnd="@dimen/padding_normal"
+	android:paddingStart="@dimen/spacing_zero"
+	android:background="@color/background_card"
+	android:elevation="@dimen/z_card"
+	android:stateListAnimator="@animator/raise"
+	android:weightSum="3">
+	
+	<io.pergasus.ui.widget.BadgedFourThreeImageView
+		android:id="@+id/order_image"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:background="@color/white"
+		android:elevation="@dimen/z_card"
+		tools:src="@drawable/logo"/>
+	
+	<LinearLayout
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="2"
+		android:orientation="vertical">
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/order_name"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:text="Iced Coffee"
+			android:maxLines="1"
+			android:ellipsize="end"
+			style="@style/TextAppearance.ItemDescription"
+			android:textColor="@color/text_secondary_dark"
+			android:textSize="21sp"
+			android:paddingTop="@dimen/spacing_normal"
+			android:paddingEnd="@dimen/spacing_normal"
+			android:paddingStart="@dimen/spacing_normal"/>
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/order_price"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			tools:text="GHC 2,000"
+			style="@style/TextAppearance.DribbbleShotPrice"
+			android:textColor="@color/text_secondary_dark"
+			android:textSize="14sp"
+			android:paddingStart="@dimen/spacing_normal"
+			android:paddingEnd="@dimen/spacing_normal"/>
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/order_quantity"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			tools:text="12 units"
+			style="@style/TextAppearance.DribbbleShotPrice"
+			android:textColor="@color/text_secondary_dark"
+			android:textSize="14sp"
+			android:paddingStart="@dimen/spacing_normal"
+			android:paddingEnd="@dimen/spacing_normal" />
+		
+	</LinearLayout>
+	
+</io.pergasus.ui.widget.ForegroundLinearLayout>

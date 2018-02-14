@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="io.pergasus.ui.ProfileActivity">
+	
+	<!-- need a separate view for the background to target during the window transition -->
+	<View
+		android:id="@+id/background"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/background_light"
+		android:elevation="@dimen/z_card"
+		android:transitionName="@string/transition_player_background" />
+	
+	<android.support.constraint.ConstraintLayout
+		android:id="@+id/container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:elevation="@dimen/z_card"
+		android:transitionGroup="false"
+		android:background="@android:color/transparent">
+		
+		<io.pergasus.ui.widget.CircularImageView
+			android:id="@+id/avatar"
+			android:layout_width="@dimen/large_avatar_size"
+			android:layout_height="@dimen/large_avatar_size"
+			android:layout_marginTop="@dimen/spacing_micro"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:elevation="@dimen/z_card"
+			android:padding="@dimen/avatar_padding"
+			android:transitionName="@string/transition_player_avatar"
+			tools:src="@drawable/ic_player"
+			tools:ignore="ContentDescription" />
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/customer_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/avatar"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:paddingStart="@dimen/padding_normal"
+			android:paddingTop="@dimen/avatar_margin"
+			android:paddingEnd="@dimen/padding_normal"
+			android:paddingBottom="@dimen/spacing_normal"
+			android:textAppearance="@style/TextAppearance.Author.Title"
+			tools:text="Derniz Quabynah Bilson" />
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/customer_bio"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:paddingStart="@dimen/padding_normal"
+			android:paddingTop="@dimen/spacing_micro"
+			android:paddingEnd="@dimen/padding_normal"
+			android:layout_marginBottom="@dimen/padding_normal"
+			android:textAppearance="@style/TextAppearance.DribbbleShotDescription"
+			android:textColorHighlight="@color/dribbble_link_highlight"
+			android:textColorLink="@color/dribbble_links"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/customer_name"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:gravity="center_horizontal"
+			tools:text="Designer &amp; developer at Quabynah CodeLabs." />
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/header"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/about_you"
+			android:paddingBottom="@dimen/spacing_micro"
+			style="@style/TextAppearance.DialogTitle"
+			app:layout_constraintTop_toBottomOf="@id/customer_bio"
+			android:layout_marginTop="@dimen/padding_normal"
+			android:layout_marginStart="@dimen/padding_normal"
+			app:layout_constraintStart_toStartOf="parent"
+			/>
+		
+		<LinearLayout
+			android:id="@+id/container_email"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/header"
+			android:padding="@dimen/spacing_normal"
+			android:weightSum="100">
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="20"
+				android:text="@string/email"
+				android:layout_gravity="center_vertical"
+				android:gravity="start"
+				android:textAppearance="@style/TextAppearance.DribbbleShotDescription"
+				android:padding="@dimen/spacing_normal"
+				android:textStyle="bold"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:id="@+id/customer_email"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="80"
+				tools:text="quabynahdennis@gmail.com"
+				android:layout_gravity="center_vertical"
+				android:gravity="start"
+				android:stateListAnimator="@animator/raise"
+				android:textAppearance="@style/TextAppearance.DribbbleShotDescription"
+				android:padding="@dimen/spacing_normal"
+				android:textColor="@color/text_secondary_dark"/>
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:id="@+id/container_address"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/container_email"
+			android:padding="@dimen/spacing_normal"
+			android:weightSum="100">
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="25"
+				android:text="@string/address"
+				android:layout_gravity="center_vertical"
+				android:gravity="start"
+				android:textAppearance="@style/TextAppearance.DribbbleShotDescription"
+				android:padding="@dimen/spacing_normal"
+				android:textStyle="bold"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:id="@+id/customer_address"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="75"
+				tools:text="2 Danso Close, Dansoman, Ghana"
+				android:layout_gravity="center_vertical"
+				android:gravity="start"
+				android:stateListAnimator="@animator/raise"
+				android:textAppearance="@style/TextAppearance.DribbbleShotDescription"
+				android:padding="@dimen/spacing_normal"
+				android:textColor="@color/text_secondary_dark"/>
+		
+		</LinearLayout>
+		
+		<LinearLayout
+			android:id="@+id/container_favorite"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/container_address"
+			android:padding="@dimen/spacing_normal"
+			android:weightSum="100">
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="25"
+				android:text="@string/auth_key"
+				android:layout_gravity="center_vertical"
+				android:gravity="start"
+				android:textAppearance="@style/TextAppearance.DribbbleShotDescription"
+				android:padding="@dimen/spacing_normal"
+				android:textStyle="bold"/>
+			
+			<io.pergasus.ui.widget.BaselineGridTextView
+				android:id="@+id/customer_key"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="75"
+				tools:text="Some unique key"
+				android:layout_gravity="center_vertical"
+				android:gravity="start"
+				android:stateListAnimator="@animator/raise"
+				android:textAppearance="@style/TextAppearance.DribbbleShotDescription"
+				android:padding="@dimen/spacing_normal"
+				android:textColor="@color/text_secondary_dark"/>
+		
+		</LinearLayout>
+		
+		<Button
+			android:id="@+id/profile_save"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/save_and_continue"
+			style="@style/Widget.AppCompat.Button.Colored"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/container_favorite"
+			android:layout_marginTop="@dimen/spacing_large"
+			android:textColor="@color/text_primary_light"
+			android:fontFamily="@font/nunito_semibold"
+			android:enabled="false" />
+		
+		<include layout="@layout/loading"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/profile_save"
+			android:layout_marginTop="@dimen/padding_normal"
+			android:visibility="gone"/>
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:text="@string/tap_on_any_item_to_edit_it"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			android:gravity="center_horizontal"
+			android:textAppearance="@style/TextAppearance.DribbbleShotDescription"
+			android:padding="@dimen/padding_normal"
+			android:textColor="@color/text_tertiary_dark"/>
+	
+	</android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

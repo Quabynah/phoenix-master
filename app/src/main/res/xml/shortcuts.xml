@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools">
+	
+	<shortcut
+		android:enabled="true"
+		android:icon="@drawable/ic_shortcut_search"
+		android:shortcutDisabledMessage="@string/shortcut_search_disabled"
+		android:shortcutId="search"
+		android:shortcutLongLabel="@string/shortcut_search_long_label"
+		android:shortcutShortLabel="@string/shortcut_search_short_label"
+		tools:targetApi="n_mr1">
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:targetClass="io.pergasus.ui.SearchActivity"
+			android:targetPackage="io.pergasus" />
+	</shortcut>
+
+</shortcuts>

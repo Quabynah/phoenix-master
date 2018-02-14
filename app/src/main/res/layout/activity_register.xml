@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/frame_register"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="io.pergasus.ui.RegisterActivity">
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/background_light"
+		android:elevation="@dimen/z_card" />
+	
+	<io.pergasus.ui.widget.ForegroundLinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="@dimen/padding_dialog"
+		android:layout_marginStart="@dimen/padding_dialog"
+		android:layout_marginTop="@dimen/padding_normal"
+		android:elevation="@dimen/z_card"
+		android:orientation="vertical">
+		
+		<io.pergasus.ui.widget.CircularImageView
+			android:id="@+id/register_avatar"
+			android:layout_width="@dimen/large_avatar_size"
+			android:layout_height="@dimen/large_avatar_size"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginBottom="@dimen/padding_dialog"
+			android:clickable="true"
+			android:focusable="true"
+			android:src="@drawable/avatar_placeholder"
+			android:stateListAnimator="@animator/raise" />
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/login_message"
+			style="@style/TextAppearance.DialogTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:gravity="center"
+			android:text="@string/need_register"
+			android:textColor="@color/text_secondary_dark"
+			app:fontFamily="@font/nunito_semibold" />
+		
+		<android.support.design.widget.TextInputLayout
+			android:id="@+id/username_float_label"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:layout_marginStart="@dimen/spacing_micro"
+			android:layout_marginTop="@dimen/padding_normal"
+			app:hintTextAppearance="@style/TextAppearance.FloatLabelHint">
+			
+			<AutoCompleteTextView
+				android:id="@+id/username"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/username"
+				android:imeOptions="actionNext"
+				android:inputType="textPersonName|textAutoComplete|textCapWords"
+				android:selectAllOnFocus="true"
+				android:textColorHighlight="@color/designer_news_link_highlight" />
+		
+		</android.support.design.widget.TextInputLayout>
+		
+		<android.support.design.widget.TextInputLayout
+			android:id="@+id/email_float_label"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:layout_marginStart="@dimen/spacing_micro"
+			app:hintTextAppearance="@style/TextAppearance.FloatLabelHint">
+			
+			<AutoCompleteTextView
+				android:id="@+id/email"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/email"
+				android:imeOptions="actionNext"
+				android:inputType="textEmailAddress"
+				android:selectAllOnFocus="true"
+				android:textColorHighlight="@color/designer_news_link_highlight" />
+		
+		</android.support.design.widget.TextInputLayout>
+		
+		
+		<android.support.design.widget.TextInputLayout
+			android:id="@+id/password_float_label"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:layout_marginStart="@dimen/spacing_micro"
+			app:hintTextAppearance="@style/TextAppearance.FloatLabelHint"
+			app:passwordToggleDrawable="@drawable/asl_password_visibility"
+			app:passwordToggleEnabled="true"
+			app:passwordToggleTint="?colorControlNormal">
+			
+			<io.pergasus.ui.widget.PasswordEntry
+				android:id="@+id/password"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/password"
+				android:imeOptions="actionDone"
+				android:inputType="textPassword"
+				android:selectAllOnFocus="true" />
+		
+		</android.support.design.widget.TextInputLayout>
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/user_register_address"
+			style="@style/TextAppearance.DribbbleShotDescription"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:drawablePadding="@dimen/spacing_normal"
+			android:drawableStart="@drawable/ic_location"
+			android:padding="@dimen/padding_normal"
+			android:text="@string/setup_address_for_delivery"
+			android:textColor="@color/text_secondary_dark"
+			android:textStyle="bold"
+			app:fontFamily="@font/nunito_semibold" />
+		
+		<Button
+			android:id="@+id/signup"
+			android:layout_width="160dp"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:backgroundTint="@color/designer_news_button"
+			android:paddingBottom="@dimen/spacing_normal"
+			android:paddingEnd="@dimen/padding_normal"
+			android:paddingStart="@dimen/padding_normal"
+			android:paddingTop="@dimen/spacing_normal"
+			android:text="@string/create_account"
+			android:textColor="@color/text_primary_light" />
+	
+	</io.pergasus.ui.widget.ForegroundLinearLayout>
+
+</FrameLayout>

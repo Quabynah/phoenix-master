@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<io.pergasus.ui.widget.BottomSheet xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/bottom_sheet"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="io.pergasus.ui.OrderActivity">
+	
+	<LinearLayout
+		android:id="@+id/bottom_sheet_content"
+		android:layout_width="@dimen/bottom_sheet_width"
+		android:layout_height="wrap_content"
+		android:background="@color/background_light"
+		android:elevation="@dimen/z_fab"
+		android:focusableInTouchMode="true"
+		android:orientation="vertical"
+		android:transitionName="@string/transition_new_designer_news_post">
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/title"
+			style="@style/TextAppearance.DialogTitle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:background="@color/background_light"
+			android:gravity="center_horizontal"
+			android:minHeight="?android:actionBarSize"
+			android:paddingEnd="@dimen/padding_normal"
+			android:paddingStart="@dimen/padding_normal"
+			android:paddingTop="@dimen/spacing_micro"
+			android:text="@string/receipt"
+			android:textColor="@color/text_primary_dark" />
+		
+		
+		<io.pergasus.ui.widget.ObservableScrollView
+			android:id="@+id/scroll_container"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:clipToPadding="false"
+			android:nestedScrollingEnabled="true"
+			android:paddingEnd="@dimen/spacing_zero"
+			android:paddingStart="@dimen/spacing_zero"
+			android:paddingTop="@dimen/spacing_normal">
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+				
+				<!--<com.simplify.android.sdk.CardEditor
+					android:id="@+id/card_editor"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					auto:enabled="true"
+					android:paddingStart="@dimen/padding_normal"
+					android:paddingEnd="@dimen/padding_normal"
+					auto:iconColor="@color/icon"/>
+				-->
+				<include layout="@layout/order_details" />
+				
+				<!--<FrameLayout
+					android:id="@+id/confirm_wallet_holder"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="1"/>-->
+				
+				<include
+					layout="@layout/list_loading"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:visibility="gone" />
+				
+				<Button
+					android:id="@+id/checkout"
+					android:layout_width="match_parent"
+					android:layout_height="?android:actionBarSize"
+					android:layout_marginTop="@dimen/spacing_normal"
+					android:background="@drawable/post_story"
+					android:enabled="false"
+					android:padding="@dimen/spacing_micro"
+					android:stateListAnimator="@animator/raise"
+					android:text="@string/checkout"
+					android:textAppearance="@style/TextAppearance.Button"
+					android:theme="@style/PiperDarkOverlay" />
+			
+			</LinearLayout>
+		
+		</io.pergasus.ui.widget.ObservableScrollView>
+	
+	</LinearLayout>
+
+</io.pergasus.ui.widget.BottomSheet>
+

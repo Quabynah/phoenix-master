@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<io.pergasus.ui.widget.ForegroundRelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/background_light"
+	android:padding="@dimen/padding_normal"
+	android:theme="@style/Phoenix.Translucent">
+	
+	<EditText
+		android:id="@+id/edt_field"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:hint="@string/edit_your_data"
+		android:textColor="@color/text_secondary_dark"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentTop="true"
+		android:imeOptions="actionDone"
+		android:ems="10"
+		android:textAppearance="@style/TextAppearance.DribbbleShotDescription"/>
+	
+	<!--<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_below="@id/edt_field"
+		android:layout_marginTop="@dimen/spacing_normal">
+		
+		<Button
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="?android:actionBarSize"
+			android:layout_marginTop="@dimen/spacing_normal"
+			android:background="@drawable/post_story"
+			android:padding="@dimen/spacing_micro"
+			android:stateListAnimator="@animator/raise"
+			android:text="Cancel"
+			android:textAppearance="@style/TextAppearance.Button"
+			android:textColor="@color/text_secondary_dark"
+			android:backgroundTint="@color/background_light"
+			android:theme="@style/PiperDarkOverlay" />
+		<Button
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="?android:actionBarSize"
+			android:layout_marginTop="@dimen/spacing_normal"
+			android:background="@drawable/post_story"
+			android:padding="@dimen/spacing_micro"
+			android:stateListAnimator="@animator/raise"
+			android:text="Done"
+			android:textAppearance="@style/TextAppearance.Button"
+			android:textColor="@color/text_secondary_dark"
+			android:backgroundTint="@color/background_light"
+			android:theme="@style/PiperDarkOverlay" />
+		
+	</LinearLayout>-->
+
+</io.pergasus.ui.widget.ForegroundRelativeLayout>

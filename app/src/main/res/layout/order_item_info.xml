@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<io.pergasus.ui.widget.ForegroundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:orientation="vertical"
+	android:background="@color/white"
+	android:theme="@style/Phoenix.Translucent.Custom.Cart">
+	
+	<io.pergasus.ui.widget.BadgedFourThreeImageView
+		android:id="@+id/order_info_image"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/white" />
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/order_info_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:paddingTop="@dimen/padding_normal"
+		android:textColor="@color/text_secondary_dark"
+		tools:text="This is an item name"
+		style="@style/TextAppearance.ItemDescription"
+		android:textSize="18sp" />
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/order_info_details"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:padding="@dimen/spacing_micro"
+		android:textColor="@color/text_secondary_dark"
+		tools:text="Purchased 45 items on 12 December, 2017"
+		style="@style/TextAppearance.ItemDescription" />
+	
+	<Button
+		android:id="@+id/order_info_delete"
+		android:layout_width="match_parent"
+		android:layout_height="?android:actionBarSize"
+		android:layout_marginTop="@dimen/spacing_normal"
+		android:background="@drawable/delete_cart_item"
+		android:padding="@dimen/spacing_micro"
+		android:stateListAnimator="@animator/raise"
+		android:text="@string/remove"
+		android:textAppearance="@style/TextAppearance.Button"
+		android:theme="@style/PiperDarkOverlay" />
+
+
+</io.pergasus.ui.widget.ForegroundLinearLayout>

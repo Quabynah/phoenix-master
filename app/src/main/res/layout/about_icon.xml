@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:nestedScrollingEnabled="true"
+	tools:showIn="@layout/activity_about">
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/background_light"
+		android:elevation="@dimen/z_card"
+		android:orientation="vertical">
+		
+		<io.pergasus.ui.widget.CircularImageView
+			android:id="@+id/icon"
+			android:layout_width="@dimen/large_avatar_size"
+			android:layout_height="@dimen/large_avatar_size"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginTop="@dimen/spacing_huge"
+			android:layout_marginBottom="@dimen/spacing_huge"
+			android:src="@drawable/avatar_placeholder"
+			tools:ignore="ContentDescription" />
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/icon_description"
+			style="@style/TextAppearance.About"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="top|center_horizontal"
+			tools:text="@string/about_accra_mall"
+			android:paddingBottom="@dimen/spacing_large"
+			android:paddingEnd="@dimen/padding_normal"
+			android:paddingStart="@dimen/padding_normal"
+			android:paddingTop="24dp"
+			android:textColorHighlight="?android:colorPrimaryDark"
+			android:textColorLink="@color/app_links" />
+	
+	</LinearLayout>
+
+</ScrollView>

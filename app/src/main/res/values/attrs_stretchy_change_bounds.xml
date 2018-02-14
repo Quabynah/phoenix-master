@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<resources>
+	
+	<declare-styleable name="StretchyChangeBounds">
+		<attr name="android:color" />
+		<attr name="trailingSpeed" format="float" />
+		<attr name="minTrailingDuration" format="integer" />
+		<attr name="maxTrailingDuration" format="integer" />
+		<attr name="leadingDuration" format="integer" />
+	</declare-styleable>
+
+</resources>

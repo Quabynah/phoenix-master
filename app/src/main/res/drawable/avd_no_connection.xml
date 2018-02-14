@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+	android:drawable="@drawable/no_connection">
+	
+	<target
+		android:name="connection_mask"
+		android:animation="@animator/show_connection_line" />
+	
+	<target
+		android:name="cross_group"
+		android:animation="@animator/show_connection_cross" />
+	
+	<target
+		android:name="button"
+		android:animation="@animator/button_frown" />
+
+</animated-vector>

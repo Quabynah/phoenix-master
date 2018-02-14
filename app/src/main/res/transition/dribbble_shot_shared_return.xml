@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<transitionSet
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:duration="250"
+    android:transitionOrdering="together">
+
+    <transitionSet>
+        <targets>
+            <target android:targetId="@id/background" />
+        </targets>
+        <changeBounds android:interpolator="@android:interpolator/fast_out_slow_in" />
+        <!-- compensate for the diff in elevation of this element in the two activities -->
+        <transition
+            class="io.pergasus.ui.transitions.LiftOff"
+            app:initialElevation="-4dp"
+            app:finalElevation="-2dp" />
+    </transitionSet>
+
+    <transition
+        class="io.pergasus.ui.transitions.DeparallaxingChangeBounds"
+        android:interpolator="@android:interpolator/fast_out_slow_in">
+        <targets>
+            <target android:targetId="@id/shot" />
+        </targets>
+    </transition>
+
+</transitionSet>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<resources>
+
+    <!-- standard metrics -->
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_micro">8dp</dimen>
+    <dimen name="padding_normal">24dp</dimen>
+    <dimen name="keyline_1">80dp</dimen>
+    <dimen name="touch_raise">9dp</dimen>
+
+    <!-- grid -->
+	<!-- 24dp icon + 2 * @dimen/spacing_normal -->
+
+</resources>

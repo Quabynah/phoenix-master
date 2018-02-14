@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:interpolator="@android:interpolator/fast_out_slow_in">
+	
+	<objectAnimator
+		android:duration="@integer/share_duration_collapse"
+		android:propertyName="pathData"
+		android:valueFrom="@string/path_share_lines"
+		android:valueTo="@string/path_share_lines_collapsed"
+		android:valueType="pathType" />
+	
+	<objectAnimator
+		android:duration="@integer/share_duration_mid_expand"
+		android:propertyName="pathData"
+		android:startOffset="@integer/share_delay_start_expand"
+		android:valueFrom="@string/path_share_lines_collapsed"
+		android:valueTo="@string/path_share_lines_mid_expand"
+		android:valueType="pathType" />
+	
+	<objectAnimator
+		android:duration="@integer/share_duration_full_expand"
+		android:propertyName="pathData"
+		android:startOffset="@integer/share_delay_full_expand"
+		android:valueFrom="@string/path_share_lines_mid_expand"
+		android:valueTo="@string/path_share_lines"
+		android:valueType="pathType" />
+
+</set>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	tools:showIn="@layout/activity_about">
+	
+	<!-- we use a parallel view for the background rather than just setting a background on the
+		 recycler view for a nicer return transition. i.e. we want the background to fade and the
+		 list to slide out separately -->
+	<View
+		android:id="@+id/libs_list_background"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/grey_200" />
+	
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/libs_list"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:clipToPadding="false"
+		android:paddingBottom="@dimen/spacing_normal"
+		android:scrollbars="vertical"
+		android:scrollbarStyle="outsideOverlay"
+		app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+</FrameLayout>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/frame_login"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	app:layout_behavior="@string/appbar_scrolling_view_behavior"
+	tools:context="io.pergasus.ui.AuthActivity">
+	
+	<LinearLayout
+		android:id="@+id/container"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_margin="@dimen/spacing_xlarge"
+		android:background="@drawable/dialog_background"
+		android:elevation="@dimen/z_fab"
+		android:nestedScrollingEnabled="true"
+		android:orientation="vertical"
+		android:padding="@dimen/spacing_large"
+		android:transitionName="@string/transition_dribbble_login"
+		tools:ignore="UselessParent">
+		
+		<io.pergasus.ui.widget.BaselineGridTextView
+			android:id="@+id/login_message"
+			style="@style/TextAppearance.DialogContent"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:gravity="center"
+			android:text="@string/need_login"
+			android:textColor="@color/text_secondary_dark"
+			app:fontFamily="@font/nunito_semibold" />
+		
+		<android.support.design.widget.TextInputLayout
+			android:id="@+id/email_float_label"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/spacing_normal"
+			android:layout_marginStart="@dimen/spacing_micro"
+			android:layout_marginTop="@dimen/padding_normal"
+			app:hintTextAppearance="@style/TextAppearance.FloatLabelHint">
+			
+			<AutoCompleteTextView
+				android:id="@+id/email"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/email"
+				android:imeOptions="actionNext"
+				android:inputType="textEmailAddress"
+				android:selectAllOnFocus="true"
+				android:textColorHighlight="@color/designer_news_link_highlight" />
+		
+		</android.support.design.widget.TextInputLayout>
+		
+		
+		<android.support.design.widget.TextInputLayout
+			android:id="@+id/password_float_label"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/spacing_micro"
+			app:hintTextAppearance="@style/TextAppearance.FloatLabelHint"
+			app:passwordToggleDrawable="@drawable/asl_password_visibility"
+			app:passwordToggleEnabled="true"
+			app:passwordToggleTint="?colorControlNormal">
+			
+			<io.pergasus.ui.widget.PasswordEntry
+				android:id="@+id/password"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/password"
+				android:imeOptions="actionDone"
+				android:inputType="textPassword"
+				android:selectAllOnFocus="true" />
+		
+		</android.support.design.widget.TextInputLayout>
+		
+		<LinearLayout
+			android:id="@+id/actions_container"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:weightSum="2"
+			android:layout_marginTop="@dimen/padding_normal">
+			
+			<Button
+				android:id="@+id/signup"
+				style="?android:borderlessButtonStyle"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_gravity="start"
+				android:text="@string/sign_up"
+				android:paddingEnd="@dimen/padding_normal"
+				android:paddingStart="@dimen/padding_normal"
+				android:paddingTop="@dimen/spacing_normal"
+				android:paddingBottom="@dimen/spacing_normal"
+				android:textColor="@color/designer_news_button" />
+			
+			<Button
+				android:id="@+id/login"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_gravity="end"
+				android:enabled="false"
+				android:paddingEnd="@dimen/padding_normal"
+				android:paddingStart="@dimen/padding_normal"
+				android:paddingTop="@dimen/spacing_normal"
+				android:paddingBottom="@dimen/spacing_normal"
+				android:backgroundTint="@color/designer_news_button"
+				android:text="@string/login_to"
+				android:textAppearance="@style/TextAppearance.DarkButton" />
+		
+		</LinearLayout>
+		
+		<TextView
+			android:id="@+id/login_failed_message"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:text="@string/login_failed"
+			android:textColor="@color/error"
+			android:visibility="gone" />
+		
+		<include
+			layout="@layout/loading"
+			android:visibility="gone" />
+	
+	</LinearLayout>
+
+</FrameLayout>

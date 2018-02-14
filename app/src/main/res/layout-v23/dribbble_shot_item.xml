@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<io.pergasus.ui.widget.ForegroundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:elevation="@dimen/z_card"
+	android:background="@color/background_light"
+	xmlns:tools="http://schemas.android.com/tools">
+	
+	<io.pergasus.ui.widget.BadgedFourThreeImageView
+		android:id="@+id/shot"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:padding="@dimen/spacing_normal"
+		android:stateListAnimator="@animator/raise"
+		android:foreground="@drawable/mid_grey_ripple"
+		android:background="@color/background_card"
+		app:badgeGravity="end|bottom"
+		app:badgePadding="@dimen/padding_normal" />
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/title_product"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingStart="@dimen/padding_normal"
+		android:paddingEnd="@dimen/padding_room_for_fab"
+		tools:text="This is a demo product name for testing purposes only"
+		android:layout_below="@id/shot"
+		android:textSize="18sp"
+		android:padding="@dimen/spacing_normal"
+		android:textColor="@color/text_primary_dark"
+		style="@style/TextAppearance.Author.Title"
+		android:fontFeatureSettings="smcp,onum"
+		app:fontFamily="@font/abeezee"/>
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/price_product"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingStart="@dimen/padding_normal"
+		android:paddingEnd="@dimen/padding_normal"
+		tools:text="GHC 2500"
+		android:fontFeatureSettings="onum"
+		android:layout_below="@id/title_product"
+		android:padding="@dimen/spacing_normal"
+		android:textColor="@color/text_tertiary_dark"
+		app:fontFamily="@font/abeezee"/>
+	
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/price_product"
+		android:paddingStart="@dimen/spacing_micro"
+		android:paddingBottom="@dimen/spacing_micro"
+		android:paddingEnd="@dimen/padding_normal"
+		android:layout_marginTop="@dimen/spacing_normal">
+		
+		<Button
+			android:id="@+id/add_product_to_cart"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			style="@style/Widget.AppCompat.Button.Borderless"
+			android:text="@string/add_to_cart"
+			android:foreground="@drawable/light_ripple"
+			android:layout_gravity="start"
+			android:textColor="@color/text_secondary_dark"/>
+		
+		<Button
+			android:id="@+id/share_product"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			style="@style/Widget.AppCompat.Button.Borderless"
+			android:text="@string/share"
+			android:foreground="@drawable/light_ripple"
+			android:layout_gravity="end"
+			android:drawableStart="@drawable/avd_share"
+			android:drawablePadding="@dimen/spacing_normal"
+			android:textColor="@color/text_secondary_dark" />
+	
+	</FrameLayout>
+
+</io.pergasus.ui.widget.ForegroundRelativeLayout>

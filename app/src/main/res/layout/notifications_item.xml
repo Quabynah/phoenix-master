@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:background="@drawable/dialog_background">
+	
+	<io.pergasus.ui.widget.CircularImageView
+		android:id="@+id/notification_image"
+		android:layout_width="@dimen/avatar_size"
+		android:layout_height="@dimen/avatar_size"
+		android:src="@drawable/avatar_placeholder"
+		android:layout_margin="@dimen/avatar_margin"
+		android:stateListAnimator="@animator/raise"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"/>
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/notification_title"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:textColor="@color/text_secondary_dark"
+		tools:text="New Arrivals for January"
+		app:layout_constraintStart_toEndOf="@id/notification_image"
+		app:layout_constraintTop_toTopOf="parent"
+		android:layout_marginStart="@dimen/spacing_normal"
+		android:paddingEnd="@dimen/spacing_normal"
+		android:paddingStart="@dimen/spacing_normal"
+		android:paddingTop="@dimen/spacing_normal"
+		style="@style/TextAppearance.ItemDescription"/>
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/notification_time"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		tools:text="2 hours ago"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		android:layout_marginStart="@dimen/spacing_normal"
+		android:paddingEnd="@dimen/spacing_normal"
+		android:paddingStart="@dimen/spacing_normal"
+		android:paddingTop="@dimen/spacing_normal"
+		style="@style/TextAppearance.CommentTimestamp"/>
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/notification_msg"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:textColor="@color/text_tertiary_dark"
+		tools:text="Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah"
+		app:layout_constraintStart_toEndOf="@id/notification_image"
+		app:layout_constraintTop_toBottomOf="@id/notification_title"
+		app:layout_constraintEnd_toEndOf="parent"
+		android:maxLines="2"
+		android:ellipsize="end"
+		android:layout_marginStart="@dimen/spacing_normal"
+		android:paddingStart="@dimen/spacing_normal"
+		android:paddingEnd="@dimen/spacing_normal"
+		style="@style/TextAppearance.ItemDescription"/>
+
+</android.support.constraint.ConstraintLayout>

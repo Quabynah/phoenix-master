@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<transitionSet
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <transitionSet android:duration="400">
+        <targets>
+            <target android:targetId="@id/scrim" />
+        </targets>
+        <fade />
+        <transition
+            class="io.pergasus.ui.transitions.CircularReveal"
+            app:centerOn="@id/searchback"
+            android:interpolator="@android:interpolator/linear_out_slow_in" />
+    </transitionSet>
+
+    <fade
+        android:duration="300"
+        android:interpolator="@android:interpolator/linear_out_slow_in">
+        <targets>
+            <target android:targetId="@id/search_background" />
+        </targets>
+    </fade>
+
+    <fade
+        android:startDelay="400"
+        android:duration="400"
+        android:interpolator="@android:interpolator/linear_out_slow_in">
+        <targets>
+            <target android:targetId="@id/search_view" />
+        </targets>
+    </fade>
+
+    <fade
+        android:duration="400"
+        android:interpolator="@android:interpolator/fast_out_slow_in">
+        <targets>
+            <target android:targetId="@android:id/navigationBarBackground" />
+        </targets>
+    </fade>
+
+</transitionSet>
+

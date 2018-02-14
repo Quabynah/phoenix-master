@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<paths xmlns:tools="http://schemas.android.com/tools">
+	<!-- Based on default Glide operation, see InternalCacheDiskCacheFactory instantiated
+					 from GlideBuilder.createGlide() -->
+	<cache-path
+		name="share"
+		path="image_manager_disk_cache"
+		tools:path="DiskCache.Factory.DEFAULT_DISK_CACHE_DIR" />
+</paths>

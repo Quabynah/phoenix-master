@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:ordering="together">
+	
+	<objectAnimator
+		android:duration="@integer/searchback_stem_trim_longer_duration"
+		android:interpolator="@android:interpolator/fast_out_slow_in"
+		android:propertyName="trimPathStart"
+		android:startOffset="110"
+		android:valueFrom="@fraction/searchback_stem_search_trim_start"
+		android:valueTo="@fraction/searchback_stem_back_trim_start" />
+	
+	<objectAnimator
+		android:duration="@integer/searchback_stem_trim_shorter_duration"
+		android:interpolator="@android:interpolator/fast_out_slow_in"
+		android:propertyName="trimPathEnd"
+		android:startOffset="50"
+		android:valueFrom="@fraction/searchback_stem_search_trim_end"
+		android:valueTo="@fraction/searchback_stem_back_trim_end" />
+
+</set>
