@@ -12,6 +12,11 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'io.fabric'
 
+// query git for the SHA, Tag and commit count. Use these to automate versioning.
+final def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+final def gitTag = 'git describe --tags'.execute([], project.rootDir).text.trim()
+final def gitCommitCount = Integer.parseInt('git rev-list --count HEAD'.execute([], project.rootDir).text.trim())
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -25,6 +30,9 @@ android {
         multiDexEnabled true
         final def filesAuthorityValue = applicationId + ".shareprovider"
         buildConfigField "String", "FILES_AUTHORITY", "\"${filesAuthorityValue}\""
+        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
+        buildConfigField "String", "GIT_TAG", "\"${gitTag}\""
+        buildConfigField "String", "GIT_COMMIT_COUNT", "\"${gitCommitCount}\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
