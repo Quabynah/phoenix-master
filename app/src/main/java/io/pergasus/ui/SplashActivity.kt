@@ -34,10 +34,15 @@ class SplashActivity : Activity() {
 
         val handler = Handler()
         handler.postDelayed({
-            if (prefs.isConnected && prefs.isLoggedIn) {
-                TransitionManager.beginDelayedTransition(container)
-                loading.visibility = View.VISIBLE
-                loadUserData()
+            if (prefs.isConnected) {
+                if (prefs.isLoggedIn) {
+                    TransitionManager.beginDelayedTransition(container)
+                    loading.visibility = View.VISIBLE
+                    loadUserData()
+                } else {
+                    startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                    finish()
+                }
             } else {
                 startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
                 finish()
@@ -81,13 +86,4 @@ class SplashActivity : Activity() {
                     finishAfterTransition()
                 }).build().show()
     }
-
-    override fun onResume() {
-        super.onResume()
-        if (prefs.isLoggedIn) {
-            startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
-            finish()
-        }
-    }
-
 }
