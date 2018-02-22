@@ -121,7 +121,6 @@ class FilterAdapter(private val host: Activity, val filters: MutableList<Source>
     }
 
     override fun onUserLogin() {
-        host.invalidateOptionsMenu()
     }
 
     override fun onUserLogout() {
@@ -134,7 +133,6 @@ class FilterAdapter(private val host: Activity, val filters: MutableList<Source>
                 notifyItemChanged(i, FILTER_DISABLED)
             }
         }
-        host.invalidateOptionsMenu()
     }
 
     /**

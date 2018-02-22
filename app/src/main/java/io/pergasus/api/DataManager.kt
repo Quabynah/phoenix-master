@@ -1,9 +1,6 @@
 /*
  * Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
  */
-
-@file:Suppress("ConvertLambdaToReference")
-
 package io.pergasus.api
 
 import android.annotation.SuppressLint
@@ -14,6 +11,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import io.pergasus.data.Product
 import io.pergasus.ui.FilterAdapter
+import timber.log.Timber
 
 /**
  * Responsible for loading data from the various sources. Instantiating classes are responsible for
@@ -359,7 +357,7 @@ abstract class DataManager(private val context: Activity, private val filterAdap
     }
 
     private fun loadFailed(exception: String?, key: String) {
-        Log.d(DataManager::class.java.canonicalName, "Exception: $exception")
+        Timber.d("Exception: $exception")
         loadFinished()
         queries.remove(key)
     }

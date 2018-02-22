@@ -43,6 +43,7 @@ import io.pergasus.ui.transitions.MorphTransform
 import io.pergasus.util.AnimUtils
 import io.pergasus.util.ViewUtils
 import io.pergasus.util.bindView
+import timber.log.Timber
 import java.security.InvalidParameterException
 import java.util.*
 
@@ -477,7 +478,7 @@ class HomeActivity : Activity() {
                 if (resultCode == SearchActivity.RESULT_CODE_SAVE) {
                     val query: String? = data?.getStringExtra(SearchActivity.EXTRA_QUERY)
                     if (query == null || TextUtils.isEmpty(query)) return
-                    Log.d(TAG, query)
+                    Timber.d(query)
                     var source: Source? = null
                     var newSource = false
                     if (data.getBooleanExtra(SearchActivity.EXTRA_SAVE, false)) {
@@ -519,17 +520,18 @@ class HomeActivity : Activity() {
         if (visibility == View.VISIBLE) {
             if (noFiltersEmptyText == null) {
                 // create the no filters empty text
-                val stub = findViewById<View>(R.id.stub_no_filters) as ViewStub
+                val stub = findViewById<ViewStub>(R.id.stub_no_filters)
                 noFiltersEmptyText = stub.inflate() as TextView
-                val emptyText: SpannedString = getString(R.string.no_filters_selected) as SpannedString
+                val emptyText = getText(R.string.no_filters_selected) as SpannedString
                 val ssb = SpannableStringBuilder(emptyText)
                 val annotations = emptyText.getSpans(0, emptyText.length, Annotation::class.java)
                 if (annotations != null && annotations.isNotEmpty()) {
-                    for (i in 0 until annotations.size) {
-                        val annotation: Annotation = annotations[i]
+                    for (i in annotations.indices) {
+                        val annotation = annotations[i]
                         if (annotation.key == "src") {
+                            // image span markup
                             val name = annotation.value
-                            val id = resources.getIdentifier(name.toString(), null, packageName)
+                            val id = resources.getIdentifier(name, null, packageName)
                             if (id == 0) continue
                             ssb.setSpan(ImageSpan(this, id,
                                     ImageSpan.ALIGN_BASELINE),
@@ -539,22 +541,21 @@ class HomeActivity : Activity() {
                         } else if (annotation.key == "foregroundColor") {
                             // foreground color span markup
                             val name = annotation.value
-                            val id = resources.getIdentifier(name.toString(), null, packageName)
+                            val id = resources.getIdentifier(name, null, packageName)
                             if (id == 0) continue
                             ssb.setSpan(ForegroundColorSpan(ContextCompat.getColor(this, id)),
                                     emptyText.getSpanStart(annotation),
                                     emptyText.getSpanEnd(annotation),
                                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                         }
-
                     }
                 }
-                noFiltersEmptyText?.text = ssb
-                noFiltersEmptyText?.setOnClickListener { drawer.openDrawer(GravityCompat.END) }
+                noFiltersEmptyText!!.text = ssb
+                noFiltersEmptyText!!.setOnClickListener { _ -> drawer.openDrawer(GravityCompat.END) }
             }
-            noFiltersEmptyText?.visibility = visibility
+            noFiltersEmptyText!!.visibility = visibility
         } else if (noFiltersEmptyText != null) {
-            noFiltersEmptyText?.visibility = visibility
+            noFiltersEmptyText!!.visibility = visibility
         }
 
     }
@@ -683,15 +684,14 @@ class HomeActivity : Activity() {
     }
 
     companion object {
-        private val TAG = "HomeActivity"
-        private val RC_SEARCH = 1234
-        private val STATE_LOADING = "STATE_LOADING"
-        private val RC_LOGIN_BASIC = 450
-        private val RC_CART = 500
-        private val RC_AUTH_SOURCE_FAV = 19
-        private val RC_AUTH_SOURCE_BUSINESS = 98
-        private val RC_AUTH_SOURCE_STUDENT = 999
-        private val RC_AUTH_SOURCE_HEALTH = 1099
+        private const val RC_SEARCH = 1234
+        private const val STATE_LOADING = "STATE_LOADING"
+        private const val RC_LOGIN_BASIC = 450
+        private const val RC_CART = 500
+        private const val RC_AUTH_SOURCE_FAV = 19
+        private const val RC_AUTH_SOURCE_BUSINESS = 98
+        private const val RC_AUTH_SOURCE_STUDENT = 999
+        private const val RC_AUTH_SOURCE_HEALTH = 1099
     }
 
 }

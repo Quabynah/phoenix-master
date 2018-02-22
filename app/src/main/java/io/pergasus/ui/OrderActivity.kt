@@ -36,6 +36,7 @@ import io.pergasus.ui.widget.ObservableScrollView
 import io.pergasus.util.AnimUtils
 import io.pergasus.util.ImeUtils
 import io.pergasus.util.bindView
+import timber.log.Timber
 import java.text.NumberFormat
 import java.util.*
 
@@ -150,7 +151,7 @@ class OrderActivity : Activity() {
     //Setup details from intent data
     private fun bindDetails(price: Double?, title: String?) {
         if (price == null || title == null) return
-        if (BuildConfig.DEBUG) Log.d(TAG, "Price is: $price and title is: $title")
+        if (BuildConfig.DEBUG) Timber.d("Price is: $price and title is: $title")
         checkOut.isEnabled = true
         checkOut.setOnClickListener {
             if (client.isLoggedIn) {

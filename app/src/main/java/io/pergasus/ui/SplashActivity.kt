@@ -57,8 +57,6 @@ class SplashActivity : Activity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Timber.d("User data has been successfully retrieved from the database")
-                        startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
-                        finish()
                     } else {
                         Timber.e(task.exception, task.exception?.localizedMessage)
                         doLogin()

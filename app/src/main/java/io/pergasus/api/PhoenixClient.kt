@@ -193,6 +193,8 @@ class PhoenixClient(val context: Context) {
             editor.putString(KEY_CUSTOMER_ADDRESS_LNG, addressLng)
             editor.putString(KEY_CUSTOMER_TOKEN, token)
             editor.apply()
+            isLoggedIn = true
+            dispatchLoginEvent()
 
             //Set key
             setCustomer(customer.key!!)
@@ -206,8 +208,6 @@ class PhoenixClient(val context: Context) {
         if (!TextUtils.isEmpty(customerAccessKey)) {
             customerKey = customerAccessKey
             prefs.edit().putString(KEY_CUST_UID, customerKey).apply()
-            isLoggedIn = true
-            dispatchLoginEvent()
             ShortcutHelper.enableShowCart(context)
         }
     }
