@@ -225,7 +225,7 @@ class RegisterActivity : Activity() {
                 }
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        //Push map to db
+                        prefs.setCustomer(customerAccessKey = customer.key)
                         prefs.setLoggedInUser(customer)
                         if (prefs.isLoggedIn) {
                             val toast = ConfirmationToastView(applicationContext,

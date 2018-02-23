@@ -15,7 +15,6 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.text.TextUtils
 import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup
@@ -95,8 +94,8 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
         about.text = customer.info
         email.text = prefs.auth.currentUser?.email
         //Set address here
-        address.text = if (prefs.getPlace() == null)
-            TextUtils.concat(customer.addressLat, ",", customer.addressLng)
+        address.text = if (prefs.getPlace().isNullOrEmpty())
+            getString(R.string.no_address)
         else prefs.getPlace()
         key.text = customer.key
 
@@ -150,6 +149,7 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
                 uploadImage()
             } else {
                 if (prefs.isConnected) {
+                    Toast.makeText(this, "Saving changes", Toast.LENGTH_SHORT).show()
                     updateData()
                 } else {
                     hideLoading()
@@ -206,7 +206,6 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
 
     private fun updateData() {
         val customer = prefs.customer
-        Toast.makeText(this, "Saving changes", Toast.LENGTH_SHORT).show()
         val hashMap = hashMapOf(Pair<String, Any?>("name", name.text.toString()),
                 Pair<String, Any?>("about", about.text.toString()),
                 Pair<String, Any?>("addressLat", if (placeAddressLat == null) customer.addressLat
@@ -233,6 +232,7 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
 
     private fun uploadImage() {
         if (imageUri == null) {
+            Toast.makeText(this, "Saving changes", Toast.LENGTH_SHORT).show()
             updateData()
         } else {
             prefs.storage.child(prefs.customer.key + ".jpg").putFile(imageUri!!)
@@ -247,6 +247,7 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
                                         .update("photo", downloadUrl.toString())
                                         .addOnCompleteListener { task ->
                                             if (task.isSuccessful) {
+                                                Toast.makeText(this, "Saving changes", Toast.LENGTH_SHORT).show()
                                                 updateData()
                                             } else {
                                                 hideLoading()

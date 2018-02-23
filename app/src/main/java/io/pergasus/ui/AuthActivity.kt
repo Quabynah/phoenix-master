@@ -196,6 +196,7 @@ class AuthActivity : Activity() {
                                 // log user in else create a new instance of the user
                                 if (item.exists() && item.id == currentUser.uid) {
                                     val customer = item.toObject(Customer::class.java)
+                                    client.setCustomer(customerAccessKey = customer.key)
                                     client.setLoggedInUser(customer)
                                     if (client.isLoggedIn) {
                                         isLoginFailed = false
@@ -238,7 +239,7 @@ class AuthActivity : Activity() {
                 }
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        //Push map to db
+                        client.setCustomer(customerAccessKey = customer.key)
                         client.setLoggedInUser(customer)
                         if (client.isLoggedIn) {
                             isLoginFailed = false

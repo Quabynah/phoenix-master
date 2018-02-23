@@ -70,11 +70,15 @@ class PhoenixClient(val context: Context) {
 
         //Initialize Firebase App & Firebase Firestore
         val app = FirebaseApp.initializeApp(context)
-        db = if (app != null) FirebaseFirestore.getInstance(app) else FirebaseFirestore.getInstance()
-//        Setup Analytics as well...
-        FirebaseAnalytics.getInstance(context).setAnalyticsCollectionEnabled(true)
-        auth = FirebaseAuth.getInstance()
-        storage = FirebaseStorage.getInstance().getReference("phoenix") //Phoenix reference
+       if (app == null){
+            auth = FirebaseAuth.getInstance()
+            db = FirebaseFirestore.getInstance()
+            storage = FirebaseStorage.getInstance().getReference("phoenix")
+        }else{
+            auth = FirebaseAuth.getInstance(app)
+            db = FirebaseFirestore.getInstance(app)
+            storage = FirebaseStorage.getInstance(app).getReference("phoenix")
+        }
 
         //Add properties to shared preferences
         customerKey = prefs.getString(KEY_CUST_UID, null)
@@ -193,8 +197,6 @@ class PhoenixClient(val context: Context) {
             editor.putString(KEY_CUSTOMER_ADDRESS_LNG, addressLng)
             editor.putString(KEY_CUSTOMER_TOKEN, token)
             editor.apply()
-            isLoggedIn = true
-            dispatchLoginEvent()
 
             //Set key
             setCustomer(customer.key!!)
@@ -204,10 +206,12 @@ class PhoenixClient(val context: Context) {
     /**
      * @param customerAccessKey Sets the customer key for the current user in order to track order and add items to cart
      */
-    private fun setCustomer(customerAccessKey: String) {
-        if (!TextUtils.isEmpty(customerAccessKey)) {
+    fun setCustomer(customerAccessKey: String?) {
+        if (!customerAccessKey.isNullOrEmpty()) {
             customerKey = customerAccessKey
+            isLoggedIn = true
             prefs.edit().putString(KEY_CUST_UID, customerKey).apply()
+            dispatchLoginEvent()
             ShortcutHelper.enableShowCart(context)
         }
     }

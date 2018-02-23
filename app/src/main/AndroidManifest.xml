@@ -83,8 +83,6 @@
 			android:name=".ui.SplashActivity"
 			android:screenOrientation="portrait"
 			android:theme="@style/Phoenix.Translucent.Splash" />
-		
-		
 		<activity
 			android:name=".ui.AboutActivity"
 			android:parentActivityName=".ui.HomeActivity"

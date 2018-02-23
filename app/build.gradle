@@ -86,14 +86,13 @@ dependencies {
 
     //AUTHENTICATION & PAYMENT
     implementation 'com.google.android.gms:play-services-auth:11.8.0'
-//    implementation 'com.stripe:stripe-android:5.1.0'
 
     //EXTERNAL
     implementation "com.github.bumptech.glide:glide:4.6.1"
     kapt "com.github.bumptech.glide:compiler:4.6.1"
     implementation "com.github.bumptech.glide:okhttp3-integration:4.6.1"
     implementation "com.github.bumptech.glide:recyclerview-integration:4.6.1"
-    implementation "com.google.code.gson:gson:2.8.1"
+    implementation "com.google.code.gson:gson:2.8.2"
 
     //FIREBASE
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
