@@ -9,7 +9,6 @@ import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -17,7 +16,6 @@ import android.support.v4.app.ShareCompat
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
@@ -25,6 +23,13 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.Theme
+import com.hubtel.payments.Class.Environment
+import com.hubtel.payments.Exception.HubtelPaymentException
+import com.hubtel.payments.HubtelCheckout
+import com.hubtel.payments.Interfaces.OnPaymentResponse
+import com.hubtel.payments.SessionConfiguration
 import io.pergasus.BuildConfig
 import io.pergasus.R
 import io.pergasus.api.PhoenixClient
@@ -158,13 +163,13 @@ class OrderActivity : Activity() {
                 ImeUtils.hideIme(sheetTitle)
                 when (orderMethod.text) {
                     getString(R.string.slydepay) -> {
-                        doSlydePayPayment(price)
+                        doSlydePayPayment(price, title)
                     }
                     getString(R.string.pay_with_android_pay) -> {
-                        doAndroidPay(price)
+                        doAndroidPay(price, title)
                     }
                     getString(R.string.visa) -> {
-                        doVisaCardPayment(price)
+                        doVisaCardPayment(price, title)
                     }
                 }
             } else {
@@ -212,42 +217,78 @@ class OrderActivity : Activity() {
                 getString(R.string.visa)
         )
         updateMethod.setOnClickListener {
-            AlertDialog.Builder(this@OrderActivity)
-                    .setTitle(getString(R.string.confirm_trans_hint))
-                    .setPositiveButton("Cancel", { dialogInterface, _ ->
-                        dialogInterface.cancel()
-                    })
-                    .setSingleChoiceItems(array, 1, { dialogInterface, i ->
-                        when (i) {
+            MaterialDialog.Builder(this@OrderActivity)
+                    .theme(Theme.DARK)
+                    .title(getString(R.string.confirm_trans_hint))
+                    .positiveText("Cancel")
+                    .items(*array)
+                    .itemsCallbackSingleChoice(1, { dialog, _, which, text ->
+                        when (which) {
                             0, 1, 2 -> {
-                                textForMethod(array[i])
-                                dialogInterface.dismiss()
+                                textForMethod(text.toString())
+                                dialog.dismiss()
                             }
                         }
-                    }).show()
+                        return@itemsCallbackSingleChoice true
+                    })
+                    .build().show()
         }
 
     }
 
     //Pay with [PayPal]
-    private fun doVisaCardPayment(price: Double) {
+    private fun doVisaCardPayment(price: Double, title: String?) {
         TransitionManager.beginDelayedTransition(bottomSheetContent)
         checkOut.isEnabled = false
-        setResultAndFinish(price)
+        doPaymentHubtel(price, title)
     }
 
     //Pay with [AndroidPay]
-    private fun doAndroidPay(price: Double) {
+    private fun doAndroidPay(price: Double, title: String?) {
         TransitionManager.beginDelayedTransition(bottomSheetContent)
         checkOut.isEnabled = false
-        setResultAndFinish(price)
+        doPaymentHubtel(price, title)
     }
 
     //Pay with [Slydepay]
-    private fun doSlydePayPayment(price: Double?) {
+    private fun doSlydePayPayment(price: Double, title: String?) {
         TransitionManager.beginDelayedTransition(bottomSheetContent)
         checkOut.isEnabled = false
-        setResultAndFinish(price)
+        doPaymentHubtel(price, title)
+    }
+
+    private fun doPaymentHubtel(price: Double, description: String?) {
+        try {
+            val config: SessionConfiguration = SessionConfiguration()
+                    .Builder()
+                    .setSecretKey(getString(R.string.hubtel_secret))
+                    .setClientId(getString(R.string.hubtel_client_id))
+                    .setEnvironment(Environment.LIVE_MODE)
+                    .build()
+            val checkout = HubtelCheckout(config)
+            checkout.setPaymentDetails(price, description)
+            checkout.Pay(this)
+            checkout.setOnPaymentCallback(object : OnPaymentResponse {
+                override fun onCancelled() {
+                    // ...
+                    Toast.makeText(applicationContext, "Process cancelled",
+                            Toast.LENGTH_LONG).show()
+                }
+
+                override fun onFailed(p0: String?, p1: String?) {
+                    //...
+                    Toast.makeText(applicationContext, "Error: $p0", Toast.LENGTH_LONG).show()
+                }
+
+                override fun onSuccessful(p0: String?) {
+                    //...
+                    setResultAndFinish(price)
+                }
+            })
+        } catch (e: HubtelPaymentException) {
+            // ...
+            Timber.e(e)
+        }
     }
 
     private fun textForMethod(text: String) {
@@ -273,9 +314,6 @@ class OrderActivity : Activity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        /* if (simplify.handleAndroidPayResult(requestCode, resultCode, data, this)) {
-             return
-         }*/
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_AUTH_PAYMENT) {
             when (resultCode) {

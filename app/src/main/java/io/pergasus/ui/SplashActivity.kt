@@ -20,6 +20,9 @@ import io.pergasus.api.PhoenixUtils
 import io.pergasus.util.bindView
 import timber.log.Timber
 
+/**
+ * SPlash screen for users
+ */
 class SplashActivity : Activity() {
     private val container: ViewGroup by bindView(R.id.container)
     private val loading: ProgressBar by bindView(R.id.loading)
@@ -57,9 +60,12 @@ class SplashActivity : Activity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Timber.d("User data has been successfully retrieved from the database")
+                        loading.visibility = View.GONE
+                        startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                        finish()
                     } else {
-                        Timber.e(task.exception, task.exception?.localizedMessage)
-                        doLogin()
+                        startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                        finish()
                     }
                 }.addOnFailureListener { exception ->
                     Timber.e(exception, exception.localizedMessage)
@@ -77,6 +83,7 @@ class SplashActivity : Activity() {
                         Typeface.createFromAsset(assets, "fonts/nunito_semibold.ttf"))
                 .onPositive({ dialog, _ ->
                     dialog.dismiss()
+                    loading.visibility = View.GONE
                     startActivity(Intent(this@SplashActivity, AuthActivity::class.java))
                 })
                 .onNegative({ dialog, _ ->

@@ -192,6 +192,10 @@
 	<string name="mobile_network">Mobile network</string>
 	<string name="wifi">Wi-fi</string>
 	<string name="no_address">No address available</string>
+	
+	<!--Hubtel Credentials-->
+	<string name="hubtel_secret">akrsdyom</string>
+	<string name="hubtel_client_id">ozbfnqzw</string>
 
 
 </resources>
