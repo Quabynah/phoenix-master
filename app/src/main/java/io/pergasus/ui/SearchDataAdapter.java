@@ -163,7 +163,7 @@ public class SearchDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 				//show details view
 				Intent intent = new Intent();
 				intent.setClass(host, DetailsActivity.class);
-				intent.putExtra(DetailsActivity.Companion.getEXTRA_SHOT(),
+				intent.putExtra(DetailsActivity.EXTRA_SHOT,
 						(Product) SearchDataAdapter.this.getItem(holder.getAdapterPosition()));
 				SearchDataAdapter.this.setGridItemContentTransitions(holder.image);
 				ActivityOptions options =

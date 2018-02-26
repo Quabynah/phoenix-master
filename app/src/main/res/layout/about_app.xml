@@ -18,7 +18,7 @@
 			android:layout_height="@dimen/about_header_height"
 			android:fontFamily="@font/abeezee"
 			android:text="@string/the_phoenix"
-			app:foregroundColor="@color/background_light" />
+			app:foregroundColor="@color/accent" />
 		
 		<io.pergasus.ui.widget.BaselineGridTextView
 			android:id="@+id/about_description"

@@ -7,7 +7,6 @@ package io.pergasus.ui
 import `in`.uncod.android.bypass.Bypass
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
@@ -28,16 +27,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import io.pergasus.R
 import io.pergasus.api.PhoenixClient
-import io.pergasus.api.PhoenixUtils
-import io.pergasus.data.Logo
 import io.pergasus.ui.widget.CircularImageView
 import io.pergasus.ui.widget.ElasticDragDismissFrameLayout
 import io.pergasus.ui.widget.InkPageIndicator
@@ -45,7 +40,6 @@ import io.pergasus.util.HtmlUtils
 import io.pergasus.util.bindView
 import io.pergasus.util.customtabs.CustomTabActivityHelper
 import io.pergasus.util.glide.GlideApp
-import kotlinx.android.synthetic.main.about_icon.*
 import org.jetbrains.annotations.Nullable
 import java.security.InvalidParameterException
 
@@ -83,65 +77,6 @@ class AboutActivity : Activity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == IMAGE_REQUEST_CODE) {
-            when (resultCode) {
-                RESULT_OK -> {
-                    if (client.isConnected) {
-                        val uri = data?.data
-                        //Load image into resource
-                        GlideApp.with(this)
-                                .load(uri)
-                                .apply(RequestOptions().circleCrop())
-                                .apply(RequestOptions().error(R.drawable.ic_player))
-                                .apply(RequestOptions().override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL))
-                                .apply(RequestOptions().placeholder(R.drawable.avatar_placeholder))
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .into(icon)
-
-                        if (uri != null) {
-                            client.storage.child(PhoenixUtils.ALL_CATEGORY_REF).child("${System
-                                    .currentTimeMillis()}.jpg")
-                                    .putFile(uri)
-                                    .addOnSuccessListener { taskSnapshot ->
-                                        if (taskSnapshot.task.isComplete) {
-                                            val downloadUrl = taskSnapshot.downloadUrl
-                                            if (downloadUrl != null) {
-                                                updateData(downloadUrl)
-                                            } else {
-                                                Toast.makeText(this, "Download Url is $downloadUrl",
-                                                        Toast.LENGTH_LONG).show()
-                                            }
-                                        }
-                                    }
-                        }
-                    }
-                }
-                RESULT_FIRST_USER, RESULT_CANCELED -> {/*Do nothing*/
-                }
-            }
-        }
-    }
-
-    private fun updateData(url: Uri) {
-        client.db.collection("phoenix")
-                .document("logo")
-                .set(Logo(url.toString()))
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(applicationContext, "Logo updated successfully",
-                                Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(applicationContext, task.exception?.localizedMessage,
-                                Toast.LENGTH_LONG).show()
-                    }
-                }
-    }
-
-    companion object {
-        private val IMAGE_REQUEST_CODE = 223324
-    }
-
     internal inner class AboutPagerAdapter(private val host: Activity) : PagerAdapter() {
         private val PAGE_COUNT: Int = 3
         private var layoutInflater: LayoutInflater = LayoutInflater.from(host)
@@ -150,14 +85,20 @@ class AboutActivity : Activity() {
 
         private var aboutPhoenix: View? = null
         @Nullable
-        var phoenixDescription: TextView? = null
+        private var phoenixDescription: TextView? = null
         private var aboutIcon: View? = null
         @Nullable
-        var iconDescription: TextView? = null
+        private var iconDescription: TextView? = null
         @Nullable
-        var icon: CircularImageView? = null
+        var icon: ImageView? = null
         private var aboutLibs: View? = null
-        var libsList: RecyclerView? = null
+        private var libsList: RecyclerView? = null
+        private var aboutDeveloper: View? = null
+        @Nullable
+        var profile: CircularImageView? = null
+        @Nullable
+        var follow: Button? = null
+
 
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view == `object`
@@ -203,37 +144,6 @@ class AboutActivity : Activity() {
                                 .getString(R.string.about_icon_1), iconDescription, null)
                         val iconDesc = TextUtils.concat(icon2, "\n\n", icon0, "\n", icon1)
                         HtmlUtils.setTextWithNiceLinks(iconDescription, iconDesc)
-                        //Get logo
-                        client.db.collection("phoenix")
-                                .document("logo")
-                                .get()
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        val result = task.result
-                                        if (result.exists()) {
-                                            val logo = result.toObject(Logo::class.java)
-                                            //Load logo
-                                            GlideApp.with(this@AboutActivity)
-                                                    .load(logo.url)
-                                                    .apply(RequestOptions().circleCrop())
-                                                    .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
-                                                    .apply(RequestOptions().error(R.drawable.ic_player))
-                                                    .apply(RequestOptions().override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL))
-                                                    .apply(RequestOptions().placeholder(R.drawable.avatar_placeholder))
-                                                    .transition(DrawableTransitionOptions.withCrossFade())
-                                                    .into(icon!!)
-
-                                        }
-                                    }
-                                }
-
-                        icon?.setOnLongClickListener({
-                            val galleryIntent = Intent()
-                            galleryIntent.type = "image/*"
-                            galleryIntent.action = Intent.ACTION_GET_CONTENT
-                            startActivityForResult(Intent.createChooser(galleryIntent, "Select picture"), IMAGE_REQUEST_CODE)
-                            return@setOnLongClickListener true
-                        })
                     }
                     this.aboutIcon!!
                 }
@@ -244,6 +154,35 @@ class AboutActivity : Activity() {
                         libsList?.adapter = LibraryAdapter(host)
                     }
                     this.aboutLibs!!
+                }
+                3 -> {
+                    if (aboutDeveloper == null) {
+                        aboutDeveloper = layoutInflater.inflate(R.layout.about_developer, container, false)
+                        profile = aboutDeveloper?.findViewById(R.id.developer_profile)
+                        follow = aboutDeveloper?.findViewById(R.id.follow)
+
+                        //Follow developer on github
+                        follow?.setOnClickListener({
+                            CustomTabActivityHelper.openCustomTab(
+                                    host,
+                                    CustomTabsIntent.Builder()
+                                            .setToolbarColor(ContextCompat.getColor(host, R.color.background_super_dark))
+                                            .addDefaultShareMenuItem()
+                                            .build(), Uri.parse("https://github.com/Quabynah"))
+                        })
+
+                        //Load developer profile image from resource
+                        GlideApp.with(profile!!.context)
+                                .load(getString(R.string.dev_profile_image))
+                                .circleCrop()
+                                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                                .placeholder(R.drawable.avatar_placeholder)
+                                .error(R.drawable.avatar_placeholder)
+                                .fallback(R.drawable.avatar_placeholder)
+                                .into(profile!!)
+                    }
+                    this.aboutDeveloper!!
                 }
                 else -> throw InvalidParameterException()
             }
@@ -319,8 +258,8 @@ class AboutActivity : Activity() {
 
         companion object {
 
-            private val VIEW_TYPE_INTRO = 0
-            private val VIEW_TYPE_LIBRARY = 1
+            private const val VIEW_TYPE_INTRO = 0
+            private const val VIEW_TYPE_LIBRARY = 1
             internal val libs = arrayOf(
                     Library("Android support libraries",
                             "The Android support libraries offer a number of features that are not built into the framework.",
@@ -353,7 +292,7 @@ class AboutActivity : Activity() {
                             "https://avatars.githubusercontent.com/u/76934",
                             true),
                     Library("Hubtel",
-                            "Mobile Money Provider for The Phoenix",
+                            "Mobile Money Provider for \'The Phoenix\'",
                             "https://github.com/jhy/jsoup/",
                             "https://avatars.githubusercontent.com/u/76934",
                             true),

@@ -60,6 +60,7 @@ import io.pergasus.util.customtabs.CustomTabActivityHelper
 import io.pergasus.util.glide.GlideApp
 import io.pergasus.util.glide.getBitmap
 import org.jetbrains.annotations.Nullable
+import timber.log.Timber
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -81,14 +82,18 @@ class DetailsActivity : Activity() {
     private lateinit var likeCount: Button
     private lateinit var viewCount: Button
     private lateinit var share: Button
+    private lateinit var lessProduct: ImageButton
+    private lateinit var addProduct: ImageButton
+    private lateinit var productCount: TextView
     private lateinit var playerAvatar: ImageView
     private var enterComment: EditText? = null
     private var postComment: ImageButton? = null
     private lateinit var title: View
     private lateinit var price: View
     private lateinit var description: View
-    private lateinit var playerName: TextView
+    private lateinit var shopName: TextView
     private lateinit var shotTimeAgo: TextView
+    private var userProductCount: Int = 1
     private var commentFooter: View? = null
     private lateinit var userAvatar: ImageView
     private lateinit var chromeFader: ElasticDragDismissFrameLayout.SystemChromeFader
@@ -99,7 +104,7 @@ class DetailsActivity : Activity() {
     private var fabOffset: Int = 0
     private var largeAvatarSize: Float = 0.0f
     private var cardElevation: Float = 0.0f
-    private var shot: Product? = null
+    private var product: Product? = null
     private lateinit var prefs: PhoenixClient
     private var performingLike: Boolean = false
     private var allowComment: Boolean = false
@@ -120,20 +125,6 @@ class DetailsActivity : Activity() {
         }
 
         back.setOnClickListener { setResultAndFinish() }
-        fab.setOnClickListener {
-            if (prefs.isLoggedIn) {
-                fab.toggle()
-                appendCart()
-            } else {
-                val intent = Intent(this@DetailsActivity, AuthActivity::class.java)
-                FabTransform.addExtras(intent,
-                        ContextCompat.getColor(this@DetailsActivity, R.color.button_accent),
-                        R.drawable.ic_heart_empty_56dp)
-                val options = ActivityOptions.makeSceneTransitionAnimation(this@DetailsActivity, fab,
-                        getString(R.string.transition_dribbble_login))
-                startActivityForResult(intent, RC_LOGIN_LIKE, options.toBundle())
-            }
-        }
 
         //SET UP VIEW FOR DETAILS
         shotDescription = layoutInflater.inflate(R.layout.dribbble_shot_description,
@@ -144,8 +135,11 @@ class DetailsActivity : Activity() {
         price = shotDescription.findViewById(R.id.shot_price)
         likeCount = shotDescription.findViewById(R.id.shot_like_count) as Button
         viewCount = shotDescription.findViewById(R.id.shot_view_count) as Button
-        share = (shotDescription.findViewById(R.id.shot_share_action) as Button)
-        playerName = shotDescription.findViewById(R.id.player_name) as TextView
+        share = shotDescription.findViewById(R.id.shot_share_action) as Button
+        lessProduct = shotDescription.findViewById(R.id.shot_less_product_count) as ImageButton
+        addProduct = shotDescription.findViewById(R.id.shot_add_product_count) as ImageButton
+        productCount = shotDescription.findViewById(R.id.shot_product_count) as TextView
+        shopName = shotDescription.findViewById(R.id.player_name) as TextView
         playerAvatar = shotDescription.findViewById(R.id.player_avatar) as ImageView
         shotTimeAgo = shotDescription.findViewById(R.id.shot_time_ago) as TextView
 
@@ -156,7 +150,7 @@ class DetailsActivity : Activity() {
 
         val intent = intent
         if (intent.hasExtra(EXTRA_SHOT)) {
-            shot = intent.getParcelableExtra(EXTRA_SHOT)
+            product = intent.getParcelableExtra(EXTRA_SHOT)
             bindProduct(true)
         } /*else if (intent.data != null) {
             val url: HttpUrl? = HttpUrl.parse(intent.dataString)
@@ -176,21 +170,21 @@ class DetailsActivity : Activity() {
     }
 
     //Setup details with the provided data from intent
+    @SuppressLint("SetTextI18n")
     private fun bindProduct(postponeTransition: Boolean) {
-        if (shot == null) return
+        if (product == null) return
         val res = resources
 
         GlideApp.with(this)
-                .load(shot!!.url)
+                .load(product!!.url)
                 .listener(shotLoadListener)
                 .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
                 .apply(RequestOptions().priority(Priority.IMMEDIATE))
                 .transition(withCrossFade())
-//                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .into(imageView)
         val shotClick: View.OnClickListener = View.OnClickListener {
-            if (shot != null)
-                openLink(shot!!.url)
+            if (product != null)
+                openLink(product!!.url)
         }
         imageView.setOnClickListener(shotClick)
         shotSpacer.setOnClickListener(shotClick)
@@ -207,25 +201,25 @@ class DetailsActivity : Activity() {
         })
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            (title as FabOverlapTextView).setText(shot?.name)
+            (title as FabOverlapTextView).setText(product?.name)
         } else {
-            (title as TextView).text = shot?.name
+            (title as TextView).text = product?.name
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             (price as FabOverlapTextView).setText(NumberFormat.getCurrencyInstance(Locale.US)
-                    .format((shot?.price)?.toLong()).toString().toLowerCase())
+                    .format((product?.price)?.toDouble()).toString().toLowerCase())
         } else {
             (price as TextView).text = NumberFormat.getCurrencyInstance(Locale.US)
-                    .format((shot?.price)?.toLong()).toString().toLowerCase()
+                    .format((product?.price)?.toDouble()).toString().toLowerCase()
         }
 
-        if (!TextUtils.isEmpty(shot!!.description)) {
-            val descText: Spanned = shot!!.getParsedDescription(
+        if (!TextUtils.isEmpty(product!!.description)) {
+            val descText: Spanned = product!!.getParsedDescription(
                     ContextCompat.getColorStateList(this, R.color.dribbble_links)!!,
                     ContextCompat.getColor(this, R.color.dribbble_link_highlight))!!
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                (description as FabOverlapTextView).setText(shot?.description)
+                (description as FabOverlapTextView).setText(product?.description)
             } else {
                 HtmlUtils.setTextWithNiceLinks(description as TextView, descText)
             }
@@ -250,13 +244,56 @@ class DetailsActivity : Activity() {
         //Share Button
         share.setOnClickListener {
             (share.compoundDrawables[1] as AnimatedVectorDrawable).start()
-            ShareProductTask(this, shot!!).execute()
+            ShareProductTask(this, product!!).execute()
         }
 
-        if (shot != null) {
-            playerName.text = "—${shot?.shop?.toLowerCase()}"
+        //Logic for altering quantity to be ordered
+        val quantity = product?.quantity!!.toLong()
+        productCount.text = "$userProductCount / $quantity"
+
+        //Add product quantity button
+        addProduct.setOnClickListener({
+            //Check condition: If order count is less than # of products available...
+            if (userProductCount in 1..quantity) {
+                userProductCount.plus(1)
+                productCount.text = "$userProductCount / $quantity"
+            } else {
+                addProduct.setOnClickListener(null)
+                addProduct.background = null
+            }
+        })
+
+        fab.setOnClickListener {
+            if (prefs.isLoggedIn) {
+                fab.toggle()
+                appendCart()
+            } else {
+                val intent = Intent(this@DetailsActivity, AuthActivity::class.java)
+                FabTransform.addExtras(intent,
+                        ContextCompat.getColor(this@DetailsActivity, R.color.button_accent),
+                        R.drawable.ic_heart_empty_56dp)
+                val options = ActivityOptions.makeSceneTransitionAnimation(this@DetailsActivity, fab,
+                        getString(R.string.transition_dribbble_login))
+                startActivityForResult(intent, RC_LOGIN_LIKE, options.toBundle())
+            }
+        }
+
+        //Less product quantity button
+        lessProduct.setOnClickListener({
+            //Check condition: If order count is less than # of products available...
+            if (userProductCount in 1..quantity) {
+                userProductCount.minus(1)
+                productCount.text = "$userProductCount / $quantity"
+            } else {
+                lessProduct.setOnClickListener(null)
+                lessProduct.background = null
+            }
+        })
+
+        if (product != null) {
+            shopName.text = "—${product?.shop?.toLowerCase()}"
             GlideApp.with(this)
-                    .load(shot?.logo)
+                    .load(product?.logo)
                     .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
                     .apply(RequestOptions().circleCrop())
                     .apply(RequestOptions().placeholder(R.drawable.avatar_placeholder))
@@ -264,27 +301,27 @@ class DetailsActivity : Activity() {
                     .apply(RequestOptions().override(largeAvatarSize.toInt(), largeAvatarSize.toInt()))
                     .into(playerAvatar)
 
-            if (shot?.timestamp != null) {
-                shotTimeAgo.text = DateUtils.getRelativeTimeSpanString(shot!!.timestamp!!.time,
+            if (product?.timestamp != null) {
+                shotTimeAgo.text = DateUtils.getRelativeTimeSpanString(product?.timestamp?.time!!,
                         System.currentTimeMillis(),
                         DateUtils.SECOND_IN_MILLIS).toString().toLowerCase()
             } else {
-                for (i in 0 until shot?.brand!!.size) {
+                for (i in 0 until product?.brand!!.size) {
                     //Append brand names to product's shop
-                    shotTimeAgo.text = shot?.brand?.get(i)?.toLowerCase() + ", "
+                    shotTimeAgo.text = product?.brand?.get(i)?.toLowerCase() + ", "
                 }
             }
             val shopClick: View.OnClickListener = View.OnClickListener {
                 val details = Intent(this@DetailsActivity, ShopsActivity::class.java)
-                details.putExtra(ShopsActivity.EXTRA_SHOP_NAME, shot?.shop)
+                details.putExtra(ShopsActivity.EXTRA_SHOP_NAME, product?.shop)
                 val options = ActivityOptions.makeSceneTransitionAnimation(this@DetailsActivity,
                         playerAvatar, getString(R.string.transition_player_avatar))
                 startActivity(details, options.toBundle())
             }
             playerAvatar.setOnClickListener(shopClick)
-            playerName.setOnClickListener(shopClick)
+            shopName.setOnClickListener(shopClick)
         } else {
-            playerName.visibility = View.GONE
+            shopName.visibility = View.GONE
             playerAvatar.visibility = View.GONE
             shotTimeAgo.visibility = View.GONE
         }
@@ -309,8 +346,8 @@ class DetailsActivity : Activity() {
     private fun loadComments() {
         if (data.isNotEmpty()) data.clear()
         prefs.db.document(PhoenixUtils.COMMENT_REF)
-                .collection(shot?.id?.toString()!!)
-                .whereEqualTo("id", shot?.id)
+                .collection(product?.id?.toString()!!)
+                .whereEqualTo("id", product?.id)
                 .get()
                 .addOnCompleteListener({ task ->
                     if (task.isSuccessful) {
@@ -322,13 +359,12 @@ class DetailsActivity : Activity() {
                                 }
                             }
                         }
-                         if (data.isNotEmpty()){
+                        if (data.isNotEmpty()) {
                             adapter.addComments(data)
-                         }
+                        }
                     }
                 }).addOnFailureListener { e ->
-            Log.d(this@DetailsActivity.localClassName,
-                    "Exception from comments: ${e.localizedMessage}")
+            Timber.d("Exception from comments: ${e.localizedMessage}")
         }
     }
 
@@ -341,26 +377,26 @@ class DetailsActivity : Activity() {
             enterComment?.isEnabled = false
             //Generate hash map for the comment itself
             val comment = Comment(
-                    shot?.id!!,
+                    product?.id!!,
                     enterComment?.text?.toString()!!,
                     0,
-                    shot?.url!!,
+                    product?.url!!,
                     prefs.customer,
                     Date(System.currentTimeMillis())
             )
             //Push comment to db
             prefs.db.document(PhoenixUtils.COMMENT_REF)
-                    .collection(shot?.id?.toString()!!)
+                    .collection(product?.id?.toString()!!)
                     .document()
                     .set(comment.toHashMap(comment))
-                    .addOnFailureListener { e -> Log.d(TAG, "Exception on comment post: ${e.localizedMessage}") }
+                    .addOnFailureListener { e -> Timber.d("Exception on comment post: ${e.localizedMessage}") }
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             loadComments()
                             enterComment?.text?.clear()
                             enterComment?.isEnabled = true
                         } else {
-                            Log.d(TAG, "Exception on comment post: ${task.exception?.toString()}")
+                            Timber.d("Exception on comment post: ${task.exception?.toString()}")
                         }
                     }
 
@@ -472,11 +508,11 @@ class DetailsActivity : Activity() {
     private fun appendCart() {
         performingLike = true
         val map = hashMapOf(
-                Pair<String, Any?>("id", shot?.id),
-                Pair<String, Any?>("name", shot?.name),
-                Pair<String, Any?>("image", shot?.url),
-                Pair<String, Any?>("price", shot?.price),
-                Pair<String, Any?>("quantity", "1"),    //todo: add quantity chooser
+                Pair<String, Any?>("id", product?.id),
+                Pair<String, Any?>("name", product?.name),
+                Pair<String, Any?>("image", product?.url),
+                Pair<String, Any?>("price", product?.price),
+                Pair<String, Any?>("quantity", userProductCount),
                 Pair<String, Any?>("timestamp", Date(System.currentTimeMillis()))
         )
 
@@ -489,7 +525,7 @@ class DetailsActivity : Activity() {
                     .set(map)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(applicationContext, "${shot?.name} has been added to your shopping cart",
+                            Toast.makeText(applicationContext, "${product?.name} has been added to your shopping cart",
                                     Toast.LENGTH_SHORT).show()
                         } else {
                             fab.isChecked = false
@@ -501,7 +537,7 @@ class DetailsActivity : Activity() {
             performingLike = false
             prefs.db.document(PhoenixUtils.ORDER_REF)
                     .collection(prefs.customer.key!!)
-                    .whereEqualTo("name", shot?.name)
+                    .whereEqualTo("name", product?.name)
                     .get()
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
@@ -553,15 +589,15 @@ class DetailsActivity : Activity() {
                     if (task.isSuccessful) {
                         for (item in task.result.documents) {
                             if (item.exists()) {
-                                val product = item.toObject(Product::class.java)
-                                if (shot?.name != null && product.name!! == shot?.name!!) {
+                                val product = item.toObject(Product::class.java).withId<Product>(item.id)
+                                if (product.name != null && product.name!! == product.name!!) {
                                     TransitionManager.beginDelayedTransition(draggableFrame)
                                     fab.isChecked = true
                                 }
                             }
                         }
                     } else {
-                        if (BuildConfig.DEBUG) Log.d(TAG, task.exception?.localizedMessage)
+                        if (BuildConfig.DEBUG) Timber.d(task.exception?.localizedMessage)
                     }
                 }
     }
@@ -632,7 +668,7 @@ class DetailsActivity : Activity() {
     //Set result for any calling activity
     private fun setResultAndFinish() {
         val resultData = Intent()
-        resultData.putExtra(RESULT_EXTRA_SHOT_ID, shot?.id)
+        resultData.putExtra(RESULT_EXTRA_SHOT_ID, product?.id)
         setResult(Activity.RESULT_OK, resultData)
         finishAfterTransition()
     }
@@ -668,7 +704,7 @@ class DetailsActivity : Activity() {
 
     @TargetApi(Build.VERSION_CODES.M)
     override fun onProvideAssistContent(outContent: AssistContent) {
-        outContent.webUri = Uri.parse(shot?.url)
+        outContent.webUri = Uri.parse(product?.url)
     }
 
     //Handle results from intent actions
@@ -764,7 +800,7 @@ class DetailsActivity : Activity() {
         private fun bindPartialCommentChange(holder: CommentViewHolder, position: Int, partialChangePayloads: MutableList<Any>?) {
             // for certain changes we don't need to rebind data, just update some view state
             if ((partialChangePayloads!!.contains(EXPAND)
-                    || partialChangePayloads.contains(COLLAPSE))
+                            || partialChangePayloads.contains(COLLAPSE))
                     || partialChangePayloads.contains(REPLY)) {
                 setExpanded(holder, position == expandedCommentPosition)
             } else if (partialChangePayloads.contains(COMMENT_LIKE)) {
@@ -905,14 +941,14 @@ class DetailsActivity : Activity() {
                                     Toast.makeText(this@DetailsActivity,
                                             exception.localizedMessage, Toast.LENGTH_SHORT).show()
                                 }.addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Log.d(TAG, "Like added successfully")
-                            } else {
-                                Toast.makeText(this@DetailsActivity,
-                                        task.exception?.localizedMessage,
-                                        Toast.LENGTH_SHORT).show()
-                            }
-                        }
+                                    if (task.isSuccessful) {
+                                        Timber.d("Like added successfully")
+                                    } else {
+                                        Toast.makeText(this@DetailsActivity,
+                                                task.exception?.localizedMessage,
+                                                Toast.LENGTH_SHORT).show()
+                                    }
+                                }
 
                     } else {
                         comment.liked = false
@@ -1016,7 +1052,7 @@ class DetailsActivity : Activity() {
                 }
                 notifyItemRangeInserted(1, newComments.size)
             }
-            Log.d(TAG, newComments.toString())
+            Timber.d(newComments.toString())
         }
 
         fun removeCommentingFooter() {
@@ -1074,11 +1110,11 @@ class DetailsActivity : Activity() {
 
     companion object {
         private val TAG: String = DetailsActivity::class.java.simpleName
-        val EXTRA_SHOT = "EXTRA_SHOT"
-        val RESULT_EXTRA_SHOT_ID = "RESULT_EXTRA_SHOT_ID"
-        private val RC_LOGIN_LIKE = 0
-        private val RC_LOGIN_COMMENT = 1
-        private val SCRIM_ADJUSTMENT = 0.075f
+        const val EXTRA_SHOT = "EXTRA_SHOT"
+        const val RESULT_EXTRA_SHOT_ID = "RESULT_EXTRA_SHOT_ID"
+        private const val RC_LOGIN_LIKE = 0
+        private const val RC_LOGIN_COMMENT = 1
+        private const val SCRIM_ADJUSTMENT = 0.075f
     }
 }
 

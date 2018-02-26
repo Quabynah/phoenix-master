@@ -178,7 +178,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 				//show details view
 				Intent intent = new Intent();
 				intent.setClass(host, DetailsActivity.class);
-				intent.putExtra(DetailsActivity.Companion.getEXTRA_SHOT(),
+				intent.putExtra(DetailsActivity.EXTRA_SHOT,
 						(Product) DataAdapter.this.getItem(holder.getAdapterPosition()));
 				DataAdapter.this.setGridItemContentTransitions(holder.image);
 				ActivityOptions options =

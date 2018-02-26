@@ -16,14 +16,15 @@
 		android:elevation="@dimen/z_card"
 		android:orientation="vertical">
 		
-		<io.pergasus.ui.widget.CircularImageView
+		<ImageView
 			android:id="@+id/icon"
 			android:layout_width="@dimen/large_avatar_size"
 			android:layout_height="@dimen/large_avatar_size"
 			android:layout_gravity="center_horizontal"
-			android:layout_marginTop="@dimen/spacing_huge"
 			android:layout_marginBottom="@dimen/spacing_huge"
-			android:src="@drawable/avatar_placeholder"
+			android:layout_marginTop="@dimen/spacing_huge"
+			android:src="@drawable/ic_launcher_512px"
+			android:scaleType="centerInside"
 			tools:ignore="ContentDescription" />
 		
 		<io.pergasus.ui.widget.BaselineGridTextView
@@ -32,13 +33,13 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="top|center_horizontal"
-			tools:text="@string/about_accra_mall"
 			android:paddingBottom="@dimen/spacing_large"
 			android:paddingEnd="@dimen/padding_normal"
 			android:paddingStart="@dimen/padding_normal"
 			android:paddingTop="24dp"
 			android:textColorHighlight="?android:colorPrimaryDark"
-			android:textColorLink="@color/app_links" />
+			android:textColorLink="@color/app_links"
+			tools:text="@string/about_accra_mall" />
 	
 	</LinearLayout>
 
