@@ -76,6 +76,7 @@ import io.pergasus.api.ProductItemSorting.NaturalOrderWeigher;
 import io.pergasus.api.ProductItemSorting.ProductItemComparator;
 import io.pergasus.api.ProductItemSorting.ProductItemGroupWeigher;
 import io.pergasus.api.ProductWeigher;
+import io.pergasus.data.Order;
 import io.pergasus.data.Product;
 import io.pergasus.ui.widget.BadgedFourThreeImageView;
 import io.pergasus.util.ObservableColorMatrix;
@@ -83,6 +84,7 @@ import io.pergasus.util.ShareProductTask;
 import io.pergasus.util.TransitionUtils;
 import io.pergasus.util.ViewUtils;
 import io.pergasus.util.glide.GlideApp;
+import timber.log.Timber;
 
 import static com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade;
 import static io.pergasus.util.AnimUtils.getFastOutSlowInInterpolator;
@@ -380,23 +382,20 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 							if (task.isSuccessful()) {
 								for (DocumentSnapshot data : task.getResult().getDocuments()) {
 									if (data.exists()) {
-										Product product = data.toObject(Product.class);
+										Order product = data.toObject(Order.class);
 										if (product.getName() != null && Objects.equals(product.getName(), shot.getName())) {
 											holder.add.setText(host.getString(R.string.item_added_to_cart));
 											holder.add.setOnClickListener(null);
 											holder.add.setEnabled(false);
-											notifyItemChanged(position);
 										}
 									} else {
 										if (BuildConfig.DEBUG)
-											Log.d(TAG, task.getException().getLocalizedMessage());
+											Timber.d(task.getException().getLocalizedMessage());
 									}
 								}
 							}
 						}
-					}).addOnFailureListener(host, e -> {
-				if (BuildConfig.DEBUG) Log.d(TAG, e.getLocalizedMessage());
-			});
+					}).addOnFailureListener(host, e -> Timber.d(e.getLocalizedMessage()));
 		}
 		
 	}

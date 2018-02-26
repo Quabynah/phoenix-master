@@ -512,7 +512,7 @@ class DetailsActivity : Activity() {
                 Pair<String, Any?>("name", product?.name),
                 Pair<String, Any?>("image", product?.url),
                 Pair<String, Any?>("price", product?.price),
-                Pair<String, Any?>("quantity", userProductCount),
+                Pair<String, Any?>("quantity", userProductCount.toString()),
                 Pair<String, Any?>("timestamp", Date(System.currentTimeMillis()))
         )
 
@@ -525,7 +525,8 @@ class DetailsActivity : Activity() {
                     .set(map)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(applicationContext, "${product?.name} has been added to your shopping cart",
+                            Toast.makeText(applicationContext,
+                                    "${product?.name} has been added to your shopping cart",
                                     Toast.LENGTH_SHORT).show()
                         } else {
                             fab.isChecked = false

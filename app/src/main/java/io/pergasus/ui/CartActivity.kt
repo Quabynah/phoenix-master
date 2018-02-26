@@ -562,9 +562,6 @@ class CartActivity : Activity() {
 
         private fun removeOrder(order: Order) {
             if (client.isConnected) {
-                val position = items.indexOf(order)
-                items.removeAt(position)
-                notifyItemRemoved(position)
                 loading.show()
                 dispatchOrderRemoved(order)
             } else {
@@ -585,6 +582,10 @@ class CartActivity : Activity() {
                             if (documents.isNotEmpty() && documents[0].exists()) {
                                 documents[0].reference.delete().addOnSuccessListener { _ ->
                                     loading.dismiss()
+                                    val position = items.indexOf(order)
+                                    items.removeAt(position)
+                                    notifyItemRemoved(position)
+                                    getData()
                                     if (BuildConfig.DEBUG) {
                                         Timber.d("Item ${order.name} removed from database")
                                     }

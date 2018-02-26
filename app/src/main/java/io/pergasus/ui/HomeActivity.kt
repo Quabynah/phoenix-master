@@ -30,6 +30,7 @@ import android.view.*
 import android.widget.*
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
+import com.google.firebase.auth.FirebaseAuth
 import io.pergasus.R
 import io.pergasus.api.*
 import io.pergasus.data.Product
@@ -64,10 +65,12 @@ class HomeActivity : Activity() {
     private var monitoringConnectivity: Boolean = false
     private var isLoading: Boolean = true
     private lateinit var layoutManager: GridLayoutManager
-    //    private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: DataAdapter
     private lateinit var dataManager: DataManager
     private lateinit var filtersAdapter: FilterAdapter
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var listener: FirebaseAuth.AuthStateListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +81,17 @@ class HomeActivity : Activity() {
 
         //Init client
         client = PhoenixClient(this@HomeActivity)
+
+        //Firebase Auth
+        auth = client.auth
+
+        //Add AuthStateListener
+        listener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            val firebaseUser = firebaseAuth.currentUser
+            if (firebaseUser != null) {
+                invalidateOptionsMenu()
+            }
+        }
 
         drawer.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -258,6 +272,12 @@ class HomeActivity : Activity() {
             loading.visibility = View.GONE
             setNoFiltersEmptyTextVisibility(View.VISIBLE)
         }
+        auth.addAuthStateListener(listener)
+    }
+
+    override fun onStop() {
+        auth.removeAuthStateListener(listener)
+        super.onStop()
     }
 
     override fun onDestroy() {
@@ -569,7 +589,13 @@ class HomeActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
+        //Add login listener
+        //todo: seems not to respond to auth state
         client.addLoginStatusListener(filtersAdapter)
+
+        //There seems to be a problem with the AuthStateListener so we need to manually invalidate
+        //the options menu
+        invalidateOptionsMenu()
         checkConnectivity()
     }
 

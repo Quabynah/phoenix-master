@@ -97,6 +97,7 @@ object PhoenixUtils {
                 .createSignInIntentBuilder()
                 .setLogo(R.drawable.ic_launcher_512px)
                 .setAvailableProviders(providers)
+                .setIsSmartLockEnabled(false)
                 .build()
         host.startActivityForResult(intent, requestCode)
     }
