@@ -16,6 +16,7 @@ import android.app.SharedElementCallback;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.ColorDrawable;
@@ -83,7 +84,7 @@ import io.pergasus.util.TransitionUtils;
 import io.pergasus.util.ViewUtils;
 import io.pergasus.util.glide.GlideApp;
 
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade;
 import static io.pergasus.util.AnimUtils.getFastOutSlowInInterpolator;
 
 /**
@@ -315,15 +316,16 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 		holder.title.setText(shot.getName());
 		holder.title.setAlpha(1.0f); // interrupted add to pocket anim can mangle
 		GlideApp.with(host)
+				.asBitmap()
 				.load(shot.getUrl())
-				.listener(new RequestListener<Drawable>() {
+				.listener(new RequestListener<Bitmap>() {
 					@Override
-					public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+					public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
 						return false;
 					}
 					
 					@Override
-					public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+					public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
 						if (!shot.getHasFadedIn()) {
 							holder.image.setHasTransientState(true);
 							ObservableColorMatrix cm = new ObservableColorMatrix();
@@ -355,8 +357,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 				})
 				.apply(RequestOptions.placeholderOf(shotLoadingPlaceholders[position % shotLoadingPlaceholders.length]))
 				.apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
-				.apply(RequestOptions.fitCenterTransform())
-				.apply(RequestOptions.overrideOf(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL))
+//				.apply(RequestOptions.overrideOf(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL))
 				.transition(withCrossFade())
 				.into(holder.image);
 		// need both placeholder & background to prevent seeing through shot as it fades in

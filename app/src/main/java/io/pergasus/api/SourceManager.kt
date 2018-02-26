@@ -90,7 +90,7 @@ object SourceManager {
     }
 
     private fun getDefaultSources(context: Context): ArrayList<Source> {
-        val defaultSources = ArrayList<Source>(7)
+        val defaultSources = ArrayList<Source>(8)
         defaultSources.add(Source.PhoenixSource(SOURCE_HEALTH, 100,
                 context.getString(R.string.source_health), false))
         defaultSources.add(Source.PhoenixSource(SOURCE_CLOTHING, 101,
@@ -103,11 +103,10 @@ object SourceManager {
                 context.getString(R.string.source_kids), true))
         defaultSources.add(Source.PhoenixSource(SOURCE_STUDENT, 105,
                 context.getString(R.string.source_students), false))
-        //200 sort order range left for user searches
-        defaultSources.add(Source.PhoenixSource(SOURCE_FAVORITE, 300,
-                context.getString(R.string.source_favorite), false))
         defaultSources.add(Source.PhoenixSearchSource(context.getString(R.string.source_recommended_search),
                 false))
+        defaultSources.add(Source.PhoenixSource(SOURCE_FAVORITE, 300,
+                context.getString(R.string.source_favorite), false))
         return defaultSources
     }
 

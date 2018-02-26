@@ -154,7 +154,7 @@ abstract class DataManager(private val context: Activity, private val filterAdap
                 .collection(PhoenixUtils.ENTERTAINMENT_REF)
                 .orderBy("timestamp")
                 .limit(50)
-        queries.put(SourceManager.SOURCE_ENTERTAINMENT, get)
+        queries[SourceManager.SOURCE_ENTERTAINMENT] = get
         get.addSnapshotListener(context, EventListener<QuerySnapshot?> { p0, p1 ->
             if (p1 != null) {
                 loadFailed(p1.localizedMessage, SourceManager.SOURCE_ENTERTAINMENT)
@@ -184,7 +184,7 @@ abstract class DataManager(private val context: Activity, private val filterAdap
                 .collection(PhoenixUtils.CLOTHING_REF)
                 .orderBy("timestamp")
                 .limit(50)
-        queries.put(SourceManager.SOURCE_CLOTHING, get)
+        queries[SourceManager.SOURCE_CLOTHING] = get
         get.addSnapshotListener(context, EventListener<QuerySnapshot?> { p0, p1 ->
             if (p1 != null) {
                 loadFailed(p1.localizedMessage, SourceManager.SOURCE_CLOTHING)
@@ -214,7 +214,7 @@ abstract class DataManager(private val context: Activity, private val filterAdap
                 .collection(PhoenixUtils.BUSINESS_REF)
                 .orderBy("timestamp")
                 .limit(50)
-        queries.put(SourceManager.SOURCE_BUSINESS, get)
+        queries[SourceManager.SOURCE_BUSINESS] = get
         get.addSnapshotListener(context, EventListener<QuerySnapshot?> { p0, p1 ->
             if (p1 != null) {
                 loadFailed(p1.localizedMessage, SourceManager.SOURCE_BUSINESS)

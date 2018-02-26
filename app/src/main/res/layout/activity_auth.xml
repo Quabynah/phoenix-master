@@ -37,87 +37,15 @@
 			android:textColor="@color/text_secondary_dark"
 			app:fontFamily="@font/nunito_semibold" />
 		
-		<android.support.design.widget.TextInputLayout
-			android:id="@+id/email_float_label"
-			android:layout_width="match_parent"
+		<Button
+			android:id="@+id/login"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/spacing_normal"
-			android:layout_marginStart="@dimen/spacing_micro"
-			android:layout_marginTop="@dimen/padding_normal"
-			app:hintTextAppearance="@style/TextAppearance.FloatLabelHint">
-			
-			<AutoCompleteTextView
-				android:id="@+id/email"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:hint="@string/email"
-				android:imeOptions="actionNext"
-				android:inputType="textEmailAddress"
-				android:selectAllOnFocus="true"
-				android:textColorHighlight="@color/designer_news_link_highlight" />
-		
-		</android.support.design.widget.TextInputLayout>
-		
-		
-		<android.support.design.widget.TextInputLayout
-			android:id="@+id/password_float_label"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/spacing_micro"
-			app:hintTextAppearance="@style/TextAppearance.FloatLabelHint"
-			app:passwordToggleDrawable="@drawable/asl_password_visibility"
-			app:passwordToggleEnabled="true"
-			app:passwordToggleTint="?colorControlNormal">
-			
-			<io.pergasus.ui.widget.PasswordEntry
-				android:id="@+id/password"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:hint="@string/password"
-				android:imeOptions="actionDone"
-				android:inputType="textPassword"
-				android:selectAllOnFocus="true" />
-		
-		</android.support.design.widget.TextInputLayout>
-		
-		<LinearLayout
-			android:id="@+id/actions_container"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			android:weightSum="2"
-			android:layout_marginTop="@dimen/padding_normal">
-			
-			<Button
-				android:id="@+id/signup"
-				style="?android:borderlessButtonStyle"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:layout_gravity="start"
-				android:text="@string/sign_up"
-				android:paddingEnd="@dimen/padding_normal"
-				android:paddingStart="@dimen/padding_normal"
-				android:paddingTop="@dimen/spacing_normal"
-				android:paddingBottom="@dimen/spacing_normal"
-				android:textColor="@color/designer_news_button" />
-			
-			<Button
-				android:id="@+id/login"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:layout_gravity="end"
-				android:enabled="false"
-				android:paddingEnd="@dimen/padding_normal"
-				android:paddingStart="@dimen/padding_normal"
-				android:paddingTop="@dimen/spacing_normal"
-				android:paddingBottom="@dimen/spacing_normal"
-				android:backgroundTint="@color/designer_news_button"
-				android:text="@string/login_to"
-				android:textAppearance="@style/TextAppearance.DarkButton" />
-		
-		</LinearLayout>
+			android:layout_gravity="center_horizontal"
+			android:padding="@dimen/padding_normal"
+			android:layout_marginBottom="@dimen/spacing_micro"
+			android:text="@string/login_to"
+			android:textAppearance="@style/TextAppearance.DarkButton" />
 		
 		<TextView
 			android:id="@+id/login_failed_message"

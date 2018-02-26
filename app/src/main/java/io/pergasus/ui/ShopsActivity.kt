@@ -109,8 +109,7 @@ class ShopsActivity : Activity() {
 
     private fun loadShop(extra: String?) {
         if (extra == null) return
-        prefs.db.document("phoenix/web")
-                .collection(PhoenixUtils.SHOP_REF)
+        prefs.db.collection(PhoenixUtils.DB_PREFIX + "/" + PhoenixUtils.SHOP_REF)
                 .whereEqualTo("name", extra)
                 .get()
                 .addOnFailureListener { exception ->
@@ -287,8 +286,22 @@ class ShopsActivity : Activity() {
                         .document(prefs.customer.key!!)
                         .delete()
                         .addOnCompleteListener { task ->
-                            if (BuildConfig.DEBUG) {
-                                Timber.d(task.exception?.localizedMessage)
+                            if (task.isSuccessful) {
+                                //Add to shop's follower's count as well
+                                //Ref: /phoenix/web/shops/{shop_key}
+                                prefs.db.document(PhoenixUtils.DB_PREFIX + "/" + PhoenixUtils.SHOP_REF + "/" + shop?.key)
+                                        .update("followers_count", shop?.followers_count!!.plus(1))
+                                        .addOnCompleteListener { updateTask ->
+                                            if (updateTask.isSuccessful) {
+                                                if (BuildConfig.DEBUG) {
+                                                    Timber.d("Followers updated")
+                                                }
+                                            } else {
+                                                if (BuildConfig.DEBUG) {
+                                                    Timber.d(task.exception?.localizedMessage)
+                                                }
+                                            }
+                                        }
                             }
                         }
                         .addOnFailureListener { exception ->

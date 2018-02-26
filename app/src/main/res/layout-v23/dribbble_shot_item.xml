@@ -15,11 +15,11 @@
 		android:id="@+id/shot"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:padding="@dimen/spacing_normal"
 		android:stateListAnimator="@animator/raise"
 		android:foreground="@drawable/mid_grey_ripple"
 		android:background="@color/background_card"
 		app:badgeGravity="end|bottom"
+		android:scaleType="centerCrop"
 		app:badgePadding="@dimen/padding_normal" />
 	
 	<io.pergasus.ui.widget.BaselineGridTextView

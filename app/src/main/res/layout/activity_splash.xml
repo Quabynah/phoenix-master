@@ -28,6 +28,7 @@
 		android:layout_gravity="center_horizontal|bottom"
 		android:indeterminate="true"
 		android:padding="@dimen/padding_normal"
+		android:indeterminateTint="@color/accent"
 		android:visibility="gone" />
 
 </FrameLayout>

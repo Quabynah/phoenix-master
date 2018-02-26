@@ -220,9 +220,21 @@ class OrderActivity : Activity() {
             MaterialDialog.Builder(this@OrderActivity)
                     .theme(Theme.DARK)
                     .title(getString(R.string.confirm_trans_hint))
-                    .positiveText("Cancel")
+                    .positiveText("Ok")
+                    .negativeText("Cancel")
+                    .onNegative({ dialog, _ ->
+                        dialog.dismiss()
+                    })
+                    .onPositive { dialog, which ->
+                        when (which.ordinal) {
+                            0, 1, 2 -> {
+                                textForMethod(which.name)
+                                dialog.dismiss()
+                            }
+                        }
+                    }
                     .items(*array)
-                    .itemsCallbackSingleChoice(1, { dialog, _, which, text ->
+                    .itemsCallbackSingleChoice(0, { dialog, _, which, text ->
                         when (which) {
                             0, 1, 2 -> {
                                 textForMethod(text.toString())
@@ -273,11 +285,13 @@ class OrderActivity : Activity() {
                     // ...
                     Toast.makeText(applicationContext, "Process cancelled",
                             Toast.LENGTH_LONG).show()
+                    checkOut.isEnabled = true
                 }
 
                 override fun onFailed(p0: String?, p1: String?) {
                     //...
                     Toast.makeText(applicationContext, "Error: $p0", Toast.LENGTH_LONG).show()
+                    checkOut.isEnabled = true
                 }
 
                 override fun onSuccessful(p0: String?) {
@@ -288,6 +302,7 @@ class OrderActivity : Activity() {
         } catch (e: HubtelPaymentException) {
             // ...
             Timber.e(e)
+            Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -410,7 +425,6 @@ class OrderActivity : Activity() {
     }
 
     companion object {
-        private val TAG: String = OrderActivity::class.java.simpleName
         const val EXTRA_CART_PRICE = "EXTRA_CART_PRICE"
         const val EXTRA_CART_TITLE = "EXTRA_CART_TITLE"
         const val EXTRA_CART_QUANTITY = "EXTRA_CART_QUANTITY"

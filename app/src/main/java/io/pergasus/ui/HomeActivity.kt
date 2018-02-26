@@ -26,7 +26,6 @@ import android.text.Annotation
 import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.*
 import android.widget.*
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
@@ -105,8 +104,7 @@ class HomeActivity : Activity() {
             } else {
                 val intent = Intent(this, AuthActivity::class.java)
                 FabTransform.addExtras(intent,
-                        ContextCompat.getColor(this, R.color.button_accent),
-                        R.drawable.ic_shopping_cart_black_24dp)
+                        ContextCompat.getColor(this, R.color.accent), R.drawable.ic_shopping_cart_black_24dp)
                 val options = ActivityOptions.makeSceneTransitionAnimation(this, fab,
                         getString(R.string.transition_dribbble_login))
                 startActivityForResult(intent, RC_LOGIN_BASIC, options.toBundle())

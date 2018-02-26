@@ -18,7 +18,8 @@ open class Source(val key: String,
     open val isSwipeDismissable: Boolean
         get() = false
 
-    open class PhoenixSource(key: String, sortOrder: Int, name: String, active: Boolean) : Source(key, sortOrder, name, R.drawable.logo, active)
+    open class PhoenixSource(key: String, sortOrder: Int, name: String, active: Boolean) : Source
+    (key, sortOrder, name, R.drawable.ic_stat_ic_notification, active)
 
     class PhoenixSearchSource(val query: String, active: Boolean) : PhoenixSource(QUERY_PREFIX + query, SEARCH_SORT_ORDER, "“$query”", active) {
 
@@ -26,8 +27,8 @@ open class Source(val key: String,
             get() = true
 
         companion object {
-            val QUERY_PREFIX = "QUERY_PREFIX"
-            val SEARCH_SORT_ORDER = 200
+            const val QUERY_PREFIX = "QUERY_PREFIX"
+            const val SEARCH_SORT_ORDER = 200
         }
     }
 

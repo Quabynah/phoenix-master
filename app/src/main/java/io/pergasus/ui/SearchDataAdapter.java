@@ -282,7 +282,7 @@ public class SearchDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 				.apply(RequestOptions.placeholderOf(shotLoadingPlaceholders[position % shotLoadingPlaceholders.length]))
 				.apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
 				.apply(RequestOptions.fitCenterTransform())
-				.apply(RequestOptions.overrideOf(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL))
+//				.apply(RequestOptions.overrideOf(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL))
 				.transition(withCrossFade())
 				.into(holder.image);
 		// need both placeholder & background to prevent seeing through shot as it fades in

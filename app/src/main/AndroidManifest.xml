@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--   ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
 	package="io.pergasus"
 	android:installLocation="auto">
 	
@@ -146,12 +145,6 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		<activity
-			android:name=".ui.RegisterActivity"
-			android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-			android:exported="true"
-			android:screenOrientation="portrait"
-			android:theme="@style/Phoenix.Translucent.Custom.Login" />
 		<activity
 			android:name=".ui.OrderActivity"
 			android:label="@string/title_activity_order"

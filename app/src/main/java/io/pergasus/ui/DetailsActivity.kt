@@ -185,9 +185,8 @@ class DetailsActivity : Activity() {
                 .listener(shotLoadListener)
                 .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
                 .apply(RequestOptions().priority(Priority.IMMEDIATE))
-                .apply(RequestOptions().optionalFitCenter())
                 .transition(withCrossFade())
-                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+//                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .into(imageView)
         val shotClick: View.OnClickListener = View.OnClickListener {
             if (shot != null)

@@ -93,6 +93,7 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
         name.text = customer.name
         about.text = customer.info
         email.text = prefs.auth.currentUser?.email
+
         //Set address here
         address.text = if (prefs.getPlace().isNullOrEmpty())
             getString(R.string.no_address)

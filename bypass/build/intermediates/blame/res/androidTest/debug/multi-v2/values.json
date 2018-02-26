@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\PROJECT\\ANDROID\\phoenix-master\\bypass\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+            "outputFile": "E:\\PROJECT\\COMPSSA\\phoenix-master\\bypass\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "E:\\PROJECT\\ANDROID\\phoenix-master\\bypass\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "source": "E:\\PROJECT\\COMPSSA\\phoenix-master\\bypass\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

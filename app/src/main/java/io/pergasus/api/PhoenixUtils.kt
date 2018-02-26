@@ -4,10 +4,13 @@
 
 package io.pergasus.api
 
+import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
+import com.firebase.ui.auth.AuthUI
+import io.pergasus.R
 import io.pergasus.api.remote.IGeoCoordinates
 import io.pergasus.api.remote.RetrofitClient
 
@@ -17,7 +20,7 @@ import io.pergasus.api.remote.RetrofitClient
 object PhoenixUtils {
     //Firebase Server url
     private const val BASE_URL_MAPS = "https://maps.googleapis.com"
-    private const val DB_PREFIX = "phoenix"
+    const val DB_PREFIX = "phoenix"
 
     //Database references
     const val CUSTOMER_REF = "users"
@@ -45,7 +48,7 @@ object PhoenixUtils {
     const val HEALTH_REF = "health"
 
     //Shops references
-    const val SHOP_REF = "shops"
+    const val SHOP_REF = "web/shops"
 
     //Followers references (i.e. users following a particular shop)
     const val FOLLOW_REF = "$DB_PREFIX/followers"
@@ -78,6 +81,24 @@ object PhoenixUtils {
 
         //Return Bitmap
         return scaledBitmap
+    }
+
+    /**
+     * Firebase Auth UI class
+     */
+    fun firebaseAuthUI(host: Activity, requestCode: Int) {
+        //Service providers: Email, Google, Phone
+        val providers = arrayListOf(
+                AuthUI.IdpConfig.PhoneBuilder().build(),
+                AuthUI.IdpConfig.EmailBuilder().build(),
+                AuthUI.IdpConfig.GoogleBuilder().build()
+        )
+        val intent = AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setLogo(R.drawable.ic_launcher_512px)
+                .setAvailableProviders(providers)
+                .build()
+        host.startActivityForResult(intent, requestCode)
     }
 
 }

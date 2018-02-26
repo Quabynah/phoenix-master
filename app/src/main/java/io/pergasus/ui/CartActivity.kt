@@ -9,19 +9,17 @@ import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.text.format.DateUtils
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.*
 import android.widget.*
+import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.target.Target
@@ -35,7 +33,9 @@ import io.pergasus.api.PhoenixUtils
 import io.pergasus.data.Order
 import io.pergasus.data.PhoenixNotification
 import io.pergasus.data.Purchase
-import io.pergasus.ui.recyclerview.*
+import io.pergasus.ui.recyclerview.Divided
+import io.pergasus.ui.recyclerview.GridItemDividerDecoration
+import io.pergasus.ui.recyclerview.SlideInItemAnimator
 import io.pergasus.ui.transitions.FabTransform
 import io.pergasus.ui.transitions.MorphTransform
 import io.pergasus.ui.widget.BadgedFourThreeImageView
@@ -65,7 +65,7 @@ class CartActivity : Activity() {
     private lateinit var client: PhoenixClient  //Shared preferences
     private lateinit var adapter: CartItemAdapter   //Adapter for recyclerview
     private lateinit var layoutManager: LinearLayoutManager //LayoutManager for recyclerview
-    val orders: ArrayList<Order> = ArrayList(0) //Empty arrayList for Orders
+    private val orders: ArrayList<Order> = ArrayList(0) //Empty arrayList for Orders
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,13 +95,6 @@ class CartActivity : Activity() {
         grid.layoutManager = layoutManager  //set layout manager for recyclerview
         grid.itemAnimator = SlideInItemAnimator()   //set item animator (when items are entering in)
 
-        //Check for internet connection
-        if (client.isConnected) {
-            //Add swipe to dismiss once the user is connected to the internet
-            val callback: ItemTouchHelper.Callback = CartTouchHelperCallback(adapter, this)
-            val itemTouchHelper = ItemTouchHelper(callback)
-            itemTouchHelper.attachToRecyclerView(grid)
-        }
         //Add separator for items in the recyclerview
         grid.addItemDecoration(GridItemDividerDecoration(this, R.dimen.divider_height, R.color.divider))
 
@@ -127,7 +120,7 @@ class CartActivity : Activity() {
                             Toast.makeText(this@CartActivity, p1.localizedMessage,
                                     Toast.LENGTH_LONG).show()
                             noCart.visibility = View.VISIBLE
-                            Log.d(TAG, p1.localizedMessage)
+                            Timber.d(p1.localizedMessage)
                             return@EventListener
                         }
                         if (p0 != null) {
@@ -485,20 +478,19 @@ class CartActivity : Activity() {
     }
 
     //Adapter for customer's orders
-    internal inner class CartItemAdapter(private val host: Activity) : RecyclerView.Adapter<CartViewHolder>(),
-            CartSwipeDismissListener {
-
+    internal inner class CartItemAdapter(private val host: Activity) : RecyclerView.Adapter<CartViewHolder>() {
         private val items: ArrayList<Order> = ArrayList(0)
+        private val loading: MaterialDialog
 
         init {
             setHasStableIds(true)
+            loading = client.getDialog()
         }
 
         override fun onBindViewHolder(holder: CartViewHolder?, p0: Int) {
             if (holder != null) {
                 val position = holder.adapterPosition
                 val order = items[position]
-                holder.isSwipeable = true
                 holder.name.text = order.name
                 holder.price.text = NumberFormat.getCurrencyInstance(Locale.US)
                         .format(order.price?.toLong())
@@ -513,10 +505,10 @@ class CartActivity : Activity() {
                         .into(holder.image)
 
                 holder.itemView.setOnClickListener({ _ ->
-                    val builder = AlertDialog.Builder(this@CartActivity)
+                    val builder = MaterialDialog.Builder(this@CartActivity)
                     val v = layoutInflater.inflate(R.layout.order_item_info, null, false)
-                    builder.setView(v)  //Attach view to builder
-                    val dialog = builder.create()
+                    builder.customView(v, false)  //Attach view to builder
+                    val dialog = builder.build()
                     //Get items in layout
                     val img = v.findViewById<BadgedFourThreeImageView>(R.id.order_info_image)
                     val name = v.findViewById<TextView>(R.id.order_info_name)
@@ -537,13 +529,13 @@ class CartActivity : Activity() {
                             DateUtils.SECOND_IN_MILLIS, DateUtils.SECOND_IN_MILLIS, DateUtils
                             .FORMAT_ABBREV_ALL)
                     val info = String.format("Purchased %s goods for ${NumberFormat
-                            .getCurrencyInstance().format(order.price?.toDouble())} each on %s",
+                            .getCurrencyInstance().format(order.price?.toDouble())} each\n on %s",
                             order.quantity, dateInfo)
                     details.text = info
                     //Delete action
                     del.setOnClickListener({
-                        onItemDismiss(position)
                         dialog.dismiss()
+                        removeOrder(order)
                     })
                     dialog.show()
                 })
@@ -568,16 +560,12 @@ class CartActivity : Activity() {
             notifyDataSetChanged()
         }
 
-        override fun onItemDismiss(position: Int) {
-            val order = items[position]
-            removeOrder(order)
-        }
-
         private fun removeOrder(order: Order) {
             if (client.isConnected) {
                 val position = items.indexOf(order)
                 items.removeAt(position)
                 notifyItemRemoved(position)
+                loading.show()
                 dispatchOrderRemoved(order)
             } else {
                 Toast.makeText(this@CartActivity, "Item cannot be removed at this time",
@@ -596,12 +584,21 @@ class CartActivity : Activity() {
                             val documents = task.result.documents
                             if (documents.isNotEmpty() && documents[0].exists()) {
                                 documents[0].reference.delete().addOnSuccessListener { _ ->
+                                    loading.dismiss()
                                     if (BuildConfig.DEBUG) {
                                         Timber.d("Item ${order.name} removed from database")
                                     }
                                 }
                             }
+                        } else {
+                            loading.dismiss()
+                            Toast.makeText(applicationContext, task.exception?.localizedMessage,
+                                    Toast.LENGTH_SHORT).show()
                         }
+                    }.addOnFailureListener { exception ->
+                        loading.dismiss()
+                        Toast.makeText(applicationContext, exception.localizedMessage,
+                                Toast.LENGTH_SHORT).show()
                     }
         }
 
@@ -635,12 +632,10 @@ class CartActivity : Activity() {
         var image: BadgedFourThreeImageView = itemView.findViewById(R.id.order_image)
         var price: TextView = itemView.findViewById(R.id.order_price)
         var quantity: TextView = itemView.findViewById(R.id.order_quantity)
-        var isSwipeable: Boolean = false
     }
 
     companion object {
         private const val CODE_ORDER = 13
-        private val TAG = CartActivity::class.java.canonicalName
         const val RESULT_PRICE = "RESULT_PRICE"
     }
 }

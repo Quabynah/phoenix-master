@@ -21,6 +21,7 @@
 		android:stateListAnimator="@animator/raise"
 		android:background="@color/background_card"
 		app:badgeGravity="end|bottom"
+		android:scaleType="centerCrop"
 		app:badgePadding="@dimen/padding_normal"/>
 	
 	<io.pergasus.ui.widget.BaselineGridTextView
