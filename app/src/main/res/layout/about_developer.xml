@@ -23,7 +23,6 @@
 			android:layout_gravity="center_horizontal"
 			android:layout_marginBottom="@dimen/spacing_large"
 			android:layout_marginTop="@dimen/spacing_huge"
-			android:scaleType="centerInside"
 			android:src="@drawable/avatar_placeholder"
 			tools:ignore="ContentDescription" />
 		
