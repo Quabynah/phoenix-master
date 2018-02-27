@@ -81,6 +81,11 @@ class RelatedProductsActivity : Activity() {
         }
     }
 
+    override fun onDestroy() {
+        dataManager.cancelLoading()
+        super.onDestroy()
+    }
+
     private fun checkEmptyState() {
         if (loading.isShowing) loading.dismiss()
     }

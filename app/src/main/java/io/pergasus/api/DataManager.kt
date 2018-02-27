@@ -55,7 +55,7 @@ abstract class DataManager(private val context: Activity, private val filterAdap
         val dataSources = filterAdapter.filters
         pageIndexes = HashMap(0)
         for (source in dataSources) {
-            pageIndexes[source.key] = 0
+            pageIndexes.put(key = source.key, value = 0)
         }
     }
 
