@@ -2,7 +2,7 @@
   ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.pergasus.ui.widget.ForegroundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/container"
@@ -12,23 +12,38 @@
 	tools:context="io.pergasus.ui.SplashActivity">
 	
 	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/splash_title"
 		style="@style/TextAppearance.DribbbleShotDescription"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:text="@string/the_phoenix"
+		android:layout_centerInParent="true"
+		android:text="@string/app_name"
 		android:textColor="@color/text_primary_light"
 		android:textSize="28sp"
 		app:fontFamily="@font/abeezee" />
+	
+	<io.pergasus.ui.widget.BaselineGridTextView
+		android:id="@+id/splash_desc"
+		style="@style/TextAppearance.DribbbleShotDescription"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:text="@string/splash_desc_text"
+		android:layout_below="@id/splash_title"
+		android:layout_marginTop="@dimen/spacing_normal"
+		android:textColor="@color/text_secondary_light"
+		app:fontFamily="@font/nunito_semibold" />
+	
 	
 	<ProgressBar
 		android:id="@+id/loading"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal|bottom"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
 		android:indeterminate="true"
 		android:padding="@dimen/padding_normal"
 		android:indeterminateTint="@color/accent"
 		android:visibility="gone" />
 
-</FrameLayout>
+</io.pergasus.ui.widget.ForegroundRelativeLayout>

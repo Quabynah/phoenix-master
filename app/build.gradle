@@ -15,7 +15,8 @@ apply plugin: 'io.fabric'
 // query git for the SHA, Tag and commit count. Use these to automate versioning.
 final def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 final def gitTag = 'git describe --tags'.execute([], project.rootDir).text.trim()
-final def gitCommitCount = Integer.parseInt('git rev-list --count HEAD'.execute([], project.rootDir).text.trim())
+final
+def gitCommitCount = Integer.parseInt('git rev-list --count HEAD'.execute([], project.rootDir).text.trim())
 
 android {
     compileSdkVersion 27

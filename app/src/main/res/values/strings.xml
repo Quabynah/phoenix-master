@@ -3,7 +3,7 @@
   -->
 
 <resources>
-	<string name="app_name">Phoenix</string>
+	<string name="app_name">The Phoenix</string>
 	
 	<!--Others-->
 	<string name="search_hint">Search by name &amp; brand</string>
@@ -58,9 +58,11 @@
 	</plurals>
 	
 	<!--About Application-->
-	<string name="about_app_0">Phoenix is a bridge between customers &amp; and the Accra Mall Retail
-		outlets. It helps customers like you to purchase items at the comfort of your homes,
-		office, school or wherever else. Phoenix pulls data from [Accra Mall](https://www.accramall.com/); it is in no way an official client for these services nor endorsed by&#160;them.</string>
+	<string name="about_app_0">The Phoenix is a bridge between the Accra Mall Retail
+		outlets &amp; their customers. It helps customers like you to purchase items at the comfort
+		of your home, office, school or wherever else.The Phoenix pulls data from the [Official
+		Accra Mall](https://www.accramall.com/); it is in no way an official client for these
+		services nor endorsed by&#160;them.</string>
 	<string name="about_app_1">Phoenix is written by Dennis Kwabena&#160;Bilson</string>
 	<string name="about_app_2">[Twitter](http://twitter.com/quabynah1993) |
 		[Google+](http://google.com/+QuabynahBilson)</string>
@@ -69,11 +71,11 @@
 		malls in West Africa and the first large-scale shopping centre in Ghana. The mall is an enclosed, fully air-conditioned
 		shopping centre. It has 20,322 square metres of retail space with parking for over 900 cars. The Accra Mall
 		accommodates 65 line-shops and 9 restaurants of which 30% are operated by Ghanaian retailers.</string>
-	<string name="about_icon_0">"Phoenix\'s icon is lovingly crafted by the inimitable
+	<string name="about_icon_0">"The Phoenix\'s icon is lovingly crafted by the inimitable
 		Dennis&#160;Bilson"</string>
 	<string name="about_icon_1">[Twitter](http://twitter.com/quabynah1993) |
 		[Google+](http://google.com/+QuabynahBilson)</string>
-	<string name="about_libs_intro">Phoenix is built with the help of these awesome&#160;
+	<string name="about_libs_intro">The Phoenix is built with the help of these awesome&#160;
 		libraries</string>
 	<string name="about_lib_link">visit website</string>
 	
@@ -81,8 +83,8 @@
 	<string name="add_to_cart">Add item to cart</string>
 	<string name="login_to">Login</string>
 	<string name="login_failed">Login failed</string>
-	<string name="need_login">Woah, chief! You need to log in first to enjoy more features
-		from <b>Phoenix</b></string>
+	<string name="need_login">Cherished customer! You need to log in first to enjoy more features
+		from <b>The Phoenix</b></string>
 	<string name="no_search_results">No results for\n“%1$s”</string>
 	<string name="confirm_save_search">Confirm save</string>
 	<string name="user_login">Log in</string>
@@ -105,7 +107,7 @@
 	<string name="shortcut_search_disabled">Search not available</string>
 	<string name="shortcut_short_label">View My Cart</string>
 	<string name="shortcut_long_label">View your shopping cart</string>
-	<string name="shortcut_disabled">Log in to Phoenix to view your cart</string>
+	<string name="shortcut_disabled">Log in to The Phoenix to view your cart</string>
 	<string name="no_items_in_cart">Shopping basket is empty. Try out some of our products</string>
 	<string name="no_products_available">No products available at this time</string>
 	<string name="deliver_to">Deliver To</string>
@@ -148,7 +150,6 @@
 	<string name="address">Address</string>
 	<string name="tap_on_any_item_to_edit_it">Tap on any item to edit it</string>
 	<string name="save_and_continue">Save and Continue</string>
-	<string name="the_phoenix">The Phoenix</string>
 	<string name="edit_your_data">Edit your data</string>
 	<string name="logout_prompt">You are about to be logged out of this session. Do you wish to continue?</string>
 	<string name="address_prompt">You will be redirected to your profile screen to set your current address</string>
@@ -200,9 +201,11 @@
 		.com/-ylTQlF9RzSs/AAAAAAAAAAI/AAAAAAAAAas/V9jQZtGqQb8/s96-c/photo.jpg</string>
 	<string name="dev_username">Derniz Quabynah Bilson</string>
 	<string name="dev_about">\‘The Phoenix\’ was made successful by the amazing grace of our Lord
-		Almighty and by the support and guidance of my selfless supervisor, Mr. Ntebri. I owe all my
+		Almighty and by the support and guidance of my selfless supervisor, Mr. Tabiri. I owe all my
 		sponsors a big thank you for making this project possible.\n\nDennis Bilson is currently
 		studying Computer Science in the University of Ghana, Legon.</string>
+	<string name="splash_desc_text">Ghana\'s most secured marketplace</string>
+	<string name="related_products">Related products</string>
 
 
 </resources>

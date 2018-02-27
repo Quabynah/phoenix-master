@@ -5,7 +5,6 @@ package io.pergasus.api
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.util.Log
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
@@ -56,7 +55,7 @@ abstract class DataManager(private val context: Activity, private val filterAdap
         val dataSources = filterAdapter.filters
         pageIndexes = HashMap(0)
         for (source in dataSources) {
-            pageIndexes.put(key = source.key, value = 0)
+            pageIndexes[source.key] = 0
         }
     }
 

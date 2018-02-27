@@ -72,6 +72,7 @@ class DetailsActivity : Activity() {
     //Widgets
     private val draggableFrame: ElasticDragDismissFrameLayout by bindView(R.id.draggable_frame)
     private val back: ImageButton by bindView(R.id.back)
+    private val more: ImageButton by bindView(R.id.more)
     private val imageView: ParallaxScrimageView by bindView(R.id.shot)
     private val commentsList: RecyclerView by bindView(R.id.dribbble_comments)
     private val fab: FABToggle by bindView(R.id.fab_heart)
@@ -227,8 +228,17 @@ class DetailsActivity : Activity() {
             description.visibility = View.GONE
         }
 
-        val nf = NumberFormat.getInstance()
+        //Show related products
+        more.setOnClickListener({
+            val intent = Intent(this@DetailsActivity, RelatedProductsActivity::class.java)
+            val bundle = Bundle()
+            //Send whole product to new activity as bundle
+            bundle.putParcelable(RelatedProductsActivity.EXTRA_PRODUCT, product)
+            intent.putExtras(bundle)
+            startActivity(intent)
+        })
 
+        val nf = NumberFormat.getInstance()
         //Like button
         likeCount.text = res.getQuantityString(R.plurals.likes, 10000, nf.format(10000))
         likeCount.setOnClickListener {
@@ -441,6 +451,8 @@ class DetailsActivity : Activity() {
 
                             if (!isDark) { // make back icon dark on light images
                                 back.setColorFilter(ContextCompat.getColor(
+                                        this@DetailsActivity, R.color.dark_icon))
+                                more.setColorFilter(ContextCompat.getColor(
                                         this@DetailsActivity, R.color.dark_icon))
                             }
 

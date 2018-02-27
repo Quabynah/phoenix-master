@@ -78,7 +78,7 @@ class AboutActivity : Activity() {
     }
 
     internal inner class AboutPagerAdapter(private val host: Activity) : PagerAdapter() {
-        private val PAGE_COUNT: Int = 3
+        private val PAGE_COUNT: Int = 4
         private var layoutInflater: LayoutInflater = LayoutInflater.from(host)
         private val markdown: Bypass = Bypass(host, Bypass.Options())
         private val resources: Resources = host.resources
