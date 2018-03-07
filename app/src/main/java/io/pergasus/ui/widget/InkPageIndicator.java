@@ -67,15 +67,15 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
 	float controlX2;
 	float controlY2;
 	// configurable attributes
-	private int dotDiameter;
-	private int gap;
-	private long animDuration;
-	private int unselectedColour;
-	private int selectedColour;
+	private final int dotDiameter;
+	private final int gap;
+	private final long animDuration;
+	private final int unselectedColour;
+	private final int selectedColour;
 	// derived from attributes
-	private float dotRadius;
-	private float halfDotRadius;
-	private long animHalfDuration;
+	private final float dotRadius;
+	private final float halfDotRadius;
+	private final long animHalfDuration;
 	private float dotTopY;
 	private float dotCenterY;
 	private float dotBottomY;
@@ -111,10 +111,10 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
 	public InkPageIndicator(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		
-		final int density = (int) context.getResources().getDisplayMetrics().density;
+		int density = (int) context.getResources().getDisplayMetrics().density;
 		
 		// Load attributes
-		final TypedArray a = getContext().obtainStyledAttributes(
+		TypedArray a = getContext().obtainStyledAttributes(
 				attrs, R.styleable.InkPageIndicator, defStyle, 0);
 		
 		dotDiameter = a.getDimensionPixelSize(R.styleable.InkPageIndicator_dotDiameter,
@@ -544,7 +544,7 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
 		pageChanging = true;
 		previousPage = currentPage;
 		currentPage = now;
-		final int steps = Math.abs(now - previousPage);
+		int steps = Math.abs(now - previousPage);
 		
 		if (steps > 1) {
 			if (now > previousPage) {
@@ -567,7 +567,7 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
 	}
 	
 	private ValueAnimator createMoveSelectedAnimator(
-			final float moveTo, int was, int now, int steps) {
+			float moveTo, int was, int now, int steps) {
 		
 		// create the actual move animator
 		ValueAnimator moveSelected = ValueAnimator.ofFloat(selectedDotX, moveTo);
@@ -652,7 +652,6 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
 		protected StartPredicate predicate;
 		
 		public PendingStartAnimator(StartPredicate predicate) {
-			super();
 			this.predicate = predicate;
 			hasStarted = false;
 		}
@@ -680,20 +679,16 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
 			// work out the start/end values of the retreating join from the direction we're
 			// travelling in.  Also look at the current selected dot position, i.e. we're moving on
 			// before a prior anim has finished.
-			final float initialX1 = now > was ? Math.min(dotCenterX[was], selectedDotX) - dotRadius
-					: dotCenterX[now] - dotRadius;
-			final float finalX1 = now > was ? dotCenterX[now] - dotRadius
-					: dotCenterX[now] - dotRadius;
-			final float initialX2 = now > was ? dotCenterX[now] + dotRadius
-					: Math.max(dotCenterX[was], selectedDotX) + dotRadius;
-			final float finalX2 = now > was ? dotCenterX[now] + dotRadius
-					: dotCenterX[now] + dotRadius;
+			float initialX1 = (now > was ? Math.min(dotCenterX[was], selectedDotX) : dotCenterX[now]) - dotRadius;
+			float finalX1 = dotCenterX[now] - dotRadius;
+			float initialX2 = (now > was ? dotCenterX[now] : Math.max(dotCenterX[was], selectedDotX)) + dotRadius;
+			float finalX2 = dotCenterX[now] + dotRadius;
 			
 			revealAnimations = new PendingRevealAnimator[steps];
 			// hold on to the indexes of the dots that will be hidden by the retreat so that
 			// we can initialize their revealFraction's i.e. make sure they're hidden while the
 			// reveal animation runs
-			final int[] dotsToHide = new int[steps];
+			int[] dotsToHide = new int[steps];
 			if (initialX1 != finalX1) { // rightward retreat
 				setFloatValues(initialX1, finalX1);
 				// create the reveal animations that will run when the retreat passes them
@@ -765,7 +760,7 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
 	 */
 	public class PendingRevealAnimator extends PendingStartAnimator {
 		
-		private int dot;
+		private final int dot;
 		
 		public PendingRevealAnimator(int dot, StartPredicate predicate) {
 			super(predicate);

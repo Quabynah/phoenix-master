@@ -23,6 +23,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withC
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.util.ViewPreloadSizeProvider
+import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.QuerySnapshot
 import io.pergasus.BuildConfig
@@ -80,7 +81,12 @@ class ShopsActivity : Activity() {
         if (intent.hasExtra(EXTRA_SHOP_NAME)) {
             val extra = intent.getStringExtra(EXTRA_SHOP_NAME)
             name.text = String.format("%s (Loading)", extra)
-            loadShop(extra)
+            if (intent.hasExtra(EXTRA_SHOP_KEY)) {
+                val key = intent.getStringExtra(EXTRA_SHOP_KEY)
+                //Load shop by key, if any else load by name
+                if (key.isNullOrEmpty()) loadShop(extra)
+                else loadShop(key)
+            }
         }
 
         // setup immersive mode i.e. draw behind the system chrome & adjust insets
@@ -110,7 +116,6 @@ class ShopsActivity : Activity() {
     private fun loadShop(extra: String?) {
         if (extra == null) return
         prefs.db.collection(PhoenixUtils.DB_PREFIX + "/" + PhoenixUtils.SHOP_REF)
-                .whereEqualTo("name", extra)
                 .get()
                 .addOnFailureListener { exception ->
                     Toast.makeText(this@ShopsActivity, exception.localizedMessage,
@@ -120,7 +125,7 @@ class ShopsActivity : Activity() {
                         for (shops in task.result.documents) {
                             if (shops.exists()) {
                                 val obj = shops.toObject(Shop::class.java)
-                                if (obj.name == extra) {
+                                if (obj.name == extra || obj.key == extra) {
                                     shop = obj  //Assign shop to object
                                     bindShop()
                                 }
@@ -232,7 +237,6 @@ class ShopsActivity : Activity() {
                     .db.document(PhoenixUtils.FOLLOW_REF)
                     .collection(shop?.key!!)
                     .orderBy("timestamp")
-                    .limit(50)
                     .addSnapshotListener(this@ShopsActivity, EventListener<QuerySnapshot?> { p0, p1 ->
                         if (p1 != null) {
                             Timber.d(p1.localizedMessage)
@@ -287,21 +291,7 @@ class ShopsActivity : Activity() {
                         .delete()
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                //Add to shop's follower's count as well
-                                //Ref: /phoenix/web/shops/{shop_key}
-                                prefs.db.document(PhoenixUtils.DB_PREFIX + "/" + PhoenixUtils.SHOP_REF + "/" + shop?.key)
-                                        .update("followers_count", shop?.followers_count!!.plus(1))
-                                        .addOnCompleteListener { updateTask ->
-                                            if (updateTask.isSuccessful) {
-                                                if (BuildConfig.DEBUG) {
-                                                    Timber.d("Followers updated")
-                                                }
-                                            } else {
-                                                if (BuildConfig.DEBUG) {
-                                                    Timber.d(task.exception?.localizedMessage)
-                                                }
-                                            }
-                                        }
+                                updateFollowers(task, shop?.followers_count!!.minus(1))
                             }
                         }
                         .addOnFailureListener { exception ->
@@ -336,9 +326,7 @@ class ShopsActivity : Activity() {
                             }
                         }.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                if (BuildConfig.DEBUG) {
-                                    Timber.d("Follow added successfully")
-                                }
+                                updateFollowers(task, shop?.followers_count!!.plus(1))
                             } else {
                                 if (BuildConfig.DEBUG) {
                                     Timber.d(task.exception?.localizedMessage)
@@ -360,6 +348,24 @@ class ShopsActivity : Activity() {
             val options = ActivityOptions.makeSceneTransitionAnimation(this, follow, getString(R.string.transition_dribbble_login))
             startActivity(login, options.toBundle())
         }
+    }
+
+    private fun updateFollowers(task: Task<Void>, value: Long) {
+        //Add to shop's follower's count as well
+        //Ref: /phoenix/web/shops/{shop_key}
+        prefs.db.document(PhoenixUtils.DB_PREFIX + "/" + PhoenixUtils.SHOP_REF + "/" + shop?.key)
+                .update("followers_count", value)
+                .addOnCompleteListener { updateTask ->
+                    if (updateTask.isSuccessful) {
+                        if (BuildConfig.DEBUG) {
+                            Timber.d("Followers updated")
+                        }
+                    } else {
+                        if (BuildConfig.DEBUG) {
+                            Timber.d(task.exception?.localizedMessage)
+                        }
+                    }
+                }
     }
 
     override fun onResume() {
@@ -405,9 +411,9 @@ class ShopsActivity : Activity() {
         }
     }
 
-
     companion object {
         const val EXTRA_SHOP_NAME = "EXTRA_SHOP_NAME"
+        const val EXTRA_SHOP_KEY = "EXTRA_SHOP_KEY"
 
     }
 }

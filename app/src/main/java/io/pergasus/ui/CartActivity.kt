@@ -487,13 +487,13 @@ class CartActivity : Activity() {
             loading = client.getDialog()
         }
 
-        override fun onBindViewHolder(holder: CartViewHolder?, p0: Int) {
+        override fun onBindViewHolder(holder: CartViewHolder, p0: Int) {
             if (holder != null) {
                 val position = holder.adapterPosition
                 val order = items[position]
                 holder.name.text = order.name
                 holder.price.text = NumberFormat.getCurrencyInstance(Locale.US)
-                        .format(order.price?.toLong())
+                        .format(order.price?.toDouble())
                 holder.quantity.text = String.format("%s units added", order.quantity)
                 GlideApp.with(host)
                         .load(order.image)
@@ -546,7 +546,7 @@ class CartActivity : Activity() {
             return items.size
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CartViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
             val v: View = LayoutInflater.from(host).inflate(R.layout.order_item, parent, false)
             return CartViewHolder(v)
         }

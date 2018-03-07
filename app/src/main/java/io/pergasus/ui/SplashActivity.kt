@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import com.afollestad.materialdialogs.MaterialDialog
 import io.pergasus.R
+import io.pergasus.api.PhoenixApplication
 import io.pergasus.api.PhoenixClient
 import io.pergasus.api.PhoenixUtils
 import io.pergasus.util.bindView
@@ -36,22 +37,30 @@ class SplashActivity : Activity() {
         prefs = PhoenixClient(this)
 
         val handler = Handler()
-        handler.postDelayed({
-            if (prefs.isConnected) {
-                if (prefs.isLoggedIn) {
-                    TransitionManager.beginDelayedTransition(container)
-                    loading.visibility = View.VISIBLE
-                    loadUserData()
+        val clientState = PhoenixApplication.Companion.PhoenixClientState(this)
+        if (clientState.isAppRecentlyInstalled) {
+            handler.postDelayed({
+                if (prefs.isConnected) {
+                    if (prefs.isLoggedIn) {
+                        TransitionManager.beginDelayedTransition(container)
+                        loading.visibility = View.VISIBLE
+                        loadUserData()
+                    } else {
+                        startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                        finish()
+                    }
                 } else {
                     startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
                     finish()
                 }
-            } else {
-                startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
-                finish()
-            }
 
-        }, 2000)
+            }, 1500)
+        } else {
+            handler.postDelayed({
+                startActivity(Intent(this@SplashActivity, WelcomeActivity::class.java))
+                finish()
+            }, 2500)
+        }
     }
 
     private fun loadUserData() {

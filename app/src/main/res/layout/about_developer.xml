@@ -45,14 +45,12 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
 			android:backgroundTint="@color/button_accent"
-			android:drawablePadding="@dimen/spacing_normal"
-			android:drawableStart="@drawable/asl_follow"
 			android:fontFamily="@font/nunito_extrabold"
 			android:paddingBottom="@dimen/spacing_normal"
 			android:paddingEnd="@dimen/padding_normal"
 			android:paddingStart="@dimen/padding_normal"
 			android:paddingTop="@dimen/spacing_normal"
-			android:text="@string/follow"
+			android:text="@string/follow_on_github"
 			android:textAppearance="@style/TextAppearance.DarkButton"
 			android:theme="@style/LightRippleOverlay" />
 		
@@ -66,7 +64,8 @@
 			android:paddingStart="@dimen/padding_normal"
 			android:paddingTop="@dimen/avatar_margin"
 			android:textColor="@color/text_secondary_dark"
-			android:textAppearance="@style/TextAppearance.CommentAuthor"
+			android:textAppearance="@style/TextAppearance.About"
+			android:textColorHighlight="?android:colorPrimaryDark"
 			android:text="@string/dev_about" />
 	
 	

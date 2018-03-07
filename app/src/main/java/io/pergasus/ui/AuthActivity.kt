@@ -86,6 +86,7 @@ class AuthActivity : Activity() {
                     val firebaseUser = auth.currentUser
                     updateUI(firebaseUser)
                 }
+                RESULT_CANCELED, RESULT_FIRST_USER -> showLoginFailed("Cancelled operation")
             }
         }
     }

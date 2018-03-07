@@ -13,7 +13,6 @@ import android.text.TextUtils
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.Theme
 import com.google.firebase.FirebaseApp
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -70,11 +69,11 @@ class PhoenixClient(val context: Context) {
 
         //Initialize Firebase App & Firebase Firestore
         val app = FirebaseApp.initializeApp(context)
-       if (app == null){
+        if (app == null) {
             auth = FirebaseAuth.getInstance()
             db = FirebaseFirestore.getInstance()
             storage = FirebaseStorage.getInstance().getReference("phoenix")
-        }else{
+        } else {
             auth = FirebaseAuth.getInstance(app)
             db = FirebaseFirestore.getInstance(app)
             storage = FirebaseStorage.getInstance(app).getReference("phoenix")
@@ -115,7 +114,7 @@ class PhoenixClient(val context: Context) {
     private fun getConnectionStatus(): Boolean {
         val connectivityManager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
-        connected = activeNetworkInfo != null && activeNetworkInfo.isConnected
+        connected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
 
         //Add callback for network connection
         try {

@@ -9,7 +9,7 @@
 	android:id="@+id/shot"
 	android:layout_width="match_parent"
 	android:layout_height="0dp"
-	android:scaleType="centerInside"
+	android:scaleType="centerCrop"
 	android:stateListAnimator="@animator/raise"
 	android:foreground="@drawable/mid_grey_ripple"
 	app:badgeGravity="end|bottom"

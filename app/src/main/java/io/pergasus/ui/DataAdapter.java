@@ -314,7 +314,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 	@SuppressLint("Range")
 	private void bindProductHolder(Product shot, ProductViewHolder holder, int position) {
 		holder.price.setText(NumberFormat.getCurrencyInstance(Locale.US)
-				.format(Long.parseLong(shot.getPrice())));
+				.format(Double.parseDouble(shot.getPrice())));
 		holder.title.setText(shot.getName());
 		holder.title.setAlpha(1.0f); // interrupted add to pocket anim can mangle
 		GlideApp.with(host)

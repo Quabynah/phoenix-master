@@ -9,34 +9,40 @@ import android.app.Activity
 import android.os.AsyncTask
 import android.support.v4.app.ShareCompat
 import android.support.v4.content.FileProvider
-import android.util.Log
 import com.bumptech.glide.Glide
 import io.pergasus.BuildConfig
+import io.pergasus.R
 import io.pergasus.data.Product
+import timber.log.Timber
 import java.io.File
-import java.lang.StringBuilder
 
 
-class ShareProductTask(@SuppressLint("StaticFieldLeak") private val activity: Activity, private val product: Product):
+class ShareProductTask(@SuppressLint("StaticFieldLeak") private val activity: Activity, private val product: Product) :
         AsyncTask<Void, Void, File>() {
+
+    private val shareText: String
+        get() = "“" + product.name + "” by " + product.shop + "\n" + product.url + "\n" +
+                "Image generated from ${activity.getString(R.string.app_name)} \nCreated by Dennis Bilson"
 
     override fun doInBackground(vararg p0: Void?): File? {
         val url = product.url
-        try {
-            return Glide
+        return try {
+            Glide
                     .with(activity)
                     .load(url)
-                    .downloadOnly(product.colspan, product.colspan)
+                    .downloadOnly(1200, 900)
                     .get()
         } catch (ex: Exception) {
-            Log.w("SHARE", "Sharing $url failed", ex)
-            return null
+            Timber.w(ex, "Sharing $url failed")
+            null
         }
 
     }
 
     override fun onPostExecute(result: File?) {
-        if (result == null) { return; }
+        if (result == null) {
+            return
+        }
         // glide cache uses an unfriendly & extension-less name,
         // massage it based on the original
         var fileName = product.url
@@ -45,26 +51,17 @@ class ShareProductTask(@SuppressLint("StaticFieldLeak") private val activity: Ac
         result.renameTo(renamed)
         val uri = FileProvider.getUriForFile(activity, BuildConfig.FILES_AUTHORITY, renamed)
         ShareCompat.IntentBuilder.from(activity)
-                .setText(getShareText())
-                .setType(getImageMimeType(fileName!!))
+                .setText(shareText)
+                .setType(getImageMimeType(fileName))
                 .setSubject(product.name)
                 .setStream(uri)
                 .startChooser()
     }
 
-    private fun getShareText(): String{
-        return StringBuilder()
-                .append("“")
-                .append(product.name)
-                .append("” about ")
-                .append(product.description)
-                .append("\n")
-                .append(product.url)
-                .toString()
-    }
 
-    private fun getImageMimeType(fileName: String): String {
-        if (fileName.endsWith(".png")) {
+    private fun getImageMimeType(fileName: String?): String {
+        if (fileName.isNullOrEmpty()) return "image/jpeg"
+        if (fileName!!.endsWith(".png")) {
             return "image/png"
         } else if (fileName.endsWith(".gif")) {
             return "image/gif"

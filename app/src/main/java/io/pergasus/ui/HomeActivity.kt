@@ -612,9 +612,10 @@ class HomeActivity : Activity() {
     private fun checkConnectivity() {
         val connectivityManager: ConnectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
-        connected = activeNetworkInfo != null && activeNetworkInfo.isConnected
+        connected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
         if (!connected) {
             loading.visibility = View.GONE
+            fab.visibility = View.GONE
             if (noConnection == null) {
                 val stub: ViewStub = findViewById(R.id.stub_no_connection)
                 noConnection = stub.inflate() as ImageView
@@ -642,6 +643,7 @@ class HomeActivity : Activity() {
                 TransitionManager.beginDelayedTransition(drawer)
                 noConnection?.visibility = View.GONE
                 loading.visibility = View.VISIBLE
+                fab.visibility = View.VISIBLE
                 dataManager.loadAllDataSources()
             })
         }

@@ -6,7 +6,7 @@
 	<string name="app_name">The Phoenix</string>
 	
 	<!--Others-->
-	<string name="search_hint">Search by name &amp; brand</string>
+	<string name="search_hint">Search for products</string>
 	<string name="about">About Us</string>
 	<string name="search">Search</string>
 	<string name="filter">Filter</string>
@@ -112,7 +112,7 @@
 	<string name="no_products_available">No products available at this time</string>
 	<string name="deliver_to">Deliver To</string>
 	<string name="change">Update</string>
-	<string name="slydepay">SlydePay</string>
+	<string name="slydepay">Mobile Money</string>
 	<string name="visa">VISA / Master Card (with PayPal)</string>
 	<string name="computation">Transaction Breakdown</string>
 	<string name="savings">Discount received</string>
@@ -197,15 +197,18 @@
 	<!--Hubtel Credentials-->
 	<string name="hubtel_secret">akrsdyom</string>
 	<string name="hubtel_client_id">ozbfnqzw</string>
-	<string name="dev_profile_image">https://lh4.googleusercontent
-		.com/-ylTQlF9RzSs/AAAAAAAAAAI/AAAAAAAAAas/V9jQZtGqQb8/s96-c/photo.jpg</string>
-	<string name="dev_username">Derniz Quabynah Bilson</string>
+	<string name="dev_profile_image">https://pbs.twimg.com/profile_images/923717722608951296/qKDbRXZM_normal.jpg</string>
+	<string name="dev_username">Dennis Kwabena Bilson Jnr.</string>
 	<string name="dev_about">\‘The Phoenix\’ was made successful by the amazing grace of our Lord
 		Almighty and by the support and guidance of my selfless supervisor, Mr. Tabiri. I owe all my
 		sponsors a big thank you for making this project possible.\n\nDennis Bilson is currently
 		studying Computer Science in the University of Ghana, Legon.</string>
 	<string name="splash_desc_text">Ghana\'s most secured marketplace</string>
 	<string name="related_products">Related products</string>
+	<string name="previous">Previous</string>
+	<string name="next">Next</string>
+	<string name="get_started">Get Started</string>
+	<string name="follow_on_github">Follow me on GitHub</string>
 
 
 </resources>

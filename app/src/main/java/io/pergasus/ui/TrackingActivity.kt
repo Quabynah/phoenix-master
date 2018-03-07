@@ -53,7 +53,6 @@ import timber.log.Timber
 class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
-
     private lateinit var _map: GoogleMap
     private var _client: GoogleApiClient? = null
     private var _lastLocation: Location? = null
@@ -319,6 +318,7 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
         return true
     }
 
+    @Synchronized
     protected fun buildGoogleApiClient() {
         _client = GoogleApiClient.Builder(this@TrackingActivity, this, this)
                 .addApi(LocationServices.API)

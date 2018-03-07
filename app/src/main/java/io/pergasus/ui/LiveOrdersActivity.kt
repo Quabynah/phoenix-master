@@ -92,28 +92,26 @@ class LiveOrdersActivity : Activity() {
             return purchases.size
         }
 
-        override fun onBindViewHolder(holder: OrdersViewHolder?, position: Int) {
-            if (holder != null) {
-                val purchase = getItem(position)
-                //navigation
-                holder.itemView.setOnClickListener({
-                    navTrackingView(purchase)
-                })
-                holder.track.setOnClickListener({
-                    navTrackingView(purchase)
-                })
+        override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
+            val purchase = getItem(position)
+            //navigation
+            holder.itemView.setOnClickListener({
+                navTrackingView(purchase)
+            })
+            holder.track.setOnClickListener({
+                navTrackingView(purchase)
+            })
 
-                //Order number
-                holder.key.text = String.format("Order #%s", purchase.purchaseId)
-                //Order date
-                if (purchase.timestamp != null) {
-                    holder.date.text = DateUtils.getRelativeTimeSpanString(purchase.timestamp!!.time,
-                            System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
-                }
-                //Order price
-                holder.price.text = NumberFormat.getCurrencyInstance(Locale.US).format(purchase.price?.toDouble())
-
+            //Order number
+            holder.key.text = String.format("Order #%s", purchase.purchaseId)
+            //Order date
+            if (purchase.timestamp != null) {
+                holder.date.text = DateUtils.getRelativeTimeSpanString(purchase.timestamp!!.time,
+                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
             }
+            //Order price
+            holder.price.text = NumberFormat.getCurrencyInstance(Locale.US).format(purchase.price?.toDouble())
+
         }
 
         private fun navTrackingView(purchase: Purchase) {
@@ -126,11 +124,26 @@ class LiveOrdersActivity : Activity() {
             return purchases[position]
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): OrdersViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrdersViewHolder {
             return OrdersViewHolder(layoutInflater.inflate(R.layout.live_order_item, parent, false))
         }
 
         /** Add live orders here from database */
-        fun addLiveOrder(newItems: List<Purchase>) {}
+        fun addLiveOrder(newItems: List<Purchase>) {
+            val count = itemCount
+            for (data in newItems) {
+                var add = true
+                for (i in 0 until count) {
+                    val existingItem = getItem(i)
+                    if (existingItem == data) {
+                        add = false
+                    }
+                }
+                if (add) {
+                    purchases.add(data)
+                }
+            }
+            notifyDataSetChanged()
+        }
     }
 }

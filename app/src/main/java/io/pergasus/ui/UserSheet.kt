@@ -45,13 +45,13 @@ import java.util.*
 class UserSheet : Activity() {
     companion object {
         private const val MODE_FOLLOWERS = 2
-        private val DISMISS_DOWN = 0
-        private val DISMISS_CLOSE = 1
-        private val EXTRA_MODE = "EXTRA_MODE"
-        private val EXTRA_SHOP = "EXTRA_SHOP"
+        private const val DISMISS_DOWN = 0
+        private const val DISMISS_CLOSE = 1
+        private const val EXTRA_MODE = "EXTRA_MODE"
+        private const val EXTRA_SHOP = "EXTRA_SHOP"
 
-        private val TYPE_PLAYER = 7
-        private val TYPE_LOADING = -1
+        private const val TYPE_PLAYER = 7
+        private const val TYPE_LOADING = -1
 
 
         fun start(@NonNull launching: Activity, shop: Shop) {
@@ -79,7 +79,7 @@ class UserSheet : Activity() {
     private var largeAvatarSize: Int = 0
 
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
-    @IntDef(MODE_FOLLOWERS.toLong())
+    @IntDef(MODE_FOLLOWERS)
     internal annotation class PlayerSheetMode
 
     override fun onCreate(savedInstanceState: Bundle?) {

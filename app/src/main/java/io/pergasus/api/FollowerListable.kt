@@ -7,6 +7,9 @@ package io.pergasus.api
 import io.pergasus.data.Customer
 import java.util.*
 
+/**
+ * Create followers list
+ */
 interface FollowerListable {
     val customer: Customer?
     val id: Long?

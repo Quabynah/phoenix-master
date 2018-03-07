@@ -379,6 +379,12 @@
 		<item name="android:windowEnterTransition">@transition/home_enter</item>
 	</style>
 	
+	<style name="Phoenix.Translucent.Custom.Welcome">
+		<item name="android:windowFullscreen">true</item>
+		<item name="android:statusBarColor">@color/background_super_dark</item>
+		<item name="android:navigationBarColor">@color/background_super_dark</item>
+		<item name="android:windowTranslucentNavigation">true</item>
+	</style>
 	
 	<style name="Phoenix.Translucent.Splash">
 		<item name="android:windowFullscreen">true</item>

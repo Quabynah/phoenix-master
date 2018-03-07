@@ -20,6 +20,13 @@
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	
+	<!-- Phone call permission -->
+	<uses-permission android:name="android.permission.CALL_PHONE" />
+	
+	<uses-feature
+		android:name="android.hardware.telephony"
+		android:required="false" />
+	
 	<application
 		android:name=".api.PhoenixApplication"
 		android:allowBackup="true"
@@ -192,7 +199,13 @@
 		<activity
 			android:name=".ui.RelatedProductsActivity"
 			android:parentActivityName=".ui.DetailsActivity"
-			android:theme="@style/Phoenix.Translucent.Custom.Shop" />
+			android:theme="@style/Phoenix.Translucent.Custom.Cart" />
+		<activity android:name=".ui.ImageDetailsActivity" />
+		<activity
+			android:name=".ui.WelcomeActivity"
+			android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+			android:screenOrientation="portrait"
+			android:theme="@style/Phoenix.Translucent.Custom.Welcome" />
 	</application>
 
 </manifest>

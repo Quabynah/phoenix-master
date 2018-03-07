@@ -102,7 +102,7 @@ class NotificationsActivity : Activity() {
             setHasStableIds(true)
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): NotificationHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationHolder {
             val view = layoutInflater.inflate(R.layout.notifications_item, parent, false)
             return NotificationHolder(view)
         }
@@ -111,36 +111,34 @@ class NotificationsActivity : Activity() {
             return notifications.size
         }
 
-        override fun onBindViewHolder(holder: NotificationHolder?, position: Int) {
+        override fun onBindViewHolder(holder: NotificationHolder, position: Int) {
             val phoenixNotifications = notifications[position]
 
-            if (holder != null) {
-                //Load image
-                GlideApp.with(applicationContext)
-                        .load(phoenixNotifications.image)
-                        .placeholder(R.drawable.avatar_placeholder)
-                        .error(R.drawable.avatar_placeholder)
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                        .into(holder.image)
+            //Load image
+            GlideApp.with(applicationContext)
+                    .load(phoenixNotifications.image)
+                    .placeholder(R.drawable.avatar_placeholder)
+                    .error(R.drawable.avatar_placeholder)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .into(holder.image)
 
-                //Set title
-                holder.title.text = phoenixNotifications.title
+            //Set title
+            holder.title.text = phoenixNotifications.title
 
-                //Set message
-                holder.message.text = phoenixNotifications.message
+            //Set message
+            holder.message.text = phoenixNotifications.message
 
-                //Set time
-                if (phoenixNotifications.timestamp != null) {
-                    holder.timestamp.text = DateUtils.getRelativeTimeSpanString(phoenixNotifications.timestamp?.time!!,
-                            System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS,
-                            DateUtils.FORMAT_SHOW_TIME)
+            //Set time
+            if (phoenixNotifications.timestamp != null) {
+                holder.timestamp.text = DateUtils.getRelativeTimeSpanString(phoenixNotifications.timestamp?.time!!,
+                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS,
+                        DateUtils.FORMAT_SHOW_TIME)
 
-                }
-
-                //Set item preloader
-                preloadSizeProvider.setView(holder.image)
             }
+
+            //Set item preloader
+            preloadSizeProvider.setView(holder.image)
 
         }
 

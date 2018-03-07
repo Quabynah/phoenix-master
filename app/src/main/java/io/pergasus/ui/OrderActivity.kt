@@ -163,13 +163,13 @@ class OrderActivity : Activity() {
                 ImeUtils.hideIme(sheetTitle)
                 when (orderMethod.text) {
                     getString(R.string.slydepay) -> {
-                        doSlydePayPayment(price, title)
+                        doMobileMoneyPayment(price, title)
                     }
                     getString(R.string.pay_with_android_pay) -> {
                         doAndroidPay(price, title)
                     }
                     getString(R.string.visa) -> {
-                        doVisaCardPayment(price, title)
+                        doPayPalPayment(price, title)
                     }
                 }
             } else {
@@ -185,10 +185,7 @@ class OrderActivity : Activity() {
         orderDelivery.text = setValue(0.00)
         orderSavings.text = setValue(0.00)
         orderTax.text = setValue(0.00)
-        if (client.isLoggedIn) {
-            orderName.text = client.customer.name
-            orderLocation.text = client.getPlace()
-        }
+        loadUser()
 
         //get amount from intent value
         var amt: Double = price
@@ -207,7 +204,8 @@ class OrderActivity : Activity() {
 
         //Add actions to buttons
         updateLocation.setOnClickListener {
-            startActivity(Intent(this@OrderActivity, ProfileActivity::class.java))
+            startActivityForResult(Intent(this@OrderActivity, ProfileActivity::class.java)
+                    , RESULT_UPDATE_PROFILE)
         }
 
         //Array of options
@@ -218,7 +216,7 @@ class OrderActivity : Activity() {
         )
         updateMethod.setOnClickListener {
             MaterialDialog.Builder(this@OrderActivity)
-                    .theme(Theme.DARK)
+                    .theme(Theme.LIGHT)
                     .title(getString(R.string.confirm_trans_hint))
                     .positiveText("Ok")
                     .negativeText("Cancel")
@@ -248,22 +246,30 @@ class OrderActivity : Activity() {
 
     }
 
+    private fun loadUser() {
+        if (client.isLoggedIn) {
+            TransitionManager.beginDelayedTransition(bottomSheetContent)
+            orderName.text = client.customer.name
+            orderLocation.text = client.getPlace()
+        }
+    }
+
     //Pay with [PayPal]
-    private fun doVisaCardPayment(price: Double, title: String?) {
+    private fun doPayPalPayment(price: Double, title: String?) {
         TransitionManager.beginDelayedTransition(bottomSheetContent)
         checkOut.isEnabled = false
-        doPaymentHubtel(price, title)
+        //todo: add paypal support
     }
 
     //Pay with [AndroidPay]
     private fun doAndroidPay(price: Double, title: String?) {
         TransitionManager.beginDelayedTransition(bottomSheetContent)
         checkOut.isEnabled = false
-        doPaymentHubtel(price, title)
+        //todo: add android pay support
     }
 
     //Pay with [Slydepay]
-    private fun doSlydePayPayment(price: Double, title: String?) {
+    private fun doMobileMoneyPayment(price: Double, title: String?) {
         TransitionManager.beginDelayedTransition(bottomSheetContent)
         checkOut.isEnabled = false
         doPaymentHubtel(price, title)
@@ -352,6 +358,12 @@ class OrderActivity : Activity() {
                             Toast.LENGTH_LONG).show()
                 }
             }
+        } else if (requestCode == RESULT_UPDATE_PROFILE) {
+            when (resultCode) {
+                RESULT_OK -> {
+                    loadUser()
+                }
+            }
         }
     }
 
@@ -432,6 +444,7 @@ class OrderActivity : Activity() {
         const val RESULT_PAYING = 20
         const val RC_AUTH_PAYMENT = 21
         const val RC_PAYMENT = 22
+        const val RESULT_UPDATE_PROFILE = 23
     }
 
 }

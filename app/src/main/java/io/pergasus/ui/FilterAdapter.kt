@@ -72,7 +72,7 @@ class FilterAdapter(private val host: Activity, val filters: MutableList<Source>
         return holder
     }
 
-    override fun onBindViewHolder(holder: FilterViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
         val filter = filters[position]
         if (holder != null) {
             holder.isSwipeable = filter.isSwipeDismissable
@@ -91,8 +91,8 @@ class FilterAdapter(private val host: Activity, val filters: MutableList<Source>
 
     override fun onBindViewHolder(holder: FilterViewHolder,
                                   position: Int,
-                                  payloads: List<Any>?) {
-        if (payloads!!.isEmpty()) {
+                                  payloads: MutableList<Any>) {
+        if (payloads.isEmpty()) {
             onBindViewHolder(holder, position)
         } else {
             // if we're doing a partial re-bind i.e. an item is enabling/disabling or being

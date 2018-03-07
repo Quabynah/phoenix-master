@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/container"
+	tools:context="io.pergasus.ui.ImageDetailsActivity">
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/black"
+		android:elevation="@dimen/z_card" />
+	
+	<Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="?android:actionBarSize"
+		android:elevation="@dimen/z_app_bar"
+		style="@style/Widget.AppTheme.HomeToolbar"
+		android:navigationIcon="@drawable/ic_arrow_back_padded"
+		android:title="@string/app_name" />
+	
+	<io.pergasus.ui.widget.PhotoView
+		android:id="@+id/imageView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:minHeight="@dimen/shot_expanded_app_bar_height"
+		android:elevation="@dimen/z_card"
+		android:src="@drawable/ic_launcher_512px"
+		android:transitionName="@string/transition_shot"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/toolbar"
+		tools:ignore="ContentDescription" />
+
+</android.support.constraint.ConstraintLayout>

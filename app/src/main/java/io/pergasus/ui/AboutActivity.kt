@@ -59,7 +59,7 @@ class AboutActivity : Activity() {
 
         client = PhoenixClient(this@AboutActivity)
 
-        pager.adapter = AboutPagerAdapter(this@AboutActivity)
+        pager.adapter = AboutPagerAdapter()
         pager.pageMargin = resources.getDimensionPixelSize(R.dimen.spacing_normal)
         pageIndicator.setViewPager(pager)
 
@@ -77,11 +77,11 @@ class AboutActivity : Activity() {
 
     }
 
-    internal inner class AboutPagerAdapter(private val host: Activity) : PagerAdapter() {
-        private val PAGE_COUNT: Int = 4
-        private var layoutInflater: LayoutInflater = LayoutInflater.from(host)
-        private val markdown: Bypass = Bypass(host, Bypass.Options())
-        private val resources: Resources = host.resources
+    internal inner class AboutPagerAdapter : PagerAdapter() {
+        private val PAGES: Int = 4
+        private var layoutInflater: LayoutInflater = LayoutInflater.from(this@AboutActivity)
+        private val markdown: Bypass = Bypass(this@AboutActivity, Bypass.Options())
+        private val resources: Resources = this@AboutActivity.resources
 
         private var aboutPhoenix: View? = null
         @Nullable
@@ -151,7 +151,7 @@ class AboutActivity : Activity() {
                     if (aboutLibs == null) {
                         aboutLibs = layoutInflater.inflate(R.layout.about_libs, container, false)
                         libsList = aboutLibs?.findViewById(R.id.libs_list)
-                        libsList?.adapter = LibraryAdapter(host)
+                        libsList?.adapter = LibraryAdapter(this@AboutActivity)
                     }
                     this.aboutLibs!!
                 }
@@ -164,9 +164,10 @@ class AboutActivity : Activity() {
                         //Follow developer on github
                         follow?.setOnClickListener({
                             CustomTabActivityHelper.openCustomTab(
-                                    host,
+                                    this@AboutActivity,
                                     CustomTabsIntent.Builder()
-                                            .setToolbarColor(ContextCompat.getColor(host, R.color.background_super_dark))
+                                            .setToolbarColor(ContextCompat.getColor(this@AboutActivity,
+                                                    R.color.background_super_dark))
                                             .addDefaultShareMenuItem()
                                             .build(), Uri.parse("https://github.com/Quabynah"))
                         })
@@ -184,7 +185,7 @@ class AboutActivity : Activity() {
                     }
                     this.aboutDeveloper!!
                 }
-                else -> throw InvalidParameterException()
+                else -> throw InvalidParameterException("View not implemented")
             }
 
         }
@@ -194,7 +195,7 @@ class AboutActivity : Activity() {
         }
 
         override fun getCount(): Int {
-            return PAGE_COUNT
+            return PAGES
         }
     }
 

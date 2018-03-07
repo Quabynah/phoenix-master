@@ -44,7 +44,9 @@ class Product : ProductItem, Parcelable {
 
     var logo: String? = null
 
-    var isLiked = false
+    var key: String? = null
+
+    var shopID: String? = null
 
     @ServerTimestamp
     var timestamp: Date? = null
@@ -56,7 +58,7 @@ class Product : ProductItem, Parcelable {
 
     constructor(id: Long = System.currentTimeMillis(), name: String, description: String, category: String, url: String, price: String,
                 discount: String, tag: String, quantity: String, brand: List<String>, animated: Boolean,
-                shop: String, logo: String, isLiked: Boolean = false) : super() {
+                shop: String, logo: String, key: String? = null, shopID: String = "") : super() {
         this.id = id
         this.name = name
         this.description = description
@@ -70,7 +72,8 @@ class Product : ProductItem, Parcelable {
         this.animated = animated
         this.shop = shop
         this.logo = logo
-        this.isLiked = isLiked
+        this.key = key
+        this.shopID = shopID
     }
 
     fun getParsedDescription(linkTextColor: ColorStateList,
@@ -96,7 +99,8 @@ class Product : ProductItem, Parcelable {
         animated = parcel.readByte() != 0.toByte()
         shop = parcel.readString()
         logo = parcel.readString()
-        isLiked = parcel.readByte() != 0.toByte()
+        key = parcel.readString()
+        shopID = parcel.readString()
         val tmp = parcel.readLong()
         timestamp = if (tmp > -1L) Date(tmp) else null
         hasFadedIn = parcel.readByte() != 0.toByte()
@@ -116,7 +120,8 @@ class Product : ProductItem, Parcelable {
         parcel.writeByte(if (animated) 1 else 0)
         parcel.writeString(shop)
         parcel.writeString(logo)
-        parcel.writeByte(if (isLiked) 1 else 0)
+        parcel.writeString(key)
+        parcel.writeString(shopID)
         parcel.writeLong(if (timestamp != null) timestamp!!.time else -1L)
         parcel.writeByte(if (hasFadedIn) 1 else 0)
     }
@@ -151,12 +156,16 @@ class Product : ProductItem, Parcelable {
                 Pair("animated", existing.animated),
                 Pair("shop", existing.shop),
                 Pair("logo", existing.logo),
-                Pair("isLiked", existing.isLiked)
+                Pair("key", existing.key),
+                Pair("shopID", existing.shopID)
         )
     }
 
+
+
+
     override fun toString(): String {
-        return "Product(name=$name, description=$description, category=$category, price=$price, discount=$discount, quantity=$quantity, brand=$brand, shop=$shop, timestamp=$timestamp)"
+        return "Product(id=$id, name=$name, description=$description, category=$category, url=$url, price=$price, discount=$discount, tag=$tag, quantity=$quantity, brand=$brand, animated=$animated, shop=$shop, logo=$logo, key=$key, shopID=$shopID, timestamp=$timestamp)"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -177,7 +186,8 @@ class Product : ProductItem, Parcelable {
         if (animated != other.animated) return false
         if (shop != other.shop) return false
         if (logo != other.logo) return false
-        if (isLiked != other.isLiked) return false
+        if (key != other.key) return false
+        if (shopID != other.shopID) return false
         if (timestamp != other.timestamp) return false
         if (hasFadedIn != other.hasFadedIn) return false
         if (parsedDescription != other.parsedDescription) return false
@@ -200,7 +210,8 @@ class Product : ProductItem, Parcelable {
         result = 31 * result + animated.hashCode()
         result = 31 * result + (shop?.hashCode() ?: 0)
         result = 31 * result + (logo?.hashCode() ?: 0)
-        result = 31 * result + isLiked.hashCode()
+        result = 31 * result + (key?.hashCode() ?: 0)
+        result = 31 * result + (shopID?.hashCode() ?: 0)
         result = 31 * result + (timestamp?.hashCode() ?: 0)
         result = 31 * result + hasFadedIn.hashCode()
         result = 31 * result + (parsedDescription?.hashCode() ?: 0)

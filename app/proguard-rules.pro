@@ -23,6 +23,8 @@
 -dontwarn okio.**
 -dontwarn okhttp3.**
 -dontwarn retrofit2.**
+-dontwarn io.sentry.**
+-dontwarn org.slf4j.**
 -dontwarn javax.annotation.**
 -keep class io.pergasus.data.**  { *; }
 -keep class io.pergasus.api.**  { *; }

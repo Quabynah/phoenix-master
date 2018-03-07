@@ -181,11 +181,17 @@ class DetailsActivity : Activity() {
                 .listener(shotLoadListener)
                 .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC))
                 .apply(RequestOptions().priority(Priority.IMMEDIATE))
+                .override(800, 600)
                 .transition(withCrossFade())
                 .into(imageView)
         val shotClick: View.OnClickListener = View.OnClickListener {
-            if (product != null)
-                openLink(product!!.url)
+            if (product != null) {
+                val intent = Intent(this@DetailsActivity, ImageDetailsActivity::class.java)
+                intent.putExtra(ImageDetailsActivity.EXTRA_IMAGE_URL, product)
+                val options = ActivityOptions.makeSceneTransitionAnimation(this@DetailsActivity,
+                        android.util.Pair.create(imageView, getString(R.string.transition_shot)))
+                startActivity(intent, options.toBundle())
+            }
         }
         imageView.setOnClickListener(shotClick)
         shotSpacer.setOnClickListener(shotClick)
@@ -263,14 +269,15 @@ class DetailsActivity : Activity() {
 
         //Add product quantity button
         addProduct.setOnClickListener({
+            userProductCount++
+            productCount.text = "$userProductCount / $quantity"
+        })
+
+        //Less product quantity button
+        lessProduct.setOnClickListener({
             //Check condition: If order count is less than # of products available...
-            if (userProductCount in 1..quantity) {
-                userProductCount.plus(1)
-                productCount.text = "$userProductCount / $quantity"
-            } else {
-                addProduct.setOnClickListener(null)
-                addProduct.background = null
-            }
+            userProductCount--
+            productCount.text = "$userProductCount / $quantity"
         })
 
         fab.setOnClickListener {
@@ -287,18 +294,6 @@ class DetailsActivity : Activity() {
                 startActivityForResult(intent, RC_LOGIN_LIKE, options.toBundle())
             }
         }
-
-        //Less product quantity button
-        lessProduct.setOnClickListener({
-            //Check condition: If order count is less than # of products available...
-            if (userProductCount in 1..quantity) {
-                userProductCount.minus(1)
-                productCount.text = "$userProductCount / $quantity"
-            } else {
-                lessProduct.setOnClickListener(null)
-                lessProduct.background = null
-            }
-        })
 
         if (product != null) {
             shopName.text = "—${product?.shop?.toLowerCase()}"
@@ -324,6 +319,7 @@ class DetailsActivity : Activity() {
             val shopClick: View.OnClickListener = View.OnClickListener {
                 val details = Intent(this@DetailsActivity, ShopsActivity::class.java)
                 details.putExtra(ShopsActivity.EXTRA_SHOP_NAME, product?.shop)
+                details.putExtra(ShopsActivity.EXTRA_SHOP_KEY, product?.shopID)
                 val options = ActivityOptions.makeSceneTransitionAnimation(this@DetailsActivity,
                         playerAvatar, getString(R.string.transition_player_avatar))
                 startActivity(details, options.toBundle())
@@ -792,7 +788,7 @@ class DetailsActivity : Activity() {
             return R.layout.dribbble_comment
         }
 
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             when (getItemViewType(position)) {
                 R.layout.dribbble_comment -> {
                     if (comments.isNotEmpty()) {
@@ -802,7 +798,7 @@ class DetailsActivity : Activity() {
             }
         }
 
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int, payloads: MutableList<Any>?) {
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
             if (holder is CommentViewHolder) {
                 bindPartialCommentChange(holder, position, payloads)
             } else {
@@ -854,7 +850,7 @@ class DetailsActivity : Activity() {
             setExpanded(holder, isExpanded)
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             when (viewType) {
                 R.layout.dribbble_shot_description -> {
                     return SimpleViewHolder(description!!)

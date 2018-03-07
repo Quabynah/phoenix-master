@@ -125,11 +125,6 @@ class SearchActivity : Activity() {
             }
         }
         results.layoutManager = layoutManager
-        results.addOnScrollListener(object : InfiniteScrollListener(layoutManager, dataManager) {
-            override fun onLoadMore() {
-                dataManager.loadMore()
-            }
-        })
         results.setHasFixedSize(true)
         val shotPreloader: RecyclerViewPreloader<Product> = RecyclerViewPreloader<Product>(this,
                 adapter, preloadSizeProvider, 4)

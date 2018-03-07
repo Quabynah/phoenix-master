@@ -36,6 +36,7 @@ class Order : Parcelable {
         this.image = image
         this.price = price
         this.quantity = quantity
+        this.timestamp = Date(System.currentTimeMillis())
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
