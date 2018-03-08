@@ -55,6 +55,7 @@ class WelcomeActivity : Activity(), ViewPager.OnPageChangeListener {
     }
 
     override fun onBackPressed() {
+        clientState.setAppInstalledState(true)
         startActivity(Intent(this@WelcomeActivity, HomeActivity::class.java))
         finish()
     }
