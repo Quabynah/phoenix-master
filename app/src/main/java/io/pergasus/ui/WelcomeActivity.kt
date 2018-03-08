@@ -43,11 +43,14 @@ class WelcomeActivity : Activity(), ViewPager.OnPageChangeListener {
         pager.pageMargin = resources.getDimensionPixelSize(R.dimen.spacing_micro)
         pageIndicator.setViewPager(pager)
         pager.addOnPageChangeListener(this)
+
+        //button actions
         next.setOnClickListener({
-            //Move to next screen
             pager.currentItem = pager.currentItem++
         })
-
+        previous.setOnClickListener({
+            pager.currentItem = pager.currentItem--
+        })
 
     }
 
@@ -160,15 +163,12 @@ class WelcomeActivity : Activity(), ViewPager.OnPageChangeListener {
 
     private fun setNextAction() {
         next.text = getString(R.string.next)
-        next.setOnClickListener({
-            pager.currentItem = currentPage++
-        })
     }
 
     private fun showPrevious() {
         previous.visibility = View.VISIBLE
         previous.setOnClickListener({
-            pager.currentItem = currentPage--
+            pager.currentItem = pager.currentItem--
         })
 
     }
