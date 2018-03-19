@@ -22,6 +22,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import io.pergasus.R
 import io.pergasus.data.Product
 import io.pergasus.ui.widget.PhotoView
+import io.pergasus.ui.widget.ZoomageView
 import io.pergasus.util.ShareProductTask
 import io.pergasus.util.bindView
 import io.pergasus.util.customtabs.CustomTabActivityHelper
@@ -34,7 +35,7 @@ class ImageDetailsActivity : Activity() {
 
     private val container: ViewGroup by bindView(R.id.container)
     private val toolbar: Toolbar by bindView(R.id.toolbar)
-    private val imageView: PhotoView by bindView(R.id.imageView)
+    private val imageView: ZoomageView by bindView(R.id.imageView)
 
     private var product: Product? = null
 

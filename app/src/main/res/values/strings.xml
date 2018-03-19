@@ -2,7 +2,7 @@
   ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 	<string name="app_name">The Phoenix</string>
 	
 	<!--Others-->
@@ -197,7 +197,7 @@
 	<!--Hubtel Credentials-->
 	<string name="hubtel_secret">akrsdyom</string>
 	<string name="hubtel_client_id">ozbfnqzw</string>
-	<string name="dev_profile_image">https://pbs.twimg.com/profile_images/923717722608951296/qKDbRXZM_normal.jpg</string>
+	<string name="quabynah_url" tools:ignore="TypographyDashes">https://firebasestorage.googleapis.com/v0/b/plaid-master.appspot.com/o/IMG_20180114_163436.jpg?alt=media&amp;token=603a1afc-558d-4a31-9ead-64bd82af7e79</string>
 	<string name="dev_username">Dennis Kwabena Bilson Jnr.</string>
 	<string name="dev_about">\‘The Phoenix\’ was made successful by the amazing grace of our Lord
 		Almighty and by the support and guidance of my selfless supervisor, Mr. Tabiri. I owe all my
@@ -209,6 +209,18 @@
 	<string name="next">Next</string>
 	<string name="get_started">Get Started</string>
 	<string name="follow_on_github">Follow me on GitHub</string>
+	
+	<!-- OnBoard Screen. -->
+	<string name="ob_header1">BUY FROM ANYWHERE ANYTIME</string>
+	<string name="ob_header2">PAY SECURELY</string>
+	<string name="ob_header3">ALL STORES</string>
+	
+	<string name="ob_get_started">GET STARTED</string>
+	
+	<string name="ob_desc1">The Phoenix allows you to shop even without WiFi or data</string>
+	<string name="ob_desc2">We carefully verify all transactions before approving payment
+		in the Phoenix</string>
+	<string name="ob_desc3">All shopping outlets at the mall are at your fingertip</string>
 
 
 </resources>

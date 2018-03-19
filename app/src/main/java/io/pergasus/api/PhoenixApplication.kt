@@ -7,10 +7,7 @@ package io.pergasus.api
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.support.multidex.MultiDex
-import com.hypertrack.lib.HyperTrack
-import io.pergasus.BuildConfig
 import timber.log.Timber
 
 /** Phoenix Application */
@@ -25,12 +22,6 @@ class PhoenixApplication : Application() {
 
         //Timber init
         Timber.plant(Timber.DebugTree())
-
-        HyperTrack.initialize(this.applicationContext, BuildConfig.HYPERTRACK_PK)
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            HyperTrack.disablePersistentNotification(true)
-        }
-
     }
 
 

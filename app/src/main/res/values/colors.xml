@@ -49,6 +49,8 @@
 	<color name="divider">#1f000000</color> <!-- 12% black -->
 	<color name="page_indicator_dark">#80333333</color>
 	<color name="page_indicator_dark_selected">#ff333333</color>
+	<color name="page_indicator_light">#80999999</color>
+	<color name="page_indicator_light_selected">#ff999999</color>
 	<color name="selected_comment_background">#ffffffff</color>
 	<color name="error">#ffdd2c00</color>
 	

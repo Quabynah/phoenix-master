@@ -274,7 +274,6 @@ class CartActivity : Activity() {
                 setResultAndFinish()
             }, 2000)
         } else {
-            Toast.makeText(applicationContext, "Payment was successful", Toast.LENGTH_LONG).show()
             sendNotification()  //Send notification to user
             //Show success screen
             val intent = Intent(this@CartActivity, SuccessActivity::class.java)
@@ -488,13 +487,32 @@ class CartActivity : Activity() {
         }
 
         override fun onBindViewHolder(holder: CartViewHolder, p0: Int) {
-            if (holder != null) {
-                val position = holder.adapterPosition
-                val order = items[position]
-                holder.name.text = order.name
-                holder.price.text = NumberFormat.getCurrencyInstance(Locale.US)
-                        .format(order.price?.toDouble())
-                holder.quantity.text = String.format("%s units added", order.quantity)
+            val position = holder.adapterPosition
+            val order = items[position]
+            holder.name.text = order.name
+            holder.price.text = NumberFormat.getCurrencyInstance(Locale.US)
+                    .format(order.price?.toDouble())
+            holder.quantity.text = String.format("%s units added", order.quantity)
+            GlideApp.with(host)
+                    .load(order.image)
+                    .placeholder(R.color.content_placeholder)
+                    .error(R.color.content_placeholder)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .transition(withCrossFade())
+                    .into(holder.image)
+
+            holder.itemView.setOnClickListener({ _ ->
+                val builder = MaterialDialog.Builder(this@CartActivity)
+                val v = layoutInflater.inflate(R.layout.order_item_info, null, false)
+                builder.customView(v, false)  //Attach view to builder
+                val dialog = builder.build()
+                //Get items in layout
+                val img = v.findViewById<BadgedFourThreeImageView>(R.id.order_info_image)
+                val name = v.findViewById<TextView>(R.id.order_info_name)
+                val details = v.findViewById<TextView>(R.id.order_info_details)
+                val del = v.findViewById<Button>(R.id.order_info_delete)
+                //Load image into view
                 GlideApp.with(host)
                         .load(order.image)
                         .placeholder(R.color.content_placeholder)
@@ -502,44 +520,23 @@ class CartActivity : Activity() {
                         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                         .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .transition(withCrossFade())
-                        .into(holder.image)
-
-                holder.itemView.setOnClickListener({ _ ->
-                    val builder = MaterialDialog.Builder(this@CartActivity)
-                    val v = layoutInflater.inflate(R.layout.order_item_info, null, false)
-                    builder.customView(v, false)  //Attach view to builder
-                    val dialog = builder.build()
-                    //Get items in layout
-                    val img = v.findViewById<BadgedFourThreeImageView>(R.id.order_info_image)
-                    val name = v.findViewById<TextView>(R.id.order_info_name)
-                    val details = v.findViewById<TextView>(R.id.order_info_details)
-                    val del = v.findViewById<Button>(R.id.order_info_delete)
-                    //Load image into view
-                    GlideApp.with(host)
-                            .load(order.image)
-                            .placeholder(R.color.content_placeholder)
-                            .error(R.color.content_placeholder)
-                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                            .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                            .transition(withCrossFade())
-                            .into(img)
-                    name.text = order.name  //Order name
-                    val dateInfo = DateUtils.getRelativeDateTimeString(this@CartActivity,
-                            if (order.timestamp == null) System.currentTimeMillis() else order.timestamp?.time!!,
-                            DateUtils.SECOND_IN_MILLIS, DateUtils.SECOND_IN_MILLIS, DateUtils
-                            .FORMAT_ABBREV_ALL)
-                    val info = String.format("Purchased %s goods for ${NumberFormat
-                            .getCurrencyInstance().format(order.price?.toDouble())} each\n on %s",
-                            order.quantity, dateInfo)
-                    details.text = info
-                    //Delete action
-                    del.setOnClickListener({
-                        dialog.dismiss()
-                        removeOrder(order)
-                    })
-                    dialog.show()
+                        .into(img)
+                name.text = order.name  //Order name
+                val dateInfo = DateUtils.getRelativeDateTimeString(this@CartActivity,
+                        if (order.timestamp == null) System.currentTimeMillis() else order.timestamp?.time!!,
+                        DateUtils.SECOND_IN_MILLIS, DateUtils.SECOND_IN_MILLIS, DateUtils
+                        .FORMAT_ABBREV_ALL)
+                val info = String.format("Purchased %s goods for ${NumberFormat
+                        .getCurrencyInstance().format(order.price?.toDouble())} each\n on %s",
+                        order.quantity, dateInfo)
+                details.text = info
+                //Delete action
+                del.setOnClickListener({
+                    dialog.dismiss()
+                    removeOrder(order)
                 })
-            }
+                dialog.show()
+            })
         }
 
         override fun getItemCount(): Int {

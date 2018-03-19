@@ -26,7 +26,7 @@
 		android:navigationIcon="@drawable/ic_arrow_back_padded"
 		android:title="@string/app_name" />
 	
-	<io.pergasus.ui.widget.PhotoView
+	<io.pergasus.ui.widget.ZoomageView
 		android:id="@+id/imageView"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
@@ -34,6 +34,14 @@
 		android:elevation="@dimen/z_card"
 		android:src="@drawable/ic_launcher_512px"
 		android:transitionName="@string/transition_shot"
+		app:zoomage_restrictBounds="false"
+		app:zoomage_animateOnReset="true"
+		app:zoomage_autoResetMode="UNDER"
+		app:zoomage_autoCenter="true"
+		app:zoomage_zoomable="true"
+		app:zoomage_translatable="true"
+		app:zoomage_minScale="0.6"
+		app:zoomage_maxScale="8"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"

@@ -61,7 +61,7 @@
 			android:value="@string/google_maps_key" />
 		
 		<!-- Enables the Android Pay API -->
-		<!-- <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true" /> -->
+		 <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true" />
 		
 		<provider
 			android:name="android.support.v4.content.FileProvider"

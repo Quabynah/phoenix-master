@@ -380,7 +380,9 @@ class OrderActivity : Activity() {
                                     Toast.LENGTH_LONG).show()
                             TransitionManager.beginDelayedTransition(bottomSheetContent)
                             loading.visibility = View.GONE
-                            setResult(RESULT_PAYING)
+                            val intent = Intent()
+                            intent.putExtra(CartActivity.RESULT_PRICE, "dummy")
+                            setResult(RESULT_PAYING, intent)
                             finishAfterTransition()
                         } else {
                             Toast.makeText(this, "Failed to empty cart with error: " +
@@ -445,6 +447,9 @@ class OrderActivity : Activity() {
         const val RC_AUTH_PAYMENT = 21
         const val RC_PAYMENT = 22
         const val RESULT_UPDATE_PROFILE = 23
+        const val PAYPAL_REQ_CODE = 24
+
+
     }
 
 }

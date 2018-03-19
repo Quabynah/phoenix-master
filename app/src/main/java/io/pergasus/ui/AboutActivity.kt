@@ -174,7 +174,7 @@ class AboutActivity : Activity() {
 
                         //Load developer profile image from resource
                         GlideApp.with(profile!!.context)
-                                .load(getString(R.string.dev_profile_image))
+                                .load(getString(R.string.quabynah_url))
                                 .circleCrop()
                                 .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
