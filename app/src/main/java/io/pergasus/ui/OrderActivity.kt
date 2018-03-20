@@ -452,18 +452,28 @@ class OrderActivity : Activity() {
             TransitionManager.beginDelayedTransition(bottomSheetContent)
             checkOut.isEnabled = false
             loading.visibility = View.VISIBLE
-            client.db.document("${PhoenixUtils.ORDER_REF}/${client.customer.key!!}")
-                    .delete()
+            client.db.collection("${PhoenixUtils.ORDER_REF}/${client.customer.key!!}")
+                    .get()
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "Cart emptied",
-                                    Toast.LENGTH_LONG).show()
-                            TransitionManager.beginDelayedTransition(bottomSheetContent)
-                            loading.visibility = View.GONE
-                            val intent = Intent()
-                            intent.putExtra(CartActivity.RESULT_PRICE, "dummy")
-                            setResult(RESULT_PAYING, intent)
-                            finishAfterTransition()
+                            var complete = false
+                            for (doc in task.result.documents) {
+                                doc.reference.delete()
+                                        .addOnCompleteListener(this@OrderActivity, { delTask ->
+                                            Timber.d("${delTask.isComplete} returned")
+                                            complete = true
+                                        })
+                            }
+
+                            if (complete) {
+                                TransitionManager.beginDelayedTransition(bottomSheetContent)
+                                loading.visibility = View.GONE
+                                val intent = Intent()
+                                intent.putExtra(CartActivity.RESULT_PRICE, "dummy")
+                                setResult(RESULT_PAYING, intent)
+                                finishAfterTransition()
+                            }
+
                         } else {
                             Toast.makeText(this, "Failed to empty cart with error: " +
                                     "${task.exception?.localizedMessage}",
