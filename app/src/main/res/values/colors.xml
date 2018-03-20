@@ -102,5 +102,16 @@
 	<color name="designer_news_quote_line">#ffeceef1</color>
 	<color name="designer_news_quote">#73000000</color>
 	<color name="black">#FF000000</color>
+	
+	<color name="bgGradientStart">#000000</color>
+	<color name="bgGradientEnd">#d8000000</color>
+	
+	<color name="bgSolidDark">#55000000</color>
+	
+	<color name="headGradientStart">#00ffffff</color>
+	<color name="headGradientCenter">#00ffffff</color>
+	<color name="headGradientEnd">#96000000</color>
+	
+	<color name="transparent">#00ffffff</color>
 
 </resources>

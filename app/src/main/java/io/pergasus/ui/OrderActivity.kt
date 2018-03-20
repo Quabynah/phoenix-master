@@ -10,6 +10,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ShareCompat
@@ -25,11 +26,17 @@ import android.widget.TextView
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.Theme
+import com.google.android.gms.wallet.AutoResolveHelper
+import com.google.android.gms.wallet.PaymentData
 import com.hubtel.payments.Class.Environment
 import com.hubtel.payments.Exception.HubtelPaymentException
 import com.hubtel.payments.HubtelCheckout
 import com.hubtel.payments.Interfaces.OnPaymentResponse
 import com.hubtel.payments.SessionConfiguration
+import com.paypal.android.sdk.payments.PayPalConfiguration
+import com.paypal.android.sdk.payments.PayPalPayment
+import com.paypal.android.sdk.payments.PayPalService
+import com.paypal.android.sdk.payments.PaymentActivity
 import io.pergasus.BuildConfig
 import io.pergasus.R
 import io.pergasus.api.PhoenixClient
@@ -42,6 +49,7 @@ import io.pergasus.util.AnimUtils
 import io.pergasus.util.ImeUtils
 import io.pergasus.util.bindView
 import timber.log.Timber
+import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.*
 
@@ -72,6 +80,7 @@ class OrderActivity : Activity() {
 
     private var appBarElevation: Float = 0.0f
     private lateinit var client: PhoenixClient
+    private lateinit var walletPaymentSetup: WalletPaymentSetup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +93,12 @@ class OrderActivity : Activity() {
 
         client = PhoenixClient(this@OrderActivity)
         appBarElevation = resources.getDimension(R.dimen.z_app_bar)
+
+        //Setup Wallet
+        walletPaymentSetup = WalletPaymentSetup(this@OrderActivity, checkOut)
+
+        //Setup PayPal
+        setupPayPal()
 
         bottomSheet.registerCallback(object : BottomSheet.Callbacks() {
             override fun onSheetDismissed() {
@@ -153,6 +168,12 @@ class OrderActivity : Activity() {
         bottomSheet.setOnClickListener { dismiss() }
     }
 
+    private fun setupPayPal() {
+        val intent = Intent(this, PayPalService::class.java)
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config)
+        startService(intent)
+    }
+
     //Setup details from intent data
     private fun bindDetails(price: Double?, title: String?) {
         if (price == null || title == null) return
@@ -166,7 +187,7 @@ class OrderActivity : Activity() {
                         doMobileMoneyPayment(price, title)
                     }
                     getString(R.string.pay_with_android_pay) -> {
-                        doAndroidPay(price, title)
+                        doAndroidPay(price)
                     }
                     getString(R.string.visa) -> {
                         doPayPalPayment(price, title)
@@ -182,9 +203,9 @@ class OrderActivity : Activity() {
         }
 
         //Add details
-        orderDelivery.text = setValue(0.00)
-        orderSavings.text = setValue(0.00)
-        orderTax.text = setValue(0.00)
+        orderDelivery.text = setValue(getRandDelivery())
+        orderSavings.text = setValue(getRandSavings())
+        orderTax.text = setValue(getRandTax())
         loadUser()
 
         //get amount from intent value
@@ -246,6 +267,21 @@ class OrderActivity : Activity() {
 
     }
 
+    private fun getRandDelivery(): Double {
+        val random = Random(5)
+        return 1.0.plus(random.nextDouble())
+    }
+
+    private fun getRandSavings(): Double {
+        val random = Random(20)
+        return 3.0.plus(random.nextDouble())
+    }
+
+    private fun getRandTax(): Double {
+        val random = Random(10)
+        return random.nextDouble()
+    }
+
     private fun loadUser() {
         if (client.isLoggedIn) {
             TransitionManager.beginDelayedTransition(bottomSheetContent)
@@ -258,30 +294,49 @@ class OrderActivity : Activity() {
     private fun doPayPalPayment(price: Double, title: String?) {
         TransitionManager.beginDelayedTransition(bottomSheetContent)
         checkOut.isEnabled = false
-        //todo: add paypal support
+        performPayPalPayment(price, title)
+    }
+
+    private fun performPayPalPayment(price: Double, title: String?) {
+        val intent = Intent(this@OrderActivity, PaymentActivity::class.java)
+        // send the same configuration for restart resiliency
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config)
+        val thingToBuy = PayPalPayment(BigDecimal(price.toString()), PhoenixUtils.DEF_CURRENCY,
+                title, PayPalPayment.PAYMENT_INTENT_SALE)
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy)
+        startActivityForResult(intent, REQUEST_CODE_PAYMENT)
     }
 
     //Pay with [AndroidPay]
-    private fun doAndroidPay(price: Double, title: String?) {
+    private fun doAndroidPay(price: Double) {
         TransitionManager.beginDelayedTransition(bottomSheetContent)
         checkOut.isEnabled = false
-        //todo: add android pay support
+        performAndroidPay(price)
+    }
+
+    private fun performAndroidPay(price: Double) {
+        val paymentClient = walletPaymentSetup.getPaymentClient()
+        val request = walletPaymentSetup.createPaymentDataRequest(price.toString())
+        if (request != null) {
+            AutoResolveHelper.resolveTask(paymentClient.loadPaymentData(request),
+                    this@OrderActivity, LOAD_PAYMENT_DATA_REQUEST_CODE)
+        }
     }
 
     //Pay with [Slydepay]
     private fun doMobileMoneyPayment(price: Double, title: String?) {
         TransitionManager.beginDelayedTransition(bottomSheetContent)
         checkOut.isEnabled = false
-        doPaymentHubtel(price, title)
+        performPaymentHubtel(price, title)
     }
 
-    private fun doPaymentHubtel(price: Double, description: String?) {
+    private fun performPaymentHubtel(price: Double, description: String?) {
         try {
             val config: SessionConfiguration = SessionConfiguration()
                     .Builder()
-                    .setSecretKey(getString(R.string.hubtel_secret))
-                    .setClientId(getString(R.string.hubtel_client_id))
-                    .setEnvironment(Environment.LIVE_MODE)
+                    .setSecretKey(BuildConfig.HUBTEL_CLIENT_SECRET)
+                    .setClientId(BuildConfig.HUBTEL_CLIENT_ID)
+                    .setEnvironment(HUBTEL_CONFIG_ENVIRONMENT)
                     .build()
             val checkout = HubtelCheckout(config)
             checkout.setPaymentDetails(price, description)
@@ -334,10 +389,16 @@ class OrderActivity : Activity() {
         dismiss()
     }
 
+    override fun onDestroy() {
+        // Stop service when done
+        stopService(Intent(this, PayPalService::class.java))
+        super.onDestroy()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_AUTH_PAYMENT) {
-            when (resultCode) {
+        when (requestCode) {
+            RC_AUTH_PAYMENT -> when (resultCode) {
                 RESULT_OK -> {
                     Toast.makeText(this, "You can now continue with your purchase",
                             Toast.LENGTH_SHORT).show()
@@ -346,8 +407,7 @@ class OrderActivity : Activity() {
                     //do nothing when authentication is cancelled by user
                 }
             }
-        } else if (requestCode == RC_PAYMENT) {
-            when (resultCode) {
+            RC_PAYMENT -> when (resultCode) {
                 RESULT_OK -> {
                     Toast.makeText(this, "Purchase was successful. Clearing cart data",
                             Toast.LENGTH_SHORT).show()
@@ -358,10 +418,30 @@ class OrderActivity : Activity() {
                             Toast.LENGTH_LONG).show()
                 }
             }
-        } else if (requestCode == RESULT_UPDATE_PROFILE) {
-            when (resultCode) {
+            RESULT_UPDATE_PROFILE -> when (resultCode) {
                 RESULT_OK -> {
                     loadUser()
+                }
+            }
+            LOAD_PAYMENT_DATA_REQUEST_CODE -> when (resultCode) {
+                RESULT_OK -> {
+                    if (data != null) {
+                        val paymentData = PaymentData.getFromIntent(data)
+                        val token = paymentData?.paymentMethodToken?.token
+                        Toast.makeText(this, "Purchase was successful with token: $token",
+                                Toast.LENGTH_SHORT).show()
+                        if (client.isConnected) clearData()
+                    } else {
+                        Toast.makeText(this, "We were unable to retrieve your data",
+                                Toast.LENGTH_LONG).show()
+                    }
+                }
+                RESULT_CANCELED, AutoResolveHelper.RESULT_ERROR -> {
+                    // Log the status for debugging.
+                    // Generally, there is no need to show an error to
+                    // the user as the Google Pay API will do that.
+                    Toast.makeText(this, "We were unable to complete your purchase",
+                            Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -447,8 +527,27 @@ class OrderActivity : Activity() {
         const val RC_AUTH_PAYMENT = 21
         const val RC_PAYMENT = 22
         const val RESULT_UPDATE_PROFILE = 23
-        const val PAYPAL_REQ_CODE = 24
+        private const val LOAD_PAYMENT_DATA_REQUEST_CODE = 24
+        private const val REQUEST_CODE_PAYMENT = 25
 
+        /**
+         * - Set to PayPalConfiguration.ENVIRONMENT_PRODUCTION to move real money.
+
+         * - Set to PayPalConfiguration.ENVIRONMENT_SANDBOX to use your test credentials
+         * from https://developer.paypal.com
+
+         * - Set to PayPalConfiguration.ENVIRONMENT_NO_NETWORK to kick the tires
+         * without communicating to PayPal's servers.
+         */
+        private const val PAYPAL_CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_NO_NETWORK
+        private val HUBTEL_CONFIG_ENVIRONMENT = Environment.LIVE_MODE
+
+        private val config = PayPalConfiguration()
+                .environment(PAYPAL_CONFIG_ENVIRONMENT)
+                .clientId(BuildConfig.PAYPAL_CLIENT_ID)
+                .merchantName("The Phoenix")
+                .merchantPrivacyPolicyUri(Uri.parse("https://phoenix-master.firebaseapp.com/privacy.html"))
+                .merchantUserAgreementUri(Uri.parse("https://phoenix-master.firebaseapp.com/legal.html"))
 
     }
 

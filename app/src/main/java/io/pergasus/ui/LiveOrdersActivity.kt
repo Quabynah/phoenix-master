@@ -5,37 +5,34 @@
 package io.pergasus.ui
 
 import android.app.Activity
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.text.format.DateUtils
-import android.transition.TransitionManager
+import android.support.annotation.LayoutRes
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ListView
 import android.widget.TextView
 import io.pergasus.R
 import io.pergasus.api.OrderDataManager
 import io.pergasus.api.PhoenixClient
+import io.pergasus.data.CardData
 import io.pergasus.data.Purchase
-import io.pergasus.ui.recyclerview.SlideInItemAnimator
 import io.pergasus.ui.widget.CircularImageView
 import io.pergasus.util.bindView
-import java.text.NumberFormat
-import java.util.*
+import io.pergasus.util.collection.*
 
 /**
  * Find user's orders in the database
  * */
 class LiveOrdersActivity : Activity() {
-    private val grid: RecyclerView by bindView(R.id.grid)
-    private val container: ViewGroup by bindView(R.id.container)
-    private val noOrders: TextView by bindView(R.id.no_orders)
+    private val ecPagerView: ECPagerView by bindView(R.id.ec_pager_element)
 
     private lateinit var prefs: PhoenixClient
     private lateinit var dataManager: OrderDataManager
     private lateinit var adapter: OrdersAdapter
+    private lateinit var purchaseList: ArrayList<Purchase>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,33 +41,45 @@ class LiveOrdersActivity : Activity() {
 
         prefs = PhoenixClient(this)
 
-        dataManager = object : OrderDataManager(this@LiveOrdersActivity, prefs.customer.key!!) {
+        val purchases: List<CardData> = ArrayList(0)
+        dataManager = object : OrderDataManager(this@LiveOrdersActivity) {
             override fun onDataLoaded(data: List<Purchase>) {
-                adapter.addLiveOrder(data)
-                checkEmptyState()
+                //todo: do something with data retrieved
             }
         }
 
-        //Setup recyclerview
-        adapter = OrdersAdapter()
-        grid.adapter = adapter
-        grid.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        grid.setHasFixedSize(true)
-        grid.itemAnimator = SlideInItemAnimator()
-        dataManager.loadData()  //Start loading data
-        checkEmptyState()   //Check for data existence
+        val adapter: ECPagerViewAdapter = object : ECPagerViewAdapter(this@LiveOrdersActivity, purchases) {
+            override fun instantiateCard(inflaterService: LayoutInflater?, head: ViewGroup?, list: ListView?, data: ECCardData<*>?) {
+                if (data is CardData) {
+                    val cardData = data
+
+                    //todo: continue from here
+
+
+                }
+            }
+        }
+
+        ecPagerView.setPagerViewAdapter(adapter)
+        ecPagerView.setBackgroundSwitcherView(findViewById(R.id.ec_bg_switcher_element))
+        val itemsCountView = findViewById<ItemsCountView>(R.id.items_count_view)
+        ecPagerView.setOnCardSelectedListener(object : ECPagerView.OnCardSelectedListener {
+            override fun cardSelected(newPosition: Int, oldPosition: Int, totalElements: Int) {
+                itemsCountView.update(newPosition, oldPosition, totalElements)
+            }
+        })
     }
 
-    private fun checkEmptyState() {
-        if (adapter.itemCount > 0) {
-            TransitionManager.beginDelayedTransition(container)
-            grid.visibility = View.VISIBLE
-            noOrders.visibility = View.GONE
-        } else {
-            TransitionManager.beginDelayedTransition(container)
-            grid.visibility = View.GONE
-            noOrders.visibility = View.VISIBLE
-        }
+    override fun onBackPressed() {
+        if (!ecPagerView.collapse()) super.onBackPressed()
+    }
+
+    fun dpFromPx(context: Context, px: Float): Float {
+        return px / context.resources.displayMetrics.density
+    }
+
+    fun pxFromDp(context: Context, dp: Float): Float {
+        return dp * context.resources.displayMetrics.density
     }
 
     override fun onDestroy() {
@@ -78,7 +87,29 @@ class LiveOrdersActivity : Activity() {
         super.onDestroy()
     }
 
-    internal inner class OrdersViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class OrdersAdapter(private val host: Context, @LayoutRes private val layout: Int,
+                        private val purchases: List<Purchase>) :
+            ECCardContentListItemAdapter<Purchase>(host, layout, purchases) {
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            var view: View? = convertView
+
+            if (view == null) {
+                val inflater = LayoutInflater.from(context)
+                view = inflater.inflate(R.layout.live_order_item, null)
+
+                var image: CircularImageView = view.findViewById(R.id.order_img)
+                var key: TextView = view.findViewById(R.id.order_number)
+                var date: TextView = view.findViewById(R.id.order_date)
+                var price: TextView = view.findViewById(R.id.order_price)
+                var track: Button = view.findViewById(R.id.track_order)
+
+            }
+            return view!!
+        }
+    }
+
+    /*internal inner class OrdersViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var image: CircularImageView = view.findViewById(R.id.order_img)
         var key: TextView = view.findViewById(R.id.order_number)
         var date: TextView = view.findViewById(R.id.order_date)
@@ -128,7 +159,6 @@ class LiveOrdersActivity : Activity() {
             return OrdersViewHolder(layoutInflater.inflate(R.layout.live_order_item, parent, false))
         }
 
-        /** Add live orders here from database */
         fun addLiveOrder(newItems: List<Purchase>) {
             val count = itemCount
             for (data in newItems) {
@@ -145,5 +175,5 @@ class LiveOrdersActivity : Activity() {
             }
             notifyDataSetChanged()
         }
-    }
+    }*/
 }

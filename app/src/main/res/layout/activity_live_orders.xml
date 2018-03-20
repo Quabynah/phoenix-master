@@ -2,29 +2,39 @@
   ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ec="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:id="@+id/container"
+	android:clipChildren="false"
 	tools:context="io.pergasus.ui.LiveOrdersActivity">
 	
-	<View
+	<io.pergasus.util.collection.ECBackgroundSwitcherView
+		android:id="@+id/ec_bg_switcher_element"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@color/background_dark"
-		android:elevation="@dimen/z_card"/>
+		android:foreground="@drawable/background_gradient" />
 	
-	<android.support.v7.widget.RecyclerView
-		android:id="@+id/grid"
+	<io.pergasus.util.collection.ItemsCountView
+		android:id="@+id/items_count_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="120dp"
+		android:clipChildren="false"
+		android:orientation="horizontal" />
+	
+	<io.pergasus.util.collection.ECPagerView
+		android:id="@+id/ec_pager_element"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:scrollbarStyle="outsideOverlay"
-		android:scrollbars="vertical"
-		android:elevation="@dimen/z_card"
-		android:visibility="gone"/>
+		android:layout_height="wrap_content"
+		android:layout_marginTop="250dp"
+		ec:cardHeaderHeightExpanded="200dp"
+		ec:cardHeight="250dp"
+		ec:cardWidth="250dp" />
 	
-	<io.pergasus.ui.widget.BaselineGridTextView
+	<!--<io.pergasus.ui.widget.BaselineGridTextView
 		android:id="@+id/no_orders"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -35,6 +45,6 @@
 		android:gravity="center_horizontal"
 		android:elevation="@dimen/z_card"
 		android:textColor="@color/text_secondary_light"
-		android:padding="@dimen/padding_normal"/>
+		android:padding="@dimen/padding_normal"/>-->
 
-</FrameLayout>
+</RelativeLayout>

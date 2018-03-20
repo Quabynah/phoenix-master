@@ -38,6 +38,10 @@ android {
                 "\"pk_686cc4b9ce5444978dae15c069c5586b9631c9e8\""
         buildConfigField "String", "PAYPAL_CLIENT_SECRET",
                 "\"pk_686cc4b9ce5444978dae15c069c5586b9631c9e8\""
+        buildConfigField "String", "HUBTEL_CLIENT_ID",
+                "\"pk_686cc4b9ce5444978dae15c069c5586b9631c9e8\""
+        buildConfigField "String", "HUBTEL_CLIENT_SECRET",
+                "\"pk_686cc4b9ce5444978dae15c069c5586b9631c9e8\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

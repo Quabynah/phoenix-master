@@ -21,6 +21,7 @@ object PhoenixUtils {
     //Firebase Server url
     private const val BASE_URL_MAPS = "https://maps.googleapis.com"
     const val DB_PREFIX = "phoenix"
+    const val DEF_CURRENCY = "USD"
 
     //Database references
     const val CUSTOMER_REF = "users"

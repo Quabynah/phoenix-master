@@ -104,7 +104,7 @@ class CartActivity : Activity() {
 
     //Function to return results to the calling activity, if any
     private fun setResultAndFinish() {
-        setResult(Activity.RESULT_OK)
+        setResult(RESULT_OK)
         finishAfterTransition()
     }
 
@@ -233,13 +233,23 @@ class CartActivity : Activity() {
                     OrderActivity.RESULT_PAYING -> {
                         if (data != null && data.hasExtra(RESULT_PRICE)) {
                             showPostingProgress()
+                            //Build new Purchase Object
+                            val builder = Purchase.Builder()
+                                    .setId(System.currentTimeMillis())
+                                    .setKey(client.customer.key!!)
+                                    .setPrice(price.toString())
+
+                            //Add each item in orders list
+                            for (item in orders) {
+                                builder.setOrderItems(item)
+                            }
                             client.db.document(PhoenixUtils.PURCHASE_REF)
                                     .collection(client.customer.key!!)
                                     .document()
-                                    .set(Purchase(System.currentTimeMillis(), client.customer.key!!,
-                                            price.toString()))
+                                    .set(builder.build())
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
+                                            //adapter.clear()
                                             doSuccessAnimation()    //Do animation
                                         } else {
                                             doFailureAnimation()    //Do animation
@@ -565,6 +575,11 @@ class CartActivity : Activity() {
                 Toast.makeText(this@CartActivity, "Item cannot be removed at this time",
                         Toast.LENGTH_SHORT).show()
             }
+        }
+
+        fun clear() {
+            items.clear()
+            notifyItemRangeChanged(0, items.size)
         }
 
         //Remove from database
