@@ -21,7 +21,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import io.pergasus.R
 import io.pergasus.data.Product
-import io.pergasus.ui.widget.PhotoView
 import io.pergasus.ui.widget.ZoomageView
 import io.pergasus.util.ShareProductTask
 import io.pergasus.util.bindView

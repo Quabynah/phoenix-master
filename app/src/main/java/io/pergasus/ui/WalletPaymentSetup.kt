@@ -88,6 +88,9 @@ class WalletPaymentSetup(private val activity: Activity, private val checkOut: B
         return request.build()
     }
 
+    /**
+     * @return paymentsClient
+     */
     fun getPaymentClient(): PaymentsClient = paymentsClient
 
     companion object {

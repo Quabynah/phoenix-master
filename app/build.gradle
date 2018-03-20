@@ -35,13 +35,13 @@ android {
         buildConfigField "String", "GIT_TAG", "\"${gitTag}\""
         buildConfigField "String", "GIT_COMMIT_COUNT", "\"${gitCommitCount}\""
         buildConfigField "String", "PAYPAL_CLIENT_ID",
-                "\"pk_686cc4b9ce5444978dae15c069c5586b9631c9e8\""
+                "\"AZ-RnFgea8OE_HQu-3a3P5saheAqfAEf8Gbk8L_dweDZ9xEECjZ30-nbC1gtSTbJTHmZ9UjrjXrFGxSk\""
         buildConfigField "String", "PAYPAL_CLIENT_SECRET",
                 "\"pk_686cc4b9ce5444978dae15c069c5586b9631c9e8\""
         buildConfigField "String", "HUBTEL_CLIENT_ID",
-                "\"pk_686cc4b9ce5444978dae15c069c5586b9631c9e8\""
+                "\"ozbfnqzw\""
         buildConfigField "String", "HUBTEL_CLIENT_SECRET",
-                "\"pk_686cc4b9ce5444978dae15c069c5586b9631c9e8\""
+                "\"akrsdyom \""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
