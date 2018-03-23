@@ -14,7 +14,7 @@
 	<io.pergasus.ui.widget.ForegroundRelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:padding="@dimen/padding_normal"
+		android:padding="@dimen/spacing_normal"
 		android:stateListAnimator="@animator/raise">
 		
 		<io.pergasus.ui.widget.CircularImageView
@@ -24,13 +24,13 @@
 			android:layout_alignParentStart="true"
 			android:layout_alignParentTop="true"
 			android:layout_marginEnd="@dimen/padding_normal"
-			android:src="@drawable/ic_motorcycle"
+			android:layout_marginStart="@dimen/spacing_normal"
 			android:scaleType="centerInside"
 			android:background="@drawable/motor_placeholder"/>
 		
 		<io.pergasus.ui.widget.BaselineGridTextView
 			android:id="@+id/order_number"
-			style="@style/TextAppearance.DribbbleShotPrice"
+			style="@style/TextAppearance.DribbbleShotDescription"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_alignParentTop="true"
@@ -53,11 +53,13 @@
 		
 		<io.pergasus.ui.widget.BaselineGridTextView
 			android:id="@+id/order_price"
-			style="@style/TextAppearance.ItemDescription"
+			style="@style/TextAppearance.DribbbleShotDescription"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_below="@id/order_date"
+			android:textSize="14sp"
 			android:layout_toEndOf="@id/order_img"
+			android:textColor="@color/text_tertiary_dark"
 			android:gravity="start"
 			tools:text="$12,000" />
 		
@@ -69,8 +71,21 @@
 			android:layout_alignParentEnd="true"
 			android:layout_below="@id/order_date"
 			android:layout_marginTop="@dimen/spacing_normal"
+			android:textSize="14sp"
 			android:text="@string/track_current_order"
 			android:textColor="@color/text_secondary_dark" />
+		
+		<Button
+			android:id="@+id/revoke_order"
+			style="@style/Widget.AppCompat.Button.Borderless"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toStartOf="@id/track_order"
+			android:layout_below="@id/order_date"
+			android:layout_marginTop="@dimen/spacing_normal"
+			android:textSize="14sp"
+			android:text="@string/revoke_current_order"
+			android:textColor="@color/error" />
 	
 	</io.pergasus.ui.widget.ForegroundRelativeLayout>
 

@@ -150,7 +150,6 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
                 uploadImage()
             } else {
                 if (prefs.isConnected) {
-                    Toast.makeText(this, "Saving changes", Toast.LENGTH_SHORT).show()
                     updateData()
                 } else {
                     hideLoading()
@@ -233,7 +232,6 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
 
     private fun uploadImage() {
         if (imageUri == null) {
-            Toast.makeText(this, "Saving changes", Toast.LENGTH_SHORT).show()
             updateData()
         } else {
             prefs.storage.child(prefs.customer.key + ".jpg").putFile(imageUri!!)
@@ -248,7 +246,6 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
                                         .update("photo", downloadUrl.toString())
                                         .addOnCompleteListener { task ->
                                             if (task.isSuccessful) {
-                                                Toast.makeText(this, "Saving changes", Toast.LENGTH_SHORT).show()
                                                 updateData()
                                             } else {
                                                 hideLoading()
@@ -340,6 +337,7 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
         }
     }
 
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == REQUEST_STORAGE_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -381,6 +379,7 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
             builder.setCancelable(false)
             builder.setPositiveButton("Discard", { dialogInterface, _ ->
                 dialogInterface.cancel()
+                setResult(RESULT_OK)
                 super.onBackPressed()
             })
             builder.setNegativeButton("Save", { dialogInterface, _ ->
@@ -389,8 +388,14 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
             })
             builder.show()
         } else {
+            setResult(RESULT_OK)
             super.onBackPressed()
         }
+    }
+
+    override fun onNavigateUp(): Boolean {
+        setResult(RESULT_OK)
+        return true
     }
 
     companion object {
@@ -398,6 +403,5 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
         private const val IMAGE_REQUEST_CODE = 12
         private const val LOCATION_REQUEST_CODE = 13
         private const val REQUEST_PLACE_PICKER = 14
-        private val TAG = ProfileActivity::class.java.simpleName
     }
 }

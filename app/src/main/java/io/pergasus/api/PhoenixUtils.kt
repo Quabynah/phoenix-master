@@ -10,6 +10,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
 import com.firebase.ui.auth.AuthUI
+import com.google.android.gms.maps.model.LatLng
 import io.pergasus.R
 import io.pergasus.api.remote.IGeoCoordinates
 import io.pergasus.api.remote.RetrofitClient
@@ -54,6 +55,9 @@ object PhoenixUtils {
     //Followers references (i.e. users following a particular shop)
     const val FOLLOW_REF = "$DB_PREFIX/followers"
     const val LIKES_REF = "$DB_PREFIX/likes"
+
+    //GeoLocation for Mall
+    val MALL_GEO_POINT = LatLng(5.6227348, -0.1743774)
 
     //Function which returns the IGeoCoordinates interface as a class
     fun getGeoCoordinates(): IGeoCoordinates {

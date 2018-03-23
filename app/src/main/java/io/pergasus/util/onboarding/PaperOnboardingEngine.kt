@@ -494,11 +494,11 @@ class PaperOnboardingEngine(rootLayout: View, contentElements: ArrayList<PaperOn
      * @return content for next element
      */
     protected fun toggleToNextElement(): PaperOnboardingPage? {
-        if (activeElementIndex + 1 < mElements.size) {
+        return if (activeElementIndex + 1 < mElements.size) {
             activeElementIndex++
-            return if (mElements.size > activeElementIndex) mElements[activeElementIndex] else null
+            if (mElements.size > activeElementIndex) mElements[activeElementIndex] else null
         } else
-            return null
+            null
     }
 
     /**

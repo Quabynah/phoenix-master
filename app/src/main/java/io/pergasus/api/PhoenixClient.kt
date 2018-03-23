@@ -9,7 +9,6 @@ import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.location.Location
 import android.net.*
-import android.text.TextUtils
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.Theme
 import com.google.firebase.FirebaseApp
@@ -72,24 +71,23 @@ class PhoenixClient(val context: Context) {
         if (app == null) {
             auth = FirebaseAuth.getInstance()
             db = FirebaseFirestore.getInstance()
-            storage = FirebaseStorage.getInstance().getReference("phoenix")
+            storage = FirebaseStorage.getInstance().getReference(PhoenixUtils.DB_PREFIX)
         } else {
             auth = FirebaseAuth.getInstance(app)
             db = FirebaseFirestore.getInstance(app)
-            storage = FirebaseStorage.getInstance(app).getReference("phoenix")
+            storage = FirebaseStorage.getInstance(app).getReference(PhoenixUtils.DB_PREFIX)
         }
 
         //Add properties to shared preferences
-        customerKey = prefs.getString(KEY_CUST_UID, null)
-        place = prefs.getString(KEY_CUSTOMER_PLACE, null)
+        customerKey = prefs.getString(KEY_CUST_UID, "")
+        place = prefs.getString(KEY_CUSTOMER_PLACE, "")
 
         isConnected = getConnectionStatus()
 
-        isLoggedIn = customerKey != null
-                && !TextUtils.isEmpty(customerKey)
-                && auth.currentUser != null
+        isLoggedIn = !customerKey.isNullOrEmpty()
 
         if (isLoggedIn) {
+            customerKey = prefs.getString(KEY_CUST_UID, "")
             userId = prefs.getLong(KEY_USER_ID, 0L)
             username = prefs.getString(KEY_CUST_NAME, "")
             userAvatar = prefs.getString(KEY_CUST_AVATAR, "")
@@ -196,23 +194,18 @@ class PhoenixClient(val context: Context) {
             editor.putString(KEY_CUSTOMER_ADDRESS_LNG, addressLng)
             editor.putString(KEY_CUSTOMER_TOKEN, token)
             editor.apply()
-
-            //Set key
-            setCustomer(customer.key!!)
         }
     }
 
     /**
      * @param customerAccessKey Sets the customer key for the current user in order to track order and add items to cart
      */
-    fun setCustomer(customerAccessKey: String?) {
-        if (!customerAccessKey.isNullOrEmpty()) {
-            customerKey = customerAccessKey
-            isLoggedIn = true
-            prefs.edit().putString(KEY_CUST_UID, customerKey).apply()
-            dispatchLoginEvent()
-            ShortcutHelper.enableShowCart(context)
-        }
+    fun setCustomer(customerAccessKey: String) {
+        customerKey = customerAccessKey
+        isLoggedIn = true
+        prefs.edit().putString(KEY_CUST_UID, customerKey).apply()
+        dispatchLoginEvent()
+        ShortcutHelper.enableShowCart(context)
     }
 
     /**

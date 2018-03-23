@@ -28,11 +28,11 @@
 	
 	<io.pergasus.ui.widget.ZoomageView
 		android:id="@+id/imageView"
-		android:layout_width="0dp"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:minHeight="@dimen/shot_expanded_app_bar_height"
 		android:elevation="@dimen/z_card"
-		android:src="@drawable/ic_launcher_512px"
+		tools:src="@drawable/ic_launcher_512px"
 		android:transitionName="@string/transition_shot"
 		app:zoomage_restrictBounds="false"
 		app:zoomage_animateOnReset="true"

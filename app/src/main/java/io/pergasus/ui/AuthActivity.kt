@@ -93,33 +93,37 @@ class AuthActivity : Activity() {
 
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-            client.db.document("phoenix/mobile")
-                    .collection(PhoenixUtils.CUSTOMER_REF)
+            client.db.collection("phoenix/mobile/${PhoenixUtils.CUSTOMER_REF}")
                     .get()
                     .addOnSuccessListener { querySnapshot ->
                         if (querySnapshot.isEmpty) {
                             //If no data exists in the db, create a new user
                             createNewUser(currentUser)
                         } else {
+                            var hasUser = false
+                            var customer = Customer()
                             //Start a O(n2) query for all documents in the db
                             for (item in querySnapshot.documents) {
                                 //If document snapshot's key is similar to the account id then
                                 // log user in else create a new instance of the user
                                 if (item.exists() && item.id == currentUser.uid) {
-                                    val customer = item.toObject(Customer::class.java)
-                                    client.setCustomer(customerAccessKey = customer.key)
+                                    customer = item.toObject(Customer::class.java)
+                                    hasUser = true
+                                }
+                            }
+
+                            if (hasUser) {
+                                client.setCustomer(customer.key!!)
+                                if (client.isLoggedIn) {
                                     client.setLoggedInUser(customer)
-                                    if (client.isLoggedIn) {
-                                        isLoginFailed = false
-                                        val toast = ConfirmationToastView(applicationContext,
-                                                client.customer.name,
-                                                client.customer.photo,
-                                                getString(R.string.app_logged_in_as))
-                                        toast.create()
-                                        setResult(Activity.RESULT_OK)
-                                        finishAfterTransition()
-                                        return@addOnSuccessListener
-                                    }
+                                    isLoginFailed = false
+                                    val toast = ConfirmationToastView(applicationContext,
+                                            client.customer.name,
+                                            client.customer.photo,
+                                            getString(R.string.app_logged_in_as))
+                                    toast.create()
+                                    setResult(Activity.RESULT_OK)
+                                    finishAfterTransition()
                                 }
                             }
                         }
@@ -132,7 +136,7 @@ class AuthActivity : Activity() {
         val customer = Customer.Builder()
                 .setKey(user.uid)
                 .setInfo(user.email!!)
-                .setName(if (user.displayName != null) user.displayName!! else "No Username")
+                .setName(if (user.displayName.isNullOrEmpty()) "No Username" else user.displayName!!)
                 .setPhoto(if (user.photoUrl != null) user.photoUrl?.toString()!! else "default")
                 .setId(System.currentTimeMillis())
                 .setAddressLat("")
@@ -141,8 +145,7 @@ class AuthActivity : Activity() {
                 .build()
 
         //Add data to database
-        client.db.document("phoenix/mobile")
-                .collection(PhoenixUtils.CUSTOMER_REF)
+        client.db.collection("phoenix/mobile/${PhoenixUtils.CUSTOMER_REF}")
                 .document(customer.key!!)
                 .set(customer.toHashMap(customer))
                 .addOnFailureListener { e ->
@@ -150,9 +153,9 @@ class AuthActivity : Activity() {
                 }
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        client.setCustomer(customerAccessKey = customer.key)
-                        client.setLoggedInUser(customer)
+                        client.setCustomer(customer.key!!)
                         if (client.isLoggedIn) {
+                            client.setLoggedInUser(customer)
                             isLoginFailed = false
                             val toast = ConfirmationToastView(applicationContext,
                                     client.customer.name,

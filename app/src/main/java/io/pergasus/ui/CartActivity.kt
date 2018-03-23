@@ -144,12 +144,14 @@ class CartActivity : Activity() {
                                 if (adapter.itemCount > 0) {
                                     val order = Intent(this, OrderActivity::class.java)
                                     FabTransform.addExtras(order,
-                                            ContextCompat.getColor(this, R.color.accent), R.drawable.ic_attach_money_black_24dp)
+                                            ContextCompat.getColor(this, R.color.accent),
+                                            R.drawable.ic_attach_money_black_24dp)
                                     order.putExtra(OrderActivity.EXTRA_CART_PRICE, total)
                                     order.putExtra(OrderActivity.EXTRA_CART_QUANTITY, quantity)
-                                    order.putExtra(OrderActivity.EXTRA_CART_TITLE, String.format("For the purchase of ${adapter.itemCount} items"))
-                                    val options = ActivityOptions.makeSceneTransitionAnimation(this, fab,
-                                            getString(R.string.transition_new_designer_news_post))
+                                    order.putExtra(OrderActivity.EXTRA_CART_TITLE,
+                                            String.format("For the purchase of ${adapter.itemCount} items"))
+                                    val options = ActivityOptions.makeSceneTransitionAnimation(this,
+                                            fab, getString(R.string.transition_new_designer_news_post))
                                     startActivityForResult(order, CODE_ORDER, options.toBundle())
                                 }
                             }

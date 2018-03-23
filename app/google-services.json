@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "118933953659-fgbq4fpfo7ehghcfk98pl4v1234su6lv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.pergasus",
+            "certificate_hash": "d272a08a4be887ff6082135f5d88004bc08d2989"
+          }
+        },
+        {
           "client_id": "118933953659-5pvoted5435ko6419hhf5osp5vasdtgl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

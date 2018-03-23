@@ -8,7 +8,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -21,6 +20,8 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v4.app.ActivityCompat
 import android.widget.Toast
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.Theme
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApiClient
@@ -70,18 +71,12 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
         setContentView(R.layout.activity_tracking)
         //Init items
         prefs = PhoenixClient(this)
-        //Refer user to login screen for authentication
-        if (!prefs.isLoggedIn) {
-            finish()
-            startActivity(Intent(applicationContext, AuthActivity::class.java))
-        }
 
         //Request user's stored location
         getUserLocation()
 
         // Obtain the MapFragment and get notified when the map is ready to be used.
-        mapFragment = fragmentManager
-                .findFragmentById(R.id.map) as MapFragment
+        mapFragment = fragmentManager.findFragmentById(R.id.map) as MapFragment
         mapFragment.getMapAsync(this)
 
         //Initialize GeoCoordinates
@@ -110,15 +105,16 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
     }
 
     private fun gotoProfileScreen() {
-        val builder = AlertDialog.Builder(this@TrackingActivity)
-        builder.setMessage(getString(R.string.address_prompt))
-        builder.setPositiveButton("Profile setup", { dialogInterface, _ ->
-            startActivity(Intent(this@TrackingActivity, ProfileActivity::class.java))
-            dialogInterface.cancel()
-        })
-        val dialog = builder.create()
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.show()
+        val builder = MaterialDialog.Builder(this@TrackingActivity)
+        builder.content(getString(R.string.address_prompt))
+                .theme(Theme.DARK)
+                .positiveText("Profile setup")
+                .canceledOnTouchOutside(false)
+                .onPositive({ dialog, _ ->
+                    startActivityForResult(Intent(this@TrackingActivity, ProfileActivity::class.java)
+                            , PROFILE_REQ_CODE)
+                    dialog.dismiss()
+                }).build().show()
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -142,6 +138,7 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
                 if (checkPlayService()) {
                     buildGoogleApiClient()
                     createLocationRequest()
+                    displayLocation()
                 }
             } else {
                 // if permission was denied check if we should ask again in the future (i.e. they
@@ -150,6 +147,16 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
                                 Manifest.permission.ACCESS_COARSE_LOCATION)) {
                     Toast.makeText(this, "Please accept permission to access your location",
                             Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            PROFILE_REQ_CODE -> when (resultCode) {
+                RESULT_OK -> {
+                    getUserLocation()
                 }
             }
         }
@@ -166,40 +173,38 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
             setupPermissionPrimer()
         } else {
             if (_client != null) {
-                _lastLocation = LocationServices.FusedLocationApi.getLastLocation(_client)
-                if (_lastLocation != null) {
-                    //User's stored location
-                    val userLocation = LatLng(lat!!, lng!!)
-                    val mallLocation = LatLng(5.6227348, -0.1743774)
-
-                    //Set user marker
-                    var bitmapUser = BitmapFactory.decodeResource(resources, R.drawable.ic_player)
-                    bitmapUser = PhoenixUtils.scaleBitmap(bitmapUser, 70, 70)
-                    _map.addMarker(MarkerOptions().position(userLocation).title(prefs.customer.name!!)
-                            .icon(BitmapDescriptorFactory.fromBitmap(bitmapUser)))
-
-                    //Set mall marker
-                    var bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_shopping_basket_24dp)
-                    bitmap = PhoenixUtils.scaleBitmap(bitmap, 70, 70)
-                    _map.addMarker(MarkerOptions().position(mallLocation).title("Accra mall")
-                            .icon(BitmapDescriptorFactory.fromBitmap(bitmap)))
-
-                    //Animate camera to user's location
-                    //_map.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
-                    val cameraPosition = CameraPosition.Builder()
-                            .target(userLocation)
-                            .tilt(30f)
-                            .bearing(90f)
-                            .zoom(13f)
-                            .build()
-                    _map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, null)
-
-                    //Draw route to mall location
-                    drawRoute(mallLocation, userLocation)
-                } else {
-                    Toast.makeText(this, "Unable to retrieve user location", Toast.LENGTH_LONG)
-                            .show()
+                if (_lastLocation == null) {
+                    _lastLocation = LocationServices.FusedLocationApi.getLastLocation(_client)
                 }
+
+                //User's stored location
+                val userLocation = LatLng(lat!!, lng!!)
+                val mallLocation = PhoenixUtils.MALL_GEO_POINT
+
+                //Set user marker
+                var bitmapUser = BitmapFactory.decodeResource(resources, R.drawable.ic_player)
+                bitmapUser = PhoenixUtils.scaleBitmap(bitmapUser, 70, 70)
+                _map.addMarker(MarkerOptions().position(userLocation).title(prefs.customer.name!!)
+                        .icon(BitmapDescriptorFactory.fromBitmap(bitmapUser)))
+
+                //Set mall marker
+                var bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_shopping_basket_24dp)
+                bitmap = PhoenixUtils.scaleBitmap(bitmap, 70, 70)
+                _map.addMarker(MarkerOptions().position(mallLocation).title("Accra Mall")
+                        .icon(BitmapDescriptorFactory.fromBitmap(bitmap)))
+
+                //Animate camera to user's location
+                //_map.moveCamera(CameraUpdateFactory.newLatLng(userLocation))
+                val cameraPosition = CameraPosition.Builder()
+                        .target(userLocation)
+                        .tilt(30f)
+                        .bearing(90f)
+                        .zoom(13f)
+                        .build()
+                _map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, null)
+
+                //Draw route to mall location
+                drawRoute(mallLocation, userLocation)
             }
         }
     }
@@ -227,7 +232,7 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
                     override fun onFailure(call: Call<String?>?, t: Throwable?) {
                         Timber.d("drawRoute: getDirections: onFailure called with : ${t?.localizedMessage}")
                         Toast.makeText(this@TrackingActivity,
-                                "Failed to get  directions", Toast.LENGTH_LONG).show()
+                                "Failed to get directions", Toast.LENGTH_LONG).show()
                     }
 
                     override fun onResponse(call: Call<String?>?, response: Response<String?>?) {
@@ -457,5 +462,7 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
         private const val UPDATE_INTERVAL = 1000L
         private const val FASTEST_INTERVAL = 5000L
         private const val DISPLACEMENT = 10.0f
+        private const val PROFILE_REQ_CODE = 456
     }
+
 }

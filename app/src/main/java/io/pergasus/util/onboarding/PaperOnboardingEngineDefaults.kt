@@ -9,10 +9,10 @@ package io.pergasus.util.onboarding
  */
 interface PaperOnboardingEngineDefaults {
     companion object {
-        val TAG = "POB"
+        const val TAG = "POB"
 
         // animation and view settings
-        const val ANIM_PAGER_BAR_MOVE_TIME = 700
+        const val ANIM_PAGER_BAR_MOVE_TIME = 600
 
         const val ANIM_PAGER_ICON_TIME = 350
 

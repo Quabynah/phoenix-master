@@ -14,30 +14,35 @@ apply plugin: 'io.fabric'
 
 // query git for the SHA, Tag and commit count. Use these to automate versioning.
 final def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
-final def gitTag = 'git describe --tags'.execute([], project.rootDir).text.trim()
+final def gitTag = 'phoenix' + 'git describe --tags'.execute([], project.rootDir).text.trim()
 final
 def gitCommitCount = Integer.parseInt('git rev-list --count HEAD'.execute([], project.rootDir).text.trim())
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     defaultConfig {
         applicationId "io.pergasus"
-        minSdkVersion 21
-        targetSdkVersion 27
-        versionCode 9
-        versionName "0.9"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode gitCommitCount
+        versionName gitTag
         archivesBaseName = "phoenix-android"
         resConfig "en"
         multiDexEnabled true
         final def filesAuthorityValue = applicationId + ".shareprovider"
-        buildConfigField "String", "FILES_AUTHORITY", "\"${filesAuthorityValue}\""
-        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
-        buildConfigField "String", "GIT_TAG", "\"${gitTag}\""
-        buildConfigField "String", "GIT_COMMIT_COUNT", "\"${gitCommitCount}\""
+        buildConfigField "String", "FILES_AUTHORITY",
+                "\"${filesAuthorityValue}\""
+        buildConfigField "String", "GIT_SHA",
+                "\"${gitSha}\""
+        buildConfigField "String", "GIT_TAG",
+                "\"${gitTag}\""
+        buildConfigField "String", "GIT_COMMIT_COUNT",
+                "\"${gitCommitCount}\""
         buildConfigField "String", "PAYPAL_CLIENT_ID",
-                "\"AZ-RnFgea8OE_HQu-3a3P5saheAqfAEf8Gbk8L_dweDZ9xEECjZ30-nbC1gtSTbJTHmZ9UjrjXrFGxSk\""
+                "\"AaienhsV__D2TDJi7gMJsjCKY41MCGlr1FZKiR8AJsWybSZB14vCWP72WBn8SfeJxwsmJMbvSQ40_bUP\""
         buildConfigField "String", "PAYPAL_CLIENT_SECRET",
-                "\"pk_686cc4b9ce5444978dae15c069c5586b9631c9e8\""
+                "\"EGbP_z1dt8vClIIoOHrGH5F20SCu2Agcatr5Eof-Ub0ODOUMG--NT-uaP--ID7HklEiZS4ctQyfODtFP\""
         buildConfigField "String", "HUBTEL_CLIENT_ID",
                 "\"ozbfnqzw\""
         buildConfigField "String", "HUBTEL_CLIENT_SECRET",
@@ -79,7 +84,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}"
 
     //ANDROID SUPPORT LIBS
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'

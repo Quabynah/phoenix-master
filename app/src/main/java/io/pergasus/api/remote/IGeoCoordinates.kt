@@ -8,12 +8,11 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-/**
- * Project : phoenix-master
- * Created by Dennis Bilson on Wed at 9:27 PM.
- * Package name : io.pergasus.api.remote
- */
 
+
+/**
+ * Interface for communicating with Google's Directions API
+ */
 interface IGeoCoordinates {
     //Get GeoCode API
     @GET("maps/api/geocode/json")

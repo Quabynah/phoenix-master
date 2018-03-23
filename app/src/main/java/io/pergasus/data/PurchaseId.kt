@@ -11,7 +11,6 @@ import android.support.annotation.NonNull
 open class PurchaseId {
     open var purchaseId: String? = null
 
-
     open fun <T : PurchaseId> withId(@NonNull id: String): T {
         this.purchaseId = id
         return this as T

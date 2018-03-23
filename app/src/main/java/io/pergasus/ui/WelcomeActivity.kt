@@ -33,12 +33,6 @@ class WelcomeActivity : Activity() {
 
         //Setup PaperOnBoardingEngine
         val engine = PaperOnboardingEngine(findViewById(R.id.onboardingRootView), getDataForOnBoarding(), applicationContext)
-        engine.setOnChangeListener(object : PaperOnboardingOnChangeListener {
-            override fun onPageChanged(oldElementIndex: Int, newElementIndex: Int) {
-                Toast.makeText(applicationContext, "Swiped from $oldElementIndex to $newElementIndex",
-                        Toast.LENGTH_SHORT).show()
-            }
-        })
         engine.setOnRightOutListener(object : PaperOnboardingOnRightOutListener {
             override fun onRightOut() {
                 // Probably here will be your exit action

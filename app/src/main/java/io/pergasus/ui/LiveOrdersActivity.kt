@@ -15,13 +15,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import com.afollestad.materialdialogs.MaterialDialog
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
+import io.pergasus.BuildConfig
 import io.pergasus.R
 import io.pergasus.api.OrderDataManager
 import io.pergasus.api.PhoenixClient
+import io.pergasus.api.PhoenixUtils
 import io.pergasus.data.Purchase
 import io.pergasus.ui.recyclerview.SlideInItemAnimator
 import io.pergasus.ui.widget.CircularImageView
 import io.pergasus.util.bindView
+import io.pergasus.util.glide.GlideApp
+import timber.log.Timber
 import java.text.NumberFormat
 import java.util.*
 
@@ -86,10 +94,18 @@ class LiveOrdersActivity : Activity() {
         var date: TextView = view.findViewById(R.id.order_date)
         var price: TextView = view.findViewById(R.id.order_price)
         var track: Button = view.findViewById(R.id.track_order)
+        var revoke: Button = view.findViewById(R.id.revoke_order)
     }
 
     internal inner class OrdersAdapter : RecyclerView.Adapter<OrdersViewHolder>() {
         private var purchases: ArrayList<Purchase> = ArrayList(0)
+        private val loading: MaterialDialog
+
+        init {
+            setHasStableIds(true)
+            loading = prefs.getDialog()
+        }
+
         override fun getItemCount(): Int {
             return purchases.size
         }
@@ -104,6 +120,28 @@ class LiveOrdersActivity : Activity() {
                 navTrackingView(purchase)
             })
 
+            //Revoke order
+            holder.revoke.setOnClickListener({
+                MaterialDialog.Builder(this@LiveOrdersActivity)
+                        .content("Do you wish to revoke Order #${purchase.key}")
+                        .positiveText("Continue")
+                        .negativeText("Cancel")
+                        .onPositive({ dialog, _ ->
+                            dialog.dismiss()
+                            if (prefs.isConnected) {
+                                loading.show()
+                                dispatchItemRemoved(purchase)
+                            } else {
+                                Toast.makeText(this@LiveOrdersActivity, "Item cannot be removed at this time",
+                                        Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                        .onNegative({ dialog, _ ->
+                            dialog.dismiss()
+                        })
+                        .build().show()
+            })
+
             //Order number
             holder.key.text = String.format("Order #%s", purchase.purchaseId)
             //Order date
@@ -114,16 +152,34 @@ class LiveOrdersActivity : Activity() {
             //Order price
             holder.price.text = NumberFormat.getCurrencyInstance(Locale.US).format(purchase.price?.toDouble())
 
+            //Load profile image of user
+            GlideApp.with(holder.itemView.context)
+                    .asBitmap()
+                    .load(prefs.customer.photo)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .transition(withCrossFade())
+                    .placeholder(R.drawable.motor_placeholder)
+                    .circleCrop()
+                    .into(holder.image)
+
         }
 
         private fun navTrackingView(purchase: Purchase) {
-            val intent = Intent(this@LiveOrdersActivity, TrackingActivity::class.java)
-            intent.putExtra(TrackingActivity.EXTRA_PURCHASE, purchase)
-            startActivity(intent)
+            if (prefs.isLoggedIn) {
+                val intent = Intent(this@LiveOrdersActivity, TrackingActivity::class.java)
+                intent.putExtra(TrackingActivity.EXTRA_PURCHASE, purchase)
+                startActivity(intent)
+            } else {
+                startActivity(Intent(this@LiveOrdersActivity, AuthActivity::class.java))
+            }
         }
 
         private fun getItem(position: Int): Purchase {
             return purchases[position]
+        }
+
+        override fun getItemId(position: Int): Long {
+            return purchases[position].id
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrdersViewHolder {
@@ -131,6 +187,54 @@ class LiveOrdersActivity : Activity() {
         }
 
         /** Add live orders here from database */
-        fun addLiveOrder(newItems: List<Purchase>) {}
+        fun addLiveOrder(newItems: List<Purchase>) {
+            if (newItems.isNotEmpty()) {
+                for (item in newItems) {
+                    var add = true
+                    for (i in 0 until purchases.size) {
+                        if (item.id == purchases[i].id) add = false
+                    }
+
+                    if (add) {
+                        purchases.add(item)
+                        notifyItemRangeChanged(0, newItems.size)
+                    }
+                }
+            }
+        }
+
+        //Remove from database
+        private fun dispatchItemRemoved(purchase: Purchase) {
+            prefs.db.document(PhoenixUtils.PURCHASE_REF)
+                    .collection(prefs.customer.key!!)
+                    .whereEqualTo("key", purchase.key)
+                    .get()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val documents = task.result.documents
+                            if (documents.isNotEmpty() && documents[0].exists()) {
+                                documents[0].reference.delete().addOnSuccessListener { _ ->
+                                    loading.dismiss()
+                                    val position = purchases.indexOf(purchase)
+                                    purchases.removeAt(position)
+                                    notifyItemRemoved(position)
+                                    if (BuildConfig.DEBUG) {
+                                        Timber.d("Item ${purchase.key} removed from database")
+                                    }
+                                    dataManager.loadData(prefs.customer.key!!)
+                                }
+                            }
+                        } else {
+                            loading.dismiss()
+                            Toast.makeText(applicationContext, task.exception?.localizedMessage,
+                                    Toast.LENGTH_SHORT).show()
+                        }
+                    }.addOnFailureListener { exception ->
+                        loading.dismiss()
+                        Toast.makeText(applicationContext, exception.localizedMessage,
+                                Toast.LENGTH_SHORT).show()
+                    }
+        }
+
     }
 }

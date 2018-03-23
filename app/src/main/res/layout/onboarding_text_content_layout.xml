@@ -17,7 +17,7 @@
 		android:textAlignment="center"
 		android:textSize="26sp"
 		android:textStyle="bold"
-		android:textColor="@color/text_primary_dark"
+		android:textColor="@color/text_primary_light"
 		android:textAppearance="@style/TextAppearance.DribbbleShotDescription"
 		app:fontFamily="@font/abeezee"
 		tools:text="Content title" />
@@ -28,7 +28,7 @@
 		android:layout_gravity="center_horizontal"
 		android:textAlignment="center"
 		android:textSize="16sp"
-		android:textColor="@color/text_secondary_dark"
+		android:textColor="@color/text_secondary_light"
 		android:textAppearance="@style/TextAppearance.DribbbleShotDescription"
 		app:fontFamily="@font/nunito_semibold"
 		tools:text="Content text" />

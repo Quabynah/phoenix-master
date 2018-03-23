@@ -6,6 +6,7 @@ package io.pergasus.ui.widget;
 
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Matrix;
@@ -27,7 +28,8 @@ import io.pergasus.R;
  * automatic resetting, and allows for exterior bounds restriction to keep the image within
  * visible window.
  */
-public class ZoomageView extends AppCompatImageView implements OnScaleGestureListener {
+@SuppressLint("AppCompatCustomView")
+public class ZoomageView extends ImageView implements OnScaleGestureListener {
 	
 	private final float MIN_SCALE = 0.6f;
 	private final float MAX_SCALE = 8f;
