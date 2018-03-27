@@ -405,6 +405,7 @@ class OrderActivity : Activity() {
                 }
                 RESULT_CANCELED, RESULT_FIRST_USER -> {
                     //do nothing when authentication is cancelled by user
+                    checkOut.isEnabled = true
                 }
             }
             RC_PAYMENT -> when (resultCode) {
@@ -416,6 +417,7 @@ class OrderActivity : Activity() {
                 RESULT_FIRST_USER, RESULT_CANCELED -> {
                     Toast.makeText(this, "We were unable to complete your purchase",
                             Toast.LENGTH_LONG).show()
+                    checkOut.isEnabled = true
                 }
             }
             RESULT_UPDATE_PROFILE -> when (resultCode) {
@@ -442,6 +444,7 @@ class OrderActivity : Activity() {
                     // the user as the Google Pay API will do that.
                     Toast.makeText(this, "We were unable to complete your purchase",
                             Toast.LENGTH_LONG).show()
+                    checkOut.isEnabled = true
                 }
             }
         }

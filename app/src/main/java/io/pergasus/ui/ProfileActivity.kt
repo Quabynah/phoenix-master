@@ -379,12 +379,13 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
             builder.setCancelable(false)
             builder.setPositiveButton("Discard", { dialogInterface, _ ->
                 dialogInterface.cancel()
-                setResult(RESULT_OK)
+                setResult(RESULT_CANCELED)
                 super.onBackPressed()
             })
             builder.setNegativeButton("Save", { dialogInterface, _ ->
                 save.performClick()
                 dialogInterface.dismiss()
+                setResult(RESULT_OK)
             })
             builder.show()
         } else {

@@ -18,7 +18,7 @@ import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
-import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.Theme
@@ -52,7 +52,7 @@ import timber.log.Timber
  * */
 @SuppressLint("LogConditional")
 class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private lateinit var _map: GoogleMap
     private var _client: GoogleApiClient? = null
@@ -119,13 +119,13 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
 
     @TargetApi(Build.VERSION_CODES.M)
     private fun setupPermissionPrimer() {
-        if (ActivityCompat.checkSelfPermission(this@TrackingActivity, Manifest.permission
+        if (ContextCompat.checkSelfPermission(this@TrackingActivity, Manifest.permission
                         .ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this@TrackingActivity, Manifest.permission
+                && ContextCompat.checkSelfPermission(this@TrackingActivity, Manifest.permission
                         .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             shouldPromptForPermission = true
-            ActivityCompat.requestPermissions(this@TrackingActivity,
-                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), RC_LOCATION)
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION), RC_LOCATION)
         }
     }
 
@@ -143,8 +143,7 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
             } else {
                 // if permission was denied check if we should ask again in the future (i.e. they
                 // did not check 'never ask again')
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this@TrackingActivity,
-                                Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                     Toast.makeText(this, "Please accept permission to access your location",
                             Toast.LENGTH_SHORT).show()
                 }
@@ -164,6 +163,9 @@ class TrackingActivity : Activity(), OnMapReadyCallback, GoogleApiClient.Connect
 
     override fun onMapReady(googleMap: GoogleMap) {
         _map = googleMap
+
+        //Add custom map style
+        _map.setMapStyle(MapStyleOptions.loadRawResourceStyle(applicationContext, R.raw.zuber_map_style))
         displayLocation()
     }
 

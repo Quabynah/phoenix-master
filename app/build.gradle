@@ -144,5 +144,6 @@ dependencies {
     //TIMBER & MATERIAL DIALOG
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.jakewharton.timber:timber:4.6.0'
+    implementation "at.wirecube:additive_animations:1.3.1"
 }
 apply plugin: 'com.google.gms.google-services'
