@@ -13,5 +13,5 @@
 	android:stateListAnimator="@animator/raise"
 	android:foreground="@drawable/mid_grey_ripple"
 	app:badgeGravity="end|bottom"
-	tools:src="@drawable/ic_launcher_512px"
+	tools:src="@drawable/phoenix_logo"
 	app:badgePadding="@dimen/padding_normal" />

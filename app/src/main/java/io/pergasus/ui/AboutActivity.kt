@@ -35,6 +35,7 @@ import io.pergasus.R
 import io.pergasus.api.PhoenixClient
 import io.pergasus.ui.widget.CircularImageView
 import io.pergasus.ui.widget.ElasticDragDismissFrameLayout
+import io.pergasus.ui.widget.FourThreeImageView
 import io.pergasus.ui.widget.InkPageIndicator
 import io.pergasus.util.HtmlUtils
 import io.pergasus.util.bindView
@@ -90,7 +91,7 @@ class AboutActivity : Activity() {
         @Nullable
         private var iconDescription: TextView? = null
         @Nullable
-        var icon: ImageView? = null
+        var icon: FourThreeImageView? = null
         private var aboutLibs: View? = null
         private var libsList: RecyclerView? = null
         private var aboutDeveloper: View? = null

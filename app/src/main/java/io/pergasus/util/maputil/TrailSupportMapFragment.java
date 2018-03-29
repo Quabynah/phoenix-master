@@ -45,7 +45,7 @@ public class TrailSupportMapFragment extends SupportMapFragment {
     mRouteOverlayView.onCameraMove(map);
   }
 
-  public void setUpPath(final List<LatLng> route, final GoogleMap map, RouteOverlayView.AnimType animType) {
+  public void setUpPath(List<LatLng> route, GoogleMap map, RouteOverlayView.AnimType animType) {
     //setUpLoadPath(route.get(0), route.get(route.size()-1), map);
     //new Handler().postDelayed(new Runnable() {
     //  @Override public void run() {

@@ -86,7 +86,7 @@ public class AnimationArcHelper implements io.pergasus.util.maputil.Animator {
 		}
 		
 		if (colorArcAnimation == null) {
-			colorArcAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), mRouteOverlayView.routeShadwoColor,
+			colorArcAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), mRouteOverlayView.routeShadowColor,
 					mRouteOverlayView.routeMainColor);
 			colorArcAnimation.setDuration(750); // milliseconds
 			colorArcAnimation.setStartDelay(450);
@@ -109,7 +109,7 @@ public class AnimationArcHelper implements io.pergasus.util.maputil.Animator {
 			public void onAnimationEnd(Animator animator) {
 				PathEffect effect = new DashPathEffect(new float[]{length, length}, length);
 				mRouteOverlayView.paintTopArc.setPathEffect(effect);
-				mRouteOverlayView.paintBottomArc.setColor(mRouteOverlayView.routeShadwoColor);
+				mRouteOverlayView.paintBottomArc.setColor(mRouteOverlayView.routeShadowColor);
 				mRouteOverlayView.invalidate();
 			}
 			

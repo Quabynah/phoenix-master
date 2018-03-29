@@ -7,7 +7,11 @@ package io.pergasus.api
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
 import android.support.multidex.MultiDex
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.messaging.FirebaseMessaging
+import io.pergasus.BuildConfig
 import timber.log.Timber
 
 /** Phoenix Application */
@@ -20,10 +24,26 @@ class PhoenixApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        //Timber init
-        Timber.plant(Timber.DebugTree())
+        //Set debugger
+        if (BuildConfig.DEBUG) {
+            //Timber init
+            Timber.plant(Timber.DebugTree())
+        }
+
+        //Setup notification service
+        if (isConnected()) {
+            FirebaseMessaging.getInstance().subscribeToTopic("/topic/purchases")
+            FirebaseMessaging.getInstance().subscribeToTopic("/topic/products")
+            FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true)
+        }
     }
 
+    //Returns the network state
+    private fun isConnected(): Boolean {
+        val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        val networkInfo = manager?.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnectedOrConnecting
+    }
 
     companion object {
         private const val USER_PREFS = "USER_PREFS"

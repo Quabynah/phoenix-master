@@ -141,6 +141,10 @@ dependencies {
     implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
     implementation 'com.google.android.gms:play-services-wallet:11.8.0'
 
+    //DATA BINDING FOR JAVA CLASSES
+    implementation "com.jakewharton:butterknife:8.8.1"
+    annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
+
     //TIMBER & MATERIAL DIALOG
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.jakewharton.timber:timber:4.6.0'

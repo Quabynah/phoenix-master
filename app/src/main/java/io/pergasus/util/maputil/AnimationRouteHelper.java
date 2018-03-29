@@ -85,7 +85,7 @@ public class AnimationRouteHelper implements io.pergasus.util.maputil.Animator {
 		}
 		
 		if (colorRouteAnimation == null) {
-			colorRouteAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), mRouteOverlayView.routeShadwoColor,
+			colorRouteAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), mRouteOverlayView.routeShadowColor,
 					mRouteOverlayView.routeMainColor);
 			colorRouteAnimation.setDuration(1500); // milliseconds
 			colorRouteAnimation.setStartDelay(1000);
@@ -107,7 +107,7 @@ public class AnimationRouteHelper implements io.pergasus.util.maputil.Animator {
 			public void onAnimationEnd(Animator animator) {
 				PathEffect effect = new DashPathEffect(new float[]{length, length}, length);
 				mRouteOverlayView.paintTop.setPathEffect(effect);
-				mRouteOverlayView.paintBottom.setColor(mRouteOverlayView.routeShadwoColor);
+				mRouteOverlayView.paintBottom.setColor(mRouteOverlayView.routeShadowColor);
 				mRouteOverlayView.invalidate();
 			}
 			

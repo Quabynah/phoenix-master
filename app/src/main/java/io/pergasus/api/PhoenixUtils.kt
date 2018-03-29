@@ -12,15 +12,12 @@ import android.graphics.Paint
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.maps.model.LatLng
 import io.pergasus.R
-import io.pergasus.api.remote.IGeoCoordinates
-import io.pergasus.api.remote.RetrofitClient
 
 /**
  * Utility for handling constant variables used throughout the application
  */
 object PhoenixUtils {
     //Firebase Server url
-    private const val BASE_URL_MAPS = "https://maps.googleapis.com"
     const val DB_PREFIX = "phoenix"
     const val DEF_CURRENCY = "USD"
 
@@ -59,11 +56,6 @@ object PhoenixUtils {
     //GeoLocation for Mall
     val MALL_GEO_POINT = LatLng(5.6227348, -0.1743774)
 
-    //Function which returns the IGeoCoordinates interface as a class
-    fun getGeoCoordinates(): IGeoCoordinates {
-        return RetrofitClient.getClient(BASE_URL_MAPS).create(IGeoCoordinates::class.java)
-    }
-
     //Scale Bitmap to preferred size and dimensions
     fun scaleBitmap(bitmap: Bitmap, newWidth: Int, newHeight: Int): Bitmap {
         //Create new Bitmap
@@ -100,9 +92,9 @@ object PhoenixUtils {
         )
         val intent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                .setLogo(R.drawable.ic_launcher_512px)
+                .setLogo(R.mipmap.ic_launcher)
                 .setAvailableProviders(providers)
-                .setIsSmartLockEnabled(false)
+                .setIsSmartLockEnabled(true, true)
                 .build()
         host.startActivityForResult(intent, requestCode)
     }

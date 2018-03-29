@@ -39,17 +39,18 @@
 		android:theme="@style/Phoenix">
 		
 		<!-- Messaging service -->
-		<service android:name=".api.PhoenixMessagingService">
+		<service android:name=".api.PhoenixNotificationService">
 			<intent-filter>
 				<action android:name="com.google.firebase.MESSAGING_EVENT" />
 			</intent-filter>
 		</service>
-		<service android:name=".api.PhoenixInstanceIDService">
-			<intent-filter>
-				<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-			</intent-filter>
-		</service>
 		
+		<meta-data
+			android:name="com.google.firebase.messaging.default_notification_icon"
+			android:resource="@drawable/ic_stat_ic_notification" />
+		<meta-data
+			android:name="com.google.firebase.messaging.default_notification_color"
+			android:resource="@color/accent" />
 		<!-- Google Services version -->
 		<meta-data
 			android:name="com.google.android.gms.version"
@@ -61,7 +62,9 @@
 			android:value="@string/google_maps_key" />
 		
 		<!-- Enables the Android Pay API -->
-		 <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true" />
+		<meta-data
+			android:name="com.google.android.gms.wallet.api.enabled"
+			android:value="true" />
 		
 		<provider
 			android:name="android.support.v4.content.FileProvider"

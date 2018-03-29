@@ -38,18 +38,18 @@ public class MapAnimator {
 	static final int GREY = Color.parseColor("#FFA7A6A6");
 	
 	
-	private MapAnimator(){
+	private MapAnimator() {
 	
 	}
 	
-	public static MapAnimator getInstance(){
-		if(mapAnimator == null) mapAnimator = new MapAnimator();
+	public static MapAnimator getInstance() {
+		if (mapAnimator == null) mapAnimator = new MapAnimator();
 		return mapAnimator;
 	}
 	
 	
-	public void animateRoute(GoogleMap googleMap, List<LatLng> bangaloreRoute) {
-		if (firstRunAnimSet == null){
+	public void animateRoute(GoogleMap googleMap, List<LatLng> route) {
+		if (firstRunAnimSet == null) {
 			firstRunAnimSet = new AnimatorSet();
 		} else {
 			firstRunAnimSet.removeAllListeners();
@@ -72,13 +72,13 @@ public class MapAnimator {
 		if (backgroundPolyline != null) backgroundPolyline.remove();
 		
 		
-		PolylineOptions optionsBackground = new PolylineOptions().add(bangaloreRoute.get(0)).color(GREY).width(5);
+		PolylineOptions optionsBackground = new PolylineOptions().add(route.get(0)).color(GREY).width(5);
 		backgroundPolyline = googleMap.addPolyline(optionsBackground);
 		
-		optionsForeground = new PolylineOptions().add(bangaloreRoute.get(0)).color(Color.BLACK).width(5);
+		optionsForeground = new PolylineOptions().add(route.get(0)).color(Color.BLACK).width(5);
 		foregroundPolyline = googleMap.addPolyline(optionsForeground);
 		
-		final ValueAnimator percentageCompletion = ValueAnimator.ofInt(0, 100);
+		ValueAnimator percentageCompletion = ValueAnimator.ofInt(0, 100);
 		percentageCompletion.setDuration(2000);
 		percentageCompletion.setInterpolator(new DecelerateInterpolator());
 		percentageCompletion.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -131,7 +131,7 @@ public class MapAnimator {
 			
 		});
 		
-		ObjectAnimator foregroundRouteAnimator = ObjectAnimator.ofObject(this, "routeIncreaseForward", new RouteEvaluator(), bangaloreRoute.toArray());
+		ObjectAnimator foregroundRouteAnimator = ObjectAnimator.ofObject(this, "routeIncreaseForward", new RouteEvaluator(), route.toArray());
 		foregroundRouteAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
 		foregroundRouteAnimator.addListener(new Animator.AnimatorListener() {
 			@Override

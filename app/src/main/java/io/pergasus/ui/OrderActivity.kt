@@ -220,9 +220,6 @@ class OrderActivity : Activity() {
         TransitionManager.beginDelayedTransition(bottomSheetContent)
         orderTotal.text = setValue(amt)
 
-        //Disable or Enable checkout button
-        //setButtonState(amt, title)
-
         //Add actions to buttons
         updateLocation.setOnClickListener {
             startActivityForResult(Intent(this@OrderActivity, ProfileActivity::class.java)
@@ -269,12 +266,12 @@ class OrderActivity : Activity() {
 
     private fun getRandDelivery(): Double {
         val random = Random(5)
-        return 1.0.plus(random.nextDouble())
+        return (1.0).plus(random.nextDouble())
     }
 
     private fun getRandSavings(): Double {
         val random = Random(20)
-        return 3.0.plus(random.nextDouble())
+        return (3.0).plus(random.nextDouble())
     }
 
     private fun getRandTax(): Double {
@@ -481,11 +478,13 @@ class OrderActivity : Activity() {
                             Toast.makeText(this, "Failed to empty cart with error: " +
                                     "${task.exception?.localizedMessage}",
                                     Toast.LENGTH_LONG).show()
+                            checkOut.isEnabled = true
                         }
                     }
         } else {
             Toast.makeText(applicationContext, "Cannot empty your shopping cart",
                     Toast.LENGTH_SHORT).show()
+            checkOut.isEnabled = true
         }
     }
 

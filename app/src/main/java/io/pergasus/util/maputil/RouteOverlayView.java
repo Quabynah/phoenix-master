@@ -19,7 +19,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.View;
-import at.wirecube.additiveanimations.additive_animator.AdditiveAnimator;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.Projection;
@@ -27,6 +26,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
+import at.wirecube.additiveanimations.additive_animator.AdditiveAnimator;
 import io.pergasus.R;
 
 public class RouteOverlayView extends View {
@@ -120,7 +120,8 @@ public class RouteOverlayView extends View {
 		paintBottomArc.setStrokeJoin(Paint.Join.ROUND);
 		paintBottomArc.setStrokeCap(Paint.Cap.ROUND);
 		
-		pickUpBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_pickup);
+		pickUpBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.pickup);
+//		pickUpBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_pickup);
 		pickUpBitmap = Bitmap.createScaledBitmap(pickUpBitmap, 52, 52, false);
 		
 		dropBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_drop);

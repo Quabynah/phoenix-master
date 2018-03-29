@@ -23,7 +23,7 @@
 		android:layout_weight="1"
 		android:background="@color/white"
 		android:elevation="@dimen/z_card"
-		tools:src="@drawable/ic_launcher_512px"/>
+		tools:src="@drawable/phoenix_logo"/>
 	
 	<LinearLayout
 		android:layout_width="0dp"
