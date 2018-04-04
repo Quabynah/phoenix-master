@@ -125,7 +125,7 @@ class AuthActivity : Activity() {
                                     setResult(Activity.RESULT_OK)
                                     finishAfterTransition()
                                 }
-                            }
+                            } else createNewUser(currentUser)
                         }
                     }
         }

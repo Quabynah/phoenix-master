@@ -7,9 +7,8 @@ package io.pergasus.api
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.ConnectivityManager
 import android.support.multidex.MultiDex
-import com.google.firebase.firestore.FirebaseFirestoreSettings
+import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessaging
 import io.pergasus.BuildConfig
 import timber.log.Timber
@@ -31,18 +30,12 @@ class PhoenixApplication : Application() {
         }
 
         //Setup notification service
-        if (isConnected()) {
-            FirebaseMessaging.getInstance().subscribeToTopic("/topic/purchases")
-            FirebaseMessaging.getInstance().subscribeToTopic("/topic/products")
-            FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true)
+        try {
+            FirebaseMessaging.getInstance().subscribeToTopic("purchases")
+            FirebaseMessaging.getInstance().subscribeToTopic("products")
+        } catch (e: Exception) {
+            Toast.makeText(this, e.localizedMessage, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    //Returns the network state
-    private fun isConnected(): Boolean {
-        val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
-        val networkInfo = manager?.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnectedOrConnecting
     }
 
     companion object {
