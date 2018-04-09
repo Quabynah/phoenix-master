@@ -25,6 +25,10 @@
 -dontwarn retrofit2.**
 -dontwarn io.sentry.**
 -dontwarn org.slf4j.**
+-dontwarn com.google.common.util.**
+-dontwarn com.google.errorprone.annotations.**
+-dontwarn com.fasterxml.jackson.databind.ext.**
+-dontwarn com.pubnub.api.**
 -dontwarn javax.annotation.**
 -keep class io.pergasus.data.**  { *; }
 -keep class io.pergasus.api.**  { *; }

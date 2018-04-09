@@ -77,14 +77,12 @@
 		</provider>
 		
 		<meta-data
-			android:name="com.google.firebase.messaging.default_notification_icon"
-			android:resource="@drawable/ic_stat_ic_notification" />
-		<meta-data
 			android:name="com.google.firebase.messaging.default_notification_channel_id"
 			android:value="@string/default_notification_channel_id" />
 		
 		<activity
 			android:name=".ui.HomeActivity"
+			android:configChanges="screenSize|orientation"
 			android:exported="true"
 			android:label="@string/app_name"
 			android:theme="@style/Phoenix.Home" />
@@ -92,24 +90,7 @@
 			android:name=".ui.SplashActivity"
 			android:screenOrientation="portrait"
 			android:theme="@style/Phoenix.Translucent.Splash" />
-		<!--
-               Use an alias in case we want to change the launch activity later without breaking
-			 homescreen shortcuts. Note must be defined after the targetActivity
-        -->
-		<activity-alias
-			android:name=".Launcher"
-			android:label="@string/app_name"
-			android:targetActivity=".ui.SplashActivity">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-			
-			<meta-data
-				android:name="android.app.shortcuts"
-				android:resource="@xml/shortcuts" />
-		</activity-alias>
+		
 		
 		<activity
 			android:name=".ui.AboutActivity"
@@ -209,6 +190,24 @@
 			android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
 			android:screenOrientation="portrait"
 			android:theme="@style/Phoenix.Translucent.Custom.Welcome" />
+		<!--
+               Use an alias in case we want to change the launch activity later without breaking
+			 homescreen shortcuts. Note must be defined after the targetActivity
+        -->
+		<activity-alias
+			android:name=".Launcher"
+			android:label="@string/app_name"
+			android:targetActivity=".ui.SplashActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			
+			<meta-data
+				android:name="android.app.shortcuts"
+				android:resource="@xml/shortcuts" />
+		</activity-alias>
 	</application>
 
 </manifest>

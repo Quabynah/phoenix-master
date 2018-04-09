@@ -17,7 +17,7 @@ import timber.log.Timber
  * Utility class for setting up Google Pay Wallet
  */
 class WalletPaymentSetup(private val activity: Activity, private val checkOut: Button) {
-    //Init payment client
+    //Init payment client as test environment
     private val paymentsClient: PaymentsClient = Wallet.getPaymentsClient(activity, Wallet.WalletOptions.Builder()
             .setEnvironment(WalletConstants.ENVIRONMENT_TEST)
             .build())
@@ -27,10 +27,22 @@ class WalletPaymentSetup(private val activity: Activity, private val checkOut: B
     }
 
     private fun isReadyToPay() {
-        //Setup request
+        //Setup payment request
         val payRequest = IsReadyToPayRequest.newBuilder()
-                .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_CARD)
-                .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_TOKENIZED_CARD)
+                //Add allowed payment methods
+                .addAllowedPaymentMethods(mutableListOf(
+                        //Wallet payment methods
+                        WalletConstants.PAYMENT_METHOD_CARD,
+                        WalletConstants.PAYMENT_METHOD_TOKENIZED_CARD
+                ))
+                //Add allowed card networks
+                .addAllowedCardNetworks(mutableListOf(
+                        //Wallet card networks
+                        WalletConstants.CARD_NETWORK_AMEX,
+                        WalletConstants.CARD_NETWORK_DISCOVER,
+                        WalletConstants.CARD_NETWORK_VISA,
+                        WalletConstants.CARD_NETWORK_MASTERCARD
+                ))
                 .build()
 
         val task = paymentsClient.isReadyToPay(payRequest)
@@ -61,7 +73,7 @@ class WalletPaymentSetup(private val activity: Activity, private val checkOut: B
      * @param price as string
      */
     fun createPaymentDataRequest(price: String): PaymentDataRequest? {
-        //Setup request
+        //Setup data for payment request
         val request = PaymentDataRequest.newBuilder()
                 .setTransactionInfo(TransactionInfo.newBuilder()
                         .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
@@ -71,7 +83,7 @@ class WalletPaymentSetup(private val activity: Activity, private val checkOut: B
                 .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_CARD)
                 .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_TOKENIZED_CARD)
                 .setCardRequirements(CardRequirements.newBuilder()
-                        .addAllowedCardNetworks(arrayListOf(
+                        .addAllowedCardNetworks(mutableListOf(
                                 WalletConstants.CARD_NETWORK_AMEX,
                                 WalletConstants.CARD_NETWORK_DISCOVER,
                                 WalletConstants.CARD_NETWORK_VISA,

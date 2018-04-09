@@ -19,6 +19,8 @@ import io.pergasus.R
 object PhoenixUtils {
     //Firebase Server url
     const val DB_PREFIX = "phoenix"
+
+    //Default currency
     const val DEF_CURRENCY = "USD"
 
     //Database references
@@ -92,9 +94,9 @@ object PhoenixUtils {
         )
         val intent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                .setLogo(R.mipmap.ic_launcher)
+                .setLogo(R.drawable.phoenix_logo)
                 .setAvailableProviders(providers)
-                .setIsSmartLockEnabled(true, true)
+                .setIsSmartLockEnabled(false)
                 .build()
         host.startActivityForResult(intent, requestCode)
     }

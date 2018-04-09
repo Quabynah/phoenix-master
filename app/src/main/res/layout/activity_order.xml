@@ -50,22 +50,7 @@
 				android:layout_height="wrap_content"
 				android:orientation="vertical">
 				
-				<!--<com.simplify.android.sdk.CardEditor
-					android:id="@+id/card_editor"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					auto:enabled="true"
-					android:paddingStart="@dimen/padding_normal"
-					android:paddingEnd="@dimen/padding_normal"
-					auto:iconColor="@color/icon"/>
-				-->
 				<include layout="@layout/order_details" />
-				
-				<!--<FrameLayout
-					android:id="@+id/confirm_wallet_holder"
-					android:layout_width="match_parent"
-					android:layout_height="0dp"
-					android:layout_weight="1"/>-->
 				
 				<include
 					layout="@layout/list_loading"

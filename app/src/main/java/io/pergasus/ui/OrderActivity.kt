@@ -264,21 +264,25 @@ class OrderActivity : Activity() {
 
     }
 
+    //Generates random value for delivery cost
     private fun getRandDelivery(): Double {
         val random = Random(5)
         return (1.0).plus(random.nextDouble())
     }
 
+    //Generates random value for purchase savings
     private fun getRandSavings(): Double {
         val random = Random(20)
         return (3.0).plus(random.nextDouble())
     }
 
+    //Generates random value for tax charged
     private fun getRandTax(): Double {
         val random = Random(10)
         return random.nextDouble()
     }
 
+    //Loads current user's data
     private fun loadUser() {
         if (client.isLoggedIn) {
             TransitionManager.beginDelayedTransition(bottomSheetContent)
@@ -329,8 +333,7 @@ class OrderActivity : Activity() {
 
     private fun performPaymentHubtel(price: Double, description: String?) {
         try {
-            val config: SessionConfiguration = SessionConfiguration()
-                    .Builder()
+            val config: SessionConfiguration = SessionConfiguration().Builder()
                     .setSecretKey(BuildConfig.HUBTEL_CLIENT_SECRET)
                     .setClientId(BuildConfig.HUBTEL_CLIENT_ID)
                     .setEnvironment(HUBTEL_CONFIG_ENVIRONMENT)
@@ -372,7 +375,7 @@ class OrderActivity : Activity() {
     private fun setResultAndFinish(price: Double?) {
         val intent = Intent()
         intent.putExtra(CartActivity.RESULT_PRICE, price)
-        setResult(RESULT_PAYING)
+        setResult(RESULT_PAYING, intent)
         finishAfterTransition()
     }
 
@@ -410,6 +413,12 @@ class OrderActivity : Activity() {
                     Toast.makeText(this, "Purchase was successful. Clearing cart data",
                             Toast.LENGTH_SHORT).show()
                     if (client.isConnected) clearData()
+                    else {
+                        val intent = Intent()
+                        intent.putExtra(CartActivity.RESULT_PRICE, "dummy")
+                        setResult(RESULT_PAYING, intent)
+                        finishAfterTransition()
+                    }
                 }
                 RESULT_FIRST_USER, RESULT_CANCELED -> {
                     Toast.makeText(this, "We were unable to complete your purchase",
@@ -551,12 +560,13 @@ class OrderActivity : Activity() {
          * - Set to PayPalConfiguration.ENVIRONMENT_NO_NETWORK to kick the tires
          * without communicating to PayPal's servers.
          */
-        private const val PAYPAL_CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_NO_NETWORK
+        private const val PAYPAL_CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX
         private val HUBTEL_CONFIG_ENVIRONMENT = Environment.LIVE_MODE
 
         private val config = PayPalConfiguration()
                 .environment(PAYPAL_CONFIG_ENVIRONMENT)
                 .clientId(BuildConfig.PAYPAL_CLIENT_ID)
+                .rememberUser(true)
                 .merchantName("The Phoenix")
                 .merchantPrivacyPolicyUri(Uri.parse("https://phoenix-master.firebaseapp.com/privacy.html"))
                 .merchantUserAgreementUri(Uri.parse("https://phoenix-master.firebaseapp.com/legal.html"))

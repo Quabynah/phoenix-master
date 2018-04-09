@@ -432,7 +432,9 @@ class HomeActivity : Activity() {
         setTaskDescription(ActivityManager.TaskDescription(getString(R.string.app_name),
                 overviewIcon,
                 ContextCompat.getColor(this, R.color.primary)))
-        overviewIcon.recycle()
+        if (overviewIcon != null) {
+            overviewIcon.recycle()
+        }
     }
 
     override fun onActivityReenter(resultCode: Int, data: Intent?) {
