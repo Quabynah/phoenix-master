@@ -4,10 +4,10 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 	<!--new theme-->
-	<color name="primary">#ec3e49</color>
+	<color name="primary">#1A385B</color>
 	<!--<color name="primary">#7673DA</color>-->
 	<color name="accent">@color/primary</color> <!-- mono-color -->
-	<color name="button_accent">#eb354b</color> <!-- mono-color -->
+	<color name="button_accent">#0f2743</color> <!-- mono-color -->
 	<color name="primary_dark">@color/immersive_bars</color>
 	
 	<!--<color name="primary">#3bbf7f</color>-->

@@ -233,7 +233,7 @@ class CartActivity : Activity() {
                         showFab()
                     }
                     OrderActivity.RESULT_PAYING -> {
-                        if (data != null && data.hasExtra(RESULT_PRICE)) {
+                        if (data != null) {
                             showPostingProgress()
                             //Build new Purchase Object
                             val builder = Purchase.Builder()
