@@ -374,6 +374,7 @@ class ProfileActivity : Activity(), GoogleApiClient.OnConnectionFailedListener, 
 
     override fun onBackPressed() {
         if (save.isEnabled) {
+            // Notify user of any unsaved changes before they close the activity
             val builder = AlertDialog.Builder(this@ProfileActivity)
             builder.setMessage(getString(R.string.save_changes_prompt))
             builder.setCancelable(false)

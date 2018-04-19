@@ -30,7 +30,8 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
                 SourceManager.SOURCE_BUSINESS,
                 SourceManager.SOURCE_CLOTHING,
                 SourceManager.SOURCE_ENTERTAINMENT,
-                SourceManager.SOURCE_KIDS
+                SourceManager.SOURCE_KIDS,
+                SourceManager.SOURCE_BEVERAGE
         )
         for (source in sources) {
             loadRelatedSource(source, product)
@@ -59,6 +60,9 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
             }
             SourceManager.SOURCE_KIDS -> {
                 loadKidsSource(product)
+            }
+            SourceManager.SOURCE_BEVERAGE -> {
+                loadBeverageSource(product)
             }
             else -> return
         }
@@ -277,6 +281,37 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
                     }
                 }
                 sourceLoaded(products, SourceManager.SOURCE_HEALTH)
+            }
+        })
+    }
+
+    private fun loadBeverageSource(product: Product) {
+        val get = prefs.db.document(PhoenixUtils.PRODUCTS_REF)
+                .collection(PhoenixUtils.BEVERAGE_REF)
+                .orderBy("timestamp")
+                .limit(50)
+        queries[SourceManager.SOURCE_BEVERAGE] = get
+        get.addSnapshotListener(context, EventListener<QuerySnapshot?> { p0, p1 ->
+            if (p1 != null) {
+                loadFailed(p1.localizedMessage, SourceManager.SOURCE_BEVERAGE)
+                return@EventListener
+            }
+            val products = ArrayList<Product>(0)
+            if (p0 != null) {
+                for (doc in p0.documentChanges) {
+                    if (doc.document.exists()) {
+                        val docId = doc.document.id
+                        val data = doc.document.toObject(Product::class.java).withId<Product>(docId)
+                        if (data.category!!.contains(product.category!!, true)
+                                or data.price!!.contains(product.price!!, true)
+                                or data.shop!!.contains(product.shop!!, true)) {
+                            products.add(data)
+                        }
+                    } else {
+                        sourceLoaded(products, SourceManager.SOURCE_BEVERAGE)
+                    }
+                }
+                sourceLoaded(products, SourceManager.SOURCE_BEVERAGE)
             }
         })
     }

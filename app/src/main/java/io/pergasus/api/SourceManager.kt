@@ -18,6 +18,7 @@ object SourceManager {
     val SOURCE_ENTERTAINMENT = "SOURCE_ENTERTAINMENT"
     val SOURCE_KIDS = "SOURCE_KIDS"
     val SOURCE_STUDENT = "SOURCE_STUDENT"
+    val SOURCE_BEVERAGE = "SOURCE_BEVERAGE"
     private val SOURCES_PREF = "SOURCES_PREF"
     private val KEY_SOURCES = "KEY_SOURCES"
 
@@ -103,6 +104,8 @@ object SourceManager {
                 context.getString(R.string.source_kids), true))
         defaultSources.add(Source.PhoenixSource(SOURCE_STUDENT, 105,
                 context.getString(R.string.source_students), false))
+        defaultSources.add(Source.PhoenixSource(SOURCE_BEVERAGE, 106,
+                context.getString(R.string.source_beverage), false))
         defaultSources.add(Source.PhoenixSearchSource(context.getString(R.string.source_recommended_search),
                 false))
         defaultSources.add(Source.PhoenixSource(SOURCE_FAVORITE, 300,

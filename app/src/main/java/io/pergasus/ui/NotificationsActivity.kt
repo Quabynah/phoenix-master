@@ -93,7 +93,6 @@ class NotificationsActivity : Activity() {
         }
     }
 
-
     internal inner class NotificationsAdapter(private val preloadSizeProvider: ViewPreloadSizeProvider<PhoenixNotification>)
         : RecyclerView.Adapter<NotificationHolder>(), ListPreloader.PreloadModelProvider<PhoenixNotification> {
         private var notifications: ArrayList<PhoenixNotification> = ArrayList(0)

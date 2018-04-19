@@ -34,8 +34,8 @@
 	<dimen name="drawer_width">@dimen/match_parent</dimen>
 	
 	<!-- grid -->
-	<!--<integer name="num_columns">2</integer>-->
-	<integer name="num_columns">1</integer>
+	<integer name="num_columns">2</integer>
+	<!--<integer name="num_columns">1</integer>-->
 	<!-- 24dp icon + 2 * @dimen/spacing_normal -->
 	<!--map-->
 	<!-- 3 * ?android:actionBarSize -->

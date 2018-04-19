@@ -6,7 +6,7 @@
 <resources>
 
     <!-- grid -->
-    <integer name="num_columns">3</integer>
-    <!--<integer name="num_columns">4</integer>-->
+    <!--<integer name="num_columns">3</integer>-->
+    <integer name="num_columns">4</integer>
 
 </resources>

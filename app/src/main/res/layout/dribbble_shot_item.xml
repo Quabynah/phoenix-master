@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
   -->
 
 <io.pergasus.ui.widget.ForegroundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:elevation="@dimen/z_card"
 	android:background="@color/background_light"
-	xmlns:tools="http://schemas.android.com/tools">
+	android:elevation="@dimen/z_card">
 	
 	<io.pergasus.ui.widget.BadgedFourThreeImageView
 		android:id="@+id/shot"
@@ -17,70 +16,72 @@
 		android:layout_height="0dp"
 		android:layout_alignParentStart="true"
 		android:layout_alignParentTop="true"
-		android:foreground="@drawable/mid_grey_ripple"
-		android:stateListAnimator="@animator/raise"
 		android:background="@color/background_card"
-		app:badgeGravity="end|bottom"
+		android:foreground="@drawable/mid_grey_ripple"
 		android:scaleType="centerCrop"
-		app:badgePadding="@dimen/padding_normal"/>
+		android:stateListAnimator="@animator/raise"
+		app:badgeGravity="end|bottom"
+		app:badgePadding="@dimen/padding_normal" />
 	
 	<io.pergasus.ui.widget.BaselineGridTextView
 		android:id="@+id/title_product"
+		style="@style/TextAppearance.Author.Title"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingStart="@dimen/padding_normal"
-		android:paddingEnd="@dimen/padding_room_for_fab"
-		android:letterSpacing="0.01"
-		tools:text="This is a demo product name for testing purposes only"
 		android:layout_below="@id/shot"
-		android:textSize="18sp"
+		android:letterSpacing="0.01"
 		android:padding="@dimen/spacing_normal"
+		android:paddingEnd="@dimen/padding_room_for_fab"
+		android:paddingStart="@dimen/padding_normal"
 		android:textColor="@color/text_primary_dark"
-		style="@style/TextAppearance.Author.Title"/>
+		android:textSize="18sp"
+		android:visibility="gone"
+		tools:text="This is a demo product name for testing purposes only" />
 	
 	<io.pergasus.ui.widget.BaselineGridTextView
 		android:id="@+id/price_product"
+		style="@style/TextAppearance.DribbbleShotPrice"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingStart="@dimen/padding_normal"
-		android:paddingEnd="@dimen/padding_normal"
-		tools:text="GHC 2,500"
-		android:textSize="16sp"
 		android:layout_below="@id/title_product"
 		android:padding="@dimen/spacing_normal"
-		style="@style/TextAppearance.DribbbleShotPrice" />
+		android:paddingEnd="@dimen/padding_normal"
+		android:paddingStart="@dimen/padding_normal"
+		android:textSize="16sp"
+		tools:text="GHC 2,500" />
 	
 	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/price_product"
-		android:paddingStart="@dimen/spacing_micro"
+		android:layout_marginTop="@dimen/spacing_micro"
 		android:paddingBottom="@dimen/spacing_micro"
 		android:paddingEnd="@dimen/padding_normal"
-		android:layout_marginTop="@dimen/spacing_micro">
+		android:paddingStart="@dimen/spacing_micro"
+		android:visibility="gone">
 		
 		<Button
 			android:id="@+id/add_product_to_cart"
+			style="@style/Widget.AppCompat.Button.Borderless"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			style="@style/Widget.AppCompat.Button.Borderless"
-			android:text="@string/add_to_cart"
-			android:foreground="@drawable/light_ripple"
 			android:layout_gravity="start"
 			android:fontFamily="@font/nunito_semibold"
-			android:textColor="@color/text_secondary_dark"/>
+			android:foreground="@drawable/light_ripple"
+			android:text="@string/add_to_cart"
+			android:textColor="@color/text_secondary_dark" />
 		
 		<Button
 			android:id="@+id/share_product"
+			style="@style/Widget.AppCompat.Button.Borderless"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			style="@style/Widget.AppCompat.Button.Borderless"
-			android:text="@string/share"
-			android:drawableStart="@drawable/avd_share"
-			android:drawablePadding="@dimen/spacing_normal"
-			android:foreground="@drawable/light_ripple"
 			android:layout_gravity="end"
+			android:drawablePadding="@dimen/spacing_normal"
+			android:drawableStart="@drawable/avd_share"
 			android:fontFamily="@font/nunito_semibold"
+			android:foreground="@drawable/light_ripple"
+			android:text="@string/share"
 			android:textColor="@color/text_secondary_dark" />
 	
 	</FrameLayout>

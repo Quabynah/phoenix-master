@@ -47,6 +47,7 @@ object PhoenixUtils {
     const val CLOTHING_REF = "clothing"
     const val ENTERTAINMENT_REF = "entertainment"
     const val HEALTH_REF = "health"
+    const val BEVERAGE_REF = "beverage"
 
     //Shops references
     const val SHOP_REF = "web/shops"

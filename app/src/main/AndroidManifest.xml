@@ -91,17 +91,19 @@
 			android:screenOrientation="portrait"
 			android:theme="@style/Phoenix.Translucent.Splash" />
 		
-		
 		<activity
 			android:name=".ui.AboutActivity"
+			android:configChanges="orientation|screenSize"
 			android:parentActivityName=".ui.HomeActivity"
 			android:theme="@style/Phoenix.Translucent.About" />
 		<activity
 			android:name=".ui.DetailsActivity"
+			android:configChanges="orientation|screenSize"
 			android:parentActivityName=".ui.HomeActivity"
 			android:theme="@style/Phoenix.Translucent.Custom.Product" />
 		<activity
 			android:name=".ui.SearchActivity"
+			android:configChanges="orientation|screenSize"
 			android:launchMode="singleTop"
 			android:theme="@style/Phoenix.Translucent.Search">
 			<intent-filter>
@@ -119,6 +121,7 @@
 		</activity>
 		<activity
 			android:name=".ui.CartActivity"
+			android:configChanges="orientation|screenSize"
 			android:exported="true"
 			android:parentActivityName=".ui.HomeActivity"
 			android:theme="@style/Phoenix.Translucent.Custom.Cart">
@@ -138,6 +141,7 @@
 			android:theme="@style/Phoenix.Translucent.Custom.Order" />
 		<activity
 			android:name=".ui.ShopsActivity"
+			android:configChanges="orientation|screenSize"
 			android:parentActivityName=".ui.DetailsActivity"
 			android:theme="@style/Phoenix.Translucent.Custom.Shop" />
 		<activity
@@ -148,6 +152,7 @@
 			android:theme="@style/Phoenix.Translucent.Custom.Login" />
 		<activity
 			android:name=".ui.NotificationsActivity"
+			android:configChanges="orientation|screenSize"
 			android:parentActivityName="ui.HomeActivity"
 			android:theme="@style/Phoenix.Translucent.Custom.Cart">
 			<intent-filter>
@@ -158,6 +163,7 @@
 		</activity>
 		<activity
 			android:name=".ui.OrderActivity"
+			android:configChanges="orientation|screenSize"
 			android:label="@string/title_activity_order"
 			android:parentActivityName=".ui.CartActivity"
 			android:theme="@style/Phoenix.Translucent.Custom.Order">
@@ -167,6 +173,7 @@
 		</activity>
 		<activity
 			android:name=".ui.UserSheet"
+			android:configChanges="orientation|screenSize"
 			android:theme="@style/Phoenix.Translucent.Custom" />
 		<activity
 			android:name=".ui.ProfileActivity"
@@ -179,9 +186,11 @@
 			android:theme="@style/Phoenix.Translucent.Custom.Order" />
 		<activity
 			android:name=".ui.LiveOrdersActivity"
+			android:configChanges="orientation|screenSize"
 			android:theme="@style/Phoenix.Translucent.Custom.Cart" />
 		<activity
 			android:name=".ui.RelatedProductsActivity"
+			android:configChanges="orientation|screenSize"
 			android:parentActivityName=".ui.DetailsActivity"
 			android:theme="@style/Phoenix.Translucent.Custom.Cart" />
 		<activity android:name=".ui.ImageDetailsActivity" />

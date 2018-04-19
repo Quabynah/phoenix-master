@@ -42,6 +42,9 @@ import java.text.NumberFormat
 import java.util.*
 
 
+/**
+ * Shows a list of followers for a particular shop
+ */
 class UserSheet : Activity() {
     companion object {
         private const val MODE_FOLLOWERS = 2

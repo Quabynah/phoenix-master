@@ -105,6 +105,9 @@ abstract class DataManager(private val context: Activity, private val filterAdap
                 SourceManager.SOURCE_KIDS -> {
                     loadKidsSource()
                 }
+                SourceManager.SOURCE_BEVERAGE -> {
+                    loadBeverage()
+                }
                 else -> {
                     if (source is Source.PhoenixSearchSource) {
                         loadSearchSource(source)
@@ -321,6 +324,36 @@ abstract class DataManager(private val context: Activity, private val filterAdap
                     }
                 }
                 sourceLoaded(products, SourceManager.SOURCE_HEALTH)
+            }
+        })
+    }
+
+    /**
+     * Load data source for beverages
+     */
+    private fun loadBeverage() {
+        val get = prefs.db.document(PhoenixUtils.PRODUCTS_REF)
+                .collection(PhoenixUtils.BEVERAGE_REF)
+                .orderBy("timestamp")
+                .limit(50)
+        queries.put(SourceManager.SOURCE_BEVERAGE, get)
+        get.addSnapshotListener(context, EventListener<QuerySnapshot?> { p0, p1 ->
+            if (p1 != null) {
+                loadFailed(p1.localizedMessage, SourceManager.SOURCE_BEVERAGE)
+                return@EventListener
+            }
+            val products = ArrayList<Product>(0)
+            if (p0 != null) {
+                for (doc in p0.documentChanges) {
+                    if (doc.document.exists()) {
+                        val docId = doc.document.id
+                        val product = doc.document.toObject(Product::class.java).withId<Product>(docId)
+                        products.add(product)
+                    } else {
+                        sourceLoaded(products, SourceManager.SOURCE_BEVERAGE)
+                    }
+                }
+                sourceLoaded(products, SourceManager.SOURCE_BEVERAGE)
             }
         })
     }

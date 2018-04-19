@@ -136,6 +136,9 @@ class Customer : Parcelable {
         }
     }
 
+    /**
+     * Creates a HashMap of the customer data model
+     */
     fun toHashMap(customer: Customer): HashMap<String, Any?> {
         return hashMapOf(
                 Pair<String, Any?>("id", customer.id),

@@ -31,6 +31,7 @@
 		tools:text="This is a demo product name for testing purposes only"
 		android:layout_below="@id/shot"
 		android:textSize="18sp"
+		android:visibility="gone"
 		android:padding="@dimen/spacing_normal"
 		android:textColor="@color/text_primary_dark"
 		style="@style/TextAppearance.Author.Title"
@@ -56,6 +57,7 @@
 		android:layout_below="@id/price_product"
 		android:paddingStart="@dimen/spacing_micro"
 		android:paddingBottom="@dimen/spacing_micro"
+		android:visibility="gone"
 		android:paddingEnd="@dimen/padding_normal"
 		android:layout_marginTop="@dimen/spacing_normal">
 		

@@ -268,6 +268,7 @@ class ShopsActivity : Activity() {
     private fun actionClick(view: TextView) {
         (view.compoundDrawables[1] as AnimatedVectorDrawable).start()
         if (view.id == R.id.followers_count) {
+            // Show a list of followers for this shopping outlet
             UserSheet.start(this@ShopsActivity, shop!!)
         }
     }
