@@ -218,7 +218,7 @@ class UserSheet : Activity() {
                     .apply(RequestOptions().override(largeAvatarSize, largeAvatarSize))
                     .transition(withCrossFade())
                     .into(holder.playerAvatar)
-            holder.playerName.text = t.customer?.name?.toLowerCase(Locale.US)
+            holder.playerName.text = t.customer?.name/*?.toLowerCase(Locale.US)*/
             if (!TextUtils.isEmpty(t.customer?.info)) {
                 HtmlUtils.parseAndSetText(holder.playerBio, t.customer?.info)
             }
