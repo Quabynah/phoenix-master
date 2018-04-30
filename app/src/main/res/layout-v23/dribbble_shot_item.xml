@@ -18,6 +18,7 @@
 		android:stateListAnimator="@animator/raise"
 		android:foreground="@drawable/mid_grey_ripple"
 		android:background="@color/background_card"
+		tools:src="@color/content_placeholder"
 		app:badgeGravity="end|bottom"
 		android:scaleType="centerCrop"
 		app:badgePadding="@dimen/padding_normal" />
@@ -31,7 +32,7 @@
 		tools:text="This is a demo product name for testing purposes only"
 		android:layout_below="@id/shot"
 		android:textSize="18sp"
-		android:visibility="gone"
+		android:visibility="visible"
 		android:padding="@dimen/spacing_normal"
 		android:textColor="@color/text_primary_dark"
 		style="@style/TextAppearance.Author.Title"
@@ -40,16 +41,13 @@
 	
 	<io.pergasus.ui.widget.BaselineGridTextView
 		android:id="@+id/price_product"
+		style="@style/TextAppearance.DribbbleShotPrice"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingStart="@dimen/padding_normal"
-		android:paddingEnd="@dimen/padding_normal"
-		tools:text="GHC 2500"
-		android:fontFeatureSettings="onum"
 		android:layout_below="@id/title_product"
-		android:padding="@dimen/spacing_normal"
-		android:textColor="@color/text_tertiary_dark"
-		app:fontFamily="@font/abeezee"/>
+		android:padding="@dimen/padding_normal"
+		android:textSize="16sp"
+		tools:text="GHC 2,500" />
 	
 	<FrameLayout
 		android:layout_width="match_parent"

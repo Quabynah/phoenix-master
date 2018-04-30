@@ -94,7 +94,7 @@ class OrderActivity : Activity() {
         client = PhoenixClient(this@OrderActivity)
         appBarElevation = resources.getDimension(R.dimen.z_app_bar)
 
-        //Setup Wallet
+        //Setup Android Pay Wallet
         walletPaymentSetup = WalletPaymentSetup(this@OrderActivity, checkOut)
 
         //Setup PayPal

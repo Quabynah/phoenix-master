@@ -4,7 +4,7 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 	<!--new theme-->
-	<color name="primary">#ece81e</color>
+	<color name="primary">#c814f5</color>
 	<!--<color name="primary">#7673DA</color>-->
 	<color name="accent">@color/primary</color> <!-- mono-color -->
 	<color name="button_accent">#0f2743</color> <!-- mono-color -->

@@ -370,8 +370,8 @@ class DetailsActivity : Activity() {
                         }
                     }
                 }).addOnFailureListener { e ->
-            Timber.d("Exception from comments: ${e.localizedMessage}")
-        }
+                    Timber.d("Exception from comments: ${e.localizedMessage}")
+                }
     }
 
     /** Post [Comment] to the database */
@@ -520,6 +520,7 @@ class DetailsActivity : Activity() {
                 Pair<String, Any?>("name", product?.name),
                 Pair<String, Any?>("image", product?.url),
                 Pair<String, Any?>("price", product?.price),
+                Pair<String, Any?>("shop", product?.shop),
                 Pair<String, Any?>("quantity", userProductCount.toString()),
                 Pair<String, Any?>("timestamp", Date(System.currentTimeMillis()))
         )

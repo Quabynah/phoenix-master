@@ -19,6 +19,7 @@
 		android:background="@color/background_card"
 		android:foreground="@drawable/mid_grey_ripple"
 		android:scaleType="centerCrop"
+		tools:src="@color/content_placeholder"
 		android:stateListAnimator="@animator/raise"
 		app:badgeGravity="end|bottom"
 		app:badgePadding="@dimen/padding_normal" />
@@ -35,7 +36,7 @@
 		android:paddingStart="@dimen/padding_normal"
 		android:textColor="@color/text_primary_dark"
 		android:textSize="18sp"
-		android:visibility="gone"
+		android:visibility="visible"
 		tools:text="This is a demo product name for testing purposes only" />
 	
 	<io.pergasus.ui.widget.BaselineGridTextView
@@ -44,9 +45,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/title_product"
-		android:padding="@dimen/spacing_normal"
-		android:paddingEnd="@dimen/padding_normal"
-		android:paddingStart="@dimen/padding_normal"
+		android:padding="@dimen/padding_normal"
 		android:textSize="16sp"
 		tools:text="GHC 2,500" />
 	
