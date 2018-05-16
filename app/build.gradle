@@ -119,8 +119,9 @@ dependencies {
     implementation "com.google.firebase:firebase-storage:12.0.1"
     implementation "com.google.firebase:firebase-firestore:12.0.1"
     implementation "com.google.firebase:firebase-messaging:12.0.1"
-    implementation 'com.firebaseui:firebase-ui-auth:3.2.2'
+    implementation 'com.firebaseui:firebase-ui-auth:3.3.0'
     implementation 'com.google.android.gms:play-services-auth:12.0.1'
+//    implementation 'com.google.firebase:firebase-ml-vision:15.0.0'
 
     //HUBTEL
     implementation 'com.github.deluakin:hubtel-payment:v1.3'
@@ -131,9 +132,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-places:12.0.1'
 
     //RETROFIT
-    implementation "com.squareup.retrofit2:retrofit:2.3.0"
-    implementation "com.squareup.retrofit2:converter-scalars:2.3.0"
-    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "com.squareup.retrofit2:converter-scalars:2.4.0"
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
     //MODULES
     implementation project(":bypass")

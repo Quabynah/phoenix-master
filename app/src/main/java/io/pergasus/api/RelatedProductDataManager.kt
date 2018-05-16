@@ -86,8 +86,7 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
                         val docId = doc.document.id
                         val data = doc.document.toObject(Product::class.java).withId<Product>(docId)
                         if (data.category!!.contains(product.category!!, true)
-                                or data.price!!.contains(product.price!!, true)
-                                or data.shop!!.contains(product.shop!!, true)) {
+                                or data.price!!.contains(product.price!!, true)) {
                             products.add(data)
                         }
                     } else {
@@ -117,8 +116,7 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
                         val docId = doc.document.id
                         val data = doc.document.toObject(Product::class.java).withId<Product>(docId)
                         if (data.category!!.contains(product.category!!, true)
-                                or data.price!!.contains(product.price!!, true)
-                                or data.shop!!.contains(product.shop!!, true)) {
+                                or data.price!!.contains(product.price!!, true)) {
                             products.add(data)
                         }
                     } else {
@@ -148,8 +146,7 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
                         val docId = doc.document.id
                         val data = doc.document.toObject(Product::class.java).withId<Product>(docId)
                         if (data.category!!.contains(product.category!!, true)
-                                or data.price!!.contains(product.price!!, true)
-                                or data.shop!!.contains(product.shop!!, true)) {
+                                or data.price!!.contains(product.price!!, true)) {
                             products.add(data)
                         }
                     } else {
@@ -179,8 +176,7 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
                         val docId = doc.document.id
                         val data = doc.document.toObject(Product::class.java).withId<Product>(docId)
                         if (data.category!!.contains(product.category!!, true)
-                                or data.price!!.contains(product.price!!, true)
-                                or data.shop!!.contains(product.shop!!, true)) {
+                                or data.price!!.contains(product.price!!, true)) {
                             products.add(data)
                         }
                     } else {
@@ -210,8 +206,7 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
                         val docId = doc.document.id
                         val data = doc.document.toObject(Product::class.java).withId<Product>(docId)
                         if (data.category!!.contains(product.category!!, true)
-                                or data.price!!.contains(product.price!!, true)
-                                or data.shop!!.contains(product.shop!!, true)) {
+                                or data.price!!.contains(product.price!!, true)) {
                             products.add(data)
                         }
                     } else {
@@ -241,8 +236,7 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
                         val docId = doc.document.id
                         val data = doc.document.toObject(Product::class.java).withId<Product>(docId)
                         if (data.category!!.contains(product.category!!, true)
-                                or data.price!!.contains(product.price!!, true)
-                                or data.shop!!.contains(product.shop!!, true)) {
+                                or data.price!!.contains(product.price!!, true)) {
                             products.add(data)
                         }
                     } else {
@@ -272,8 +266,7 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
                         val docId = doc.document.id
                         val data = doc.document.toObject(Product::class.java).withId<Product>(docId)
                         if (data.category!!.contains(product.category!!, true)
-                                or data.price!!.contains(product.price!!, true)
-                                or data.shop!!.contains(product.shop!!, true)) {
+                                or data.price!!.contains(product.price!!, true)) {
                             products.add(data)
                         }
                     } else {
@@ -303,8 +296,7 @@ abstract class RelatedProductDataManager(private val context: Activity) : BaseDa
                         val docId = doc.document.id
                         val data = doc.document.toObject(Product::class.java).withId<Product>(docId)
                         if (data.category!!.contains(product.category!!, true)
-                                or data.price!!.contains(product.price!!, true)
-                                or data.shop!!.contains(product.shop!!, true)) {
+                                or data.price!!.contains(product.price!!, true)) {
                             products.add(data)
                         }
                     } else {

@@ -55,7 +55,10 @@
 		<meta-data
 			android:name="com.google.android.gms.version"
 			android:value="@integer/google_play_services_version" />
-		
+		<!--Machine learning APi-->
+		<!--<meta-data-->
+			<!--android:name="com.google.firebase.ml.vision.DEPENDENCIES"-->
+			<!--android:value="text" />-->
 		<!-- Enables the Google Places API -->
 		<meta-data
 			android:name="com.google.android.geo.API_KEY"
