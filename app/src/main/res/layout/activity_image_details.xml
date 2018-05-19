@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2018. Property of Dennis Kwabena Bilson. No unauthorized duplication of this material should be made without prior permission from the developer
   -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/container"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:id="@+id/container"
 	tools:context="io.pergasus.ui.ImageDetailsActivity">
 	
 	<View
@@ -19,10 +18,10 @@
 	
 	<Toolbar
 		android:id="@+id/toolbar"
+		style="@style/Widget.AppTheme.HomeToolbar"
 		android:layout_width="match_parent"
 		android:layout_height="?android:actionBarSize"
 		android:elevation="@dimen/z_app_bar"
-		style="@style/Widget.AppTheme.HomeToolbar"
 		android:navigationIcon="@drawable/ic_arrow_back_padded"
 		android:title="@string/app_name" />
 	
@@ -30,22 +29,23 @@
 		android:id="@+id/imageView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:minHeight="@dimen/shot_expanded_app_bar_height"
 		android:elevation="@dimen/z_card"
-		tools:src="@drawable/phoenix_logo"
+		android:minHeight="@dimen/shot_expanded_app_bar_height"
+		android:stateListAnimator="@animator/raise"
 		android:transitionName="@string/transition_shot"
-		app:zoomage_restrictBounds="false"
-		app:zoomage_animateOnReset="true"
-		app:zoomage_autoResetMode="UNDER"
-		app:zoomage_autoCenter="true"
-		app:zoomage_zoomable="true"
-		app:zoomage_translatable="true"
-		app:zoomage_minScale="0.6"
-		app:zoomage_maxScale="8"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/toolbar"
-		tools:ignore="ContentDescription" />
+		app:zoomage_animateOnReset="true"
+		app:zoomage_autoCenter="true"
+		app:zoomage_autoResetMode="UNDER"
+		app:zoomage_maxScale="8"
+		app:zoomage_minScale="0.6"
+		app:zoomage_restrictBounds="false"
+		app:zoomage_translatable="true"
+		app:zoomage_zoomable="true"
+		tools:ignore="ContentDescription"
+		tools:src="@drawable/phoenix_logo" />
 
 </android.support.constraint.ConstraintLayout>

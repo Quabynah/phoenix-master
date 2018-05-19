@@ -60,7 +60,7 @@ class ImageDetailsActivity : Activity() {
     private fun loadImageFromURL() {
         if (product != null) {
             //Toolbar title
-            toolbar.title = product?.name
+            toolbar.title = product?.name?.trim()
 
             //Load image
             GlideApp.with(this)

@@ -128,7 +128,7 @@ class DetailsActivity : Activity() {
 		back.setOnClickListener { setResultAndFinish() }
 		
 		//SET UP VIEW FOR DETAILS
-		shotDescription = layoutInflater.inflate(R.layout.dribbble_shot_description,
+		shotDescription = layoutInflater.inflate(R.layout.phoenix_product_description,
 				commentsList, false)
 		shotSpacer = shotDescription.findViewById(R.id.shot_spacer)
 		title = shotDescription.findViewById(R.id.shot_title)
@@ -649,7 +649,7 @@ class DetailsActivity : Activity() {
 	private fun setupCommenting() {
 		allowComment = prefs.isLoggedIn
 		if (allowComment && commentFooter == null) {
-			commentFooter = layoutInflater.inflate(R.layout.dribbble_enter_comment,
+			commentFooter = layoutInflater.inflate(R.layout.phoenix_enter_comment,
 					commentsList, false)
 			userAvatar = commentFooter?.findViewById(R.id.avatar) as ForegroundImageView
 			enterComment = commentFooter?.findViewById(R.id.comment) as EditText
@@ -776,21 +776,21 @@ class DetailsActivity : Activity() {
 		
 		override fun getItemViewType(position: Int): Int {
 			Log.d(TAG, position.toString())
-			if (position == 0) return R.layout.dribbble_shot_description
+			if (position == 0) return R.layout.phoenix_product_description
 			if (position == 1) {
 				if (loading) return R.layout.loading
-				if (noComments) return R.layout.dribbble_no_comments
+				if (noComments) return R.layout.phoenix_no_comments
 			}
 			if (footer != null) {
 				val footerPos = if (loading || noComments) 2 else comments.size + 1
-				if (position == footerPos) return R.layout.dribbble_enter_comment
+				if (position == footerPos) return R.layout.phoenix_enter_comment
 			}
-			return R.layout.dribbble_comment
+			return R.layout.phoenix_comment
 		}
 		
 		override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 			when (getItemViewType(position)) {
-				R.layout.dribbble_comment -> {
+				R.layout.phoenix_comment -> {
 					if (comments.isNotEmpty()) {
 						bindComment(holder as CommentViewHolder, getComment(position))
 					}
@@ -852,17 +852,17 @@ class DetailsActivity : Activity() {
 		
 		override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 			when (viewType) {
-				R.layout.dribbble_shot_description -> {
+				R.layout.phoenix_product_description -> {
 					return SimpleViewHolder(description!!)
 				}
-				R.layout.dribbble_comment -> {
+				R.layout.phoenix_comment -> {
 					return createCommentHolder(parent, viewType)
 				}
-				R.layout.loading, R.layout.dribbble_no_comments -> {
+				R.layout.loading, R.layout.phoenix_no_comments -> {
 					return SimpleViewHolder(layoutInflater.inflate(viewType,
 							parent, false))
 				}
-				R.layout.dribbble_enter_comment -> {
+				R.layout.phoenix_enter_comment -> {
 					return SimpleViewHolder(footer!!)
 				}
 				else -> throw IllegalArgumentException()
@@ -879,7 +879,7 @@ class DetailsActivity : Activity() {
 				val position: Int = holder.adapterPosition
 				if (position == RecyclerView.NO_POSITION) return@setOnClickListener
 				val type = getItemViewType(position)
-				if (type != R.layout.dribbble_comment) return@setOnClickListener
+				if (type != R.layout.phoenix_comment) return@setOnClickListener
 				if (comments.isEmpty()) return@setOnClickListener
 				
 				val comment = getComment(position)

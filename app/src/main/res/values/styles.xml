@@ -19,6 +19,7 @@
 		<item name="android:windowSharedElementsUseOverlay">false</item>
 		<item name="android:colorEdgeEffect">@color/mid_grey</item>
 		<item name="collapsingTitleLayoutStyle">@style/Widget.AppTheme.CollapsingTitle</item>
+		<item name="colorControlActivated">@color/colorControlActivated</item>
 	</style>
 	
 	<!--TRANSLUCENT BG-->

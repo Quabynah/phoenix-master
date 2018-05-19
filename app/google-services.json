@@ -8,12 +8,64 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:118933953659:android:d08697bd91183569",
+        "android_client_info": {
+          "package_name": "io.ml"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118933953659-a5g0b3q9pdoek449djd8as638jjrp884.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ml",
+            "certificate_hash": "2da3d3c1c2cf91b5f73c8e4bdab02e7e627e1f1a"
+          }
+        },
+        {
+          "client_id": "118933953659-8rbagrb809f1f5ubgvae8jbp3khj931m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfSdyj13-kroJS0AaizsNvlPXSPGSyzh8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118933953659-8rbagrb809f1f5ubgvae8jbp3khj931m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:118933953659:android:0c2803ed97a7065a",
         "android_client_info": {
           "package_name": "io.pergasus"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "118933953659-vogqgv19po5curj8snkifjfk08gjnipj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.pergasus",
+            "certificate_hash": "01d8940b7191bbe93a191dfe4a6317c636f44c32"
+          }
+        },
         {
           "client_id": "118933953659-fgbq4fpfo7ehghcfk98pl4v1234su6lv.apps.googleusercontent.com",
           "client_type": 1,

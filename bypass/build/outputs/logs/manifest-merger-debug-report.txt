@@ -1,12 +1,12 @@
 -- Merging decision tree log ---
 manifest
-ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-16:12
-INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-16:12
-INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-16:12
-INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-16:12
-INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-16:12
-INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-16:12
-INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-16:12
+ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-13:12
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-13:12
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-13:12
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-13:12
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-13:12
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-13:12
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:6:1-13:12
 	package
 		ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:7:2-35
 		INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
@@ -21,21 +21,21 @@ INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
 		ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:8:2-25
 		INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
 		INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
+application
+ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:12:2-62
+	android:label
+		ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:12:15-47
 uses-sdk
-ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:11:2-13:35
-INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:11:2-13:35
-INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:11:2-13:35
-INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:11:2-13:35
-INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:11:2-13:35
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
+INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:13:3-32
 		INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
+		ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
 		INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:12:3-28
 		INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
+		ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
 		INJECTED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml
-application
-ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:15:2-62
-	android:label
-		ADDED from E:\PROJECT\CSCD\phoenix-master\bypass\src\main\AndroidManifest.xml:15:15-47

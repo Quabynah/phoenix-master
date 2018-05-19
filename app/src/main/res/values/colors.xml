@@ -9,6 +9,7 @@
 	<color name="accent">@color/primary</color> <!-- mono-color -->
 	<color name="button_accent">#0f2743</color> <!-- mono-color -->
 	<color name="primary_dark">@color/immersive_bars</color>
+	<color name="colorControlActivated">@color/text_secondary_dark</color>
 	
 	<!--<color name="primary">#3bbf7f</color>-->
 	<!--<color name="accent">@color/primary</color> &lt;!&ndash; mono-color &ndash;&gt;-->

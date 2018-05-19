@@ -54,7 +54,7 @@ import java.text.NumberFormat
 import java.util.*
 
 /**
- * User orders activity
+ * User's orders activity
  */
 @SuppressLint("LogConditional")
 class OrderActivity : Activity() {

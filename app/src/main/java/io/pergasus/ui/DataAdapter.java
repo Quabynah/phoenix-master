@@ -170,7 +170,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 	}
 	
 	private ProductViewHolder createProductHolder(ViewGroup parent) {
-		ProductViewHolder holder = new ProductViewHolder(layoutInflater.inflate(R.layout.dribbble_shot_item,
+		ProductViewHolder holder = new ProductViewHolder(layoutInflater.inflate(R.layout.phoenix_product_item,
 				parent, false));
 		
 		holder.image.setBadgeColor(initialGifBadgeColor);
